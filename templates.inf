@@ -1,0 +1,14 @@
+!--- Mettre des modèles depuis le DM4 de if else statements, ou de boucles while, afin de pouvroi les copier-coller aisémenr sans avoir à me soucier de la mise en forme!
+!--- Revoir chapitre 1 et deux!
+
+before  [;
+  Eat: if (random(100) <= 30)  {
+    deadflag = true;
+    "This was poisonous";
+    }
+    "It tasted wierd, by chance you just took a little.";
+],
+
+found_in [;
+  return (location ofclass palace_chambers);
+],

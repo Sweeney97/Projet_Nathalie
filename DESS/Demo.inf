@@ -1,0 +1,308 @@
+!%-SD
+!%
+Constant Story "demo";
+Constant Headline "^My first Inform game.^";
+Constant MANUAL_PRONOUNS;           ! Optional, but useful
+
+Include "Parser";
+
+Object LibraryMessages
+
+  with before [; Miscellany: if (lm_n == 19) "Vous etes un jeune auteur en quete de solitude.^ Vous avec donc decide d'occuper ce chalet abandonne.^
+Vous travaillez presentement sur un projet intitule Nathalie.^
+Vous aimez particulierement la vue sur le balcon; tres inspirant!^";];
+
+
+
+Include "VerbLib";
+
+!------------------------------------------------------------------------------!
+
+Class   Room
+  has   light;
+
+Class   Furniture
+  with  before [;
+          Take,Pull,Push,PushDir:
+            print_ret "A quoi bon? Des actes aussi vains vous remettent en cause.";
+        ],
+  has   static supporter scenery;
+
+
+
+!------------------------------------------------------------------------------!
+
+Room    hall "hall"
+  with  description "La piece principale est illuminee grace a une baie vitree qui occupe tout un pan de mur, a l'est, et qui donne sur un balcon. Il y a un petit bureau pour ecrire, sur lequel un livre est pose.^
+(Peut-etre pourriez-vous le lire? Pour ce faire, ecrivez read book.) Du reste, une peau d'ours en guise de tapis repose au sol. Au sud, derriere vous, se trouve une chambre, et au nord, une porte.^Avec horreur, vous constatez qu'elle est barree. Pourtant, vous devriez etre la seule personne ici...
+Vous devrez donc trouver une clef pour pouvoir sortir.^Apparemment, quelqu'un vous a enferme ici.",
+        before [; Go: if (noun == d_obj) 
+
+                      print "Vous soulevez la peau d'ours et apercevez une descente obscure et puante; vous descendez.";
+                      return false;                      
+                      
+               ],
+        s_to salon,
+        e_to balcon,
+        d_to sous_sol,
+        n_to "la porte est barree, il faut trouver une clef.";
+
+Room balcon "balcon"
+  with  description "A l'exterieur, comme toujours, l'air frais vous fouette les idees. La vue est tellement belle, que cela vous inspire un poeme. Vous le notez dans votre journal.^
+Vous laissez par la suite votre regard planner, effleurer la cime des arbres. C'est un tout petit balcon, pensez-vous, assez petit pour laisser toute la place a l'infinie nature.^
+Vous etes entoure par les garde-fous; le balcon est trop petit pour s'y mouvoir.",
+        
+        initial  [; 
+           move journal_deux to player;
+           remove journal;
+                    ],
+
+        cant_go "voulez-vous vous tuer?",
+        w_to hall;
+
+Room    salon "Chambre"
+  with  description "Dans votre chambre, vous vous sentez a l'aise. 
+Votre lit, la table de chevet avec un autre livre dessus (que vous pouvez lire), la cusiniere, l'etagere qui accueille quelques livres, tout vous reconforte. Une echelle permet d'acceder au grenier.^",
+        n_to hall,
+        u_to grenier;
+
+Room    grenier "grenier"
+  with  description "Vous vous retrouvez dans un vieux grenier poussierieux. Tellement que cela vous fait tousser. Il n'y a pas grand chose dans cet etroit espace, sinon un vieux livre.",
+        d_to salon;
+       
+Room    sous_sol "sous-sol"
+  with  description [;
+        if (location has light) 
+
+  { print "A la lumiere vacillante de votre briquet, un horrible visage se profile dans l'obscurite. La chose est la. Ratatinee, ramassee sur elle-meme, le corps decharnee, elle vous sourrit cependant.^
+Aux commissures de ses levres, de l'ecume sechee brille faiblement et vous remarquez, alors qu'elles se retroussent, qu'elle est edentee. Quelques cheveux sales lui collent au visage, le reste est plaque sur les tempes.^
+Elle s'approche de vous lentement, un eclat de folie dans l'oeil, en balbutiant des paroles incomprehensibles. L'odeur se fait plus insistante et, au fur et a mesure de sa progression, la chose semble s'acclimater a la lumiere.^
+D'un bond elle s'elance vers vous et, dans un sursaut de peur, vous lui envoyez un coup de pied dans l'estomac avant de remonter a toute vitesse. ";
+    PlayerTo(copie_hall);
+    return true; 
+  }
+                   ],
+
+        before [; Go: if (noun == u_obj) 
+                  print " apres avoir remonte, vous remettez soigneusement le tapis en place.";
+  
+               ],
+ 
+        u_to hall,
+  has   ~light;
+
+!------------------------------------------------------------------------------!
+
+
+Object livre_un "livre" hall
+  with article "un",
+       name 'livre' 'book',
+       before [; Examine: print_ret "INTRODUCTION^
+Bienvenue dans un jeu code en inform6!^
+Comme vous avez pu le constater, vous pouvez interagir avec chaque objet code dans l'histoire.^
+En tout temps votre syntaxe doit etre lapidaire. Si vous vouliez ouvrir un coffre par exemple, il vous faudrait ecrire open chest.^
+Les interactions principales que vous pouvez avoir sont: parler (avec les etres vivants), vous promener, trouver et prendre des objets.^
+Pour examiner un objet, ecriver examine (nom_objet).^Pour vous promener, ecrivez la direction vers laquelle vous souhaiter aller (suivant les quatre point cardinaux). Par exemple, pour aller au nord, ecrivez go north  ou meme simplement n.^
+Vous pouvez aussi, lorsque c'est possible, allez en haut ou en bas (go up and go down)";],
+  has concealed;
+
+Object livre_deux "livre" salon
+  with article "un",
+       name 'livre' 'book',
+       before [; Examine: print_ret "INVENTAIRE^
+Vous semblez etre presentement dans une espece de chalet dans les bois.^
+Le lieu parfait pour ecrire! Pour avoir acces a votre inventaire, ecrivez inventory.^
+Vous verrez que vous transportez un vieux briquet (pratique s'il fait noir, auquel cas vous pourriez essayer de l'allumer en ecrivant open lighter).^
+Si vous voulez consulter votre journal afin de le lire, ecrivez read journal.^
+Pour en apprendre plus sur vous-meme, ecrivez examine me.^";],
+
+  has concealed;
+
+Object livre_trois "livre" grenier
+  with article "un",
+       name 'livre' 'book',
+       before [; Examine: print_ret "LA CHOSE^
+Le saviez-vous: c'est un chalet abandonne, car la chose y habite?^
+Si vous voulez aller a sa rencontre, elle se terre au sous-sol.^
+Le sous-sol est dissimule sous un tapis dans le hall.^
+A vos risques et perils!";],
+
+  has concealed;
+
+
+
+!------------------------------------------------------------------------------!
+
+Furniture bureau "bureau" hall
+  with  name 'bureau' 'desk',
+        description "un bureau en bois.",
+        article "un";
+
+Furniture peau_ours "peau d'ours" hall
+
+  with name 'peau' 'tapis' 'ours' 'carpet',
+       description "probablement un ancien trophe de chasse, rien de suspect.";
+
+Furniture lit "lit" salon
+
+  with name 'lit' 'bed',
+       description 'Un lit en bois rudimentaire.';
+
+
+Furniture etagere "etagere" salon
+ 
+  with name 'etagere',
+       description "une planche de bois brut vissee au mur.";
+
+
+Furniture cuisinere "cuisiniere" salon
+  with name 'cuisiniere',
+       description "Rien de sophistique, une cuisiniere de chalet comme tout autre.";
+
+
+Furniture table_chevet "table de chevet" salon
+  with name 'table' 'chevet',
+       description "cette table de chevet semble ancienne. Probablement une antiquite.";
+
+Furniture echelle "echelle" salon
+  with name 'echelle' 'ladder',
+       description "Une echelle. Elle sert a monter au grenier.";
+
+
+
+!------------------------------------------------------------------------------!
+
+Room copie_hall "hall"
+  with  description "de retour en haut, vous pouvez entendre les gemissements insistants de la chose.",
+        cant_go "Vous n'avez qu'une seule idee en tete: vous enfuir enfin par la porte au nord du hall!
+                 Quoique soit par pitie ou par curiosite, vous pourriez presque avoir envie de retourner voir si la chose languie toujours.",
+
+        before [; Go: if (noun == n_obj && clef has moved) return false; 
+                      if (noun == n_obj && clef hasnt moved) print_ret "la porte est barre."; 
+                      
+               ],
+
+        n_to sortie,
+        d_to copie_soussol;
+
+Object sortie "La sortie" 
+  with description "Vous respirer avec soulagement le grand air. Enfin libre!",
+       s_to copie_hall,
+       each_turn [; if (player in sortie) deadflag = 2; ],
+
+  has light;
+
+
+     
+Room copie_soussol "sous-sol"
+  with description "La chose roule au sol et se met meme a hurler.^ Dans le clair-obscure de la flamme du briquet, vous entrevoyez une boite derriere la chose, et un eclat a l'interieur de celle-ci. Serait-ce une clef?^
+Peut-etre devriez-vous lui parler? (Pour cela, designez-la simplement sous le nom de chose, femme ou vieille. Exemple: talk to chose.)",
+
+       before [; Open: if (noun == boite) print_ret "La boite est deja ouverte, prenez la clef.";
+                       if (noun == lighter) print_ret "Votre briquet est deja allume.";
+                       else return false
+             ;],
+
+       u_to copie_hall;
+
+
+
+Object lachose "la chose" copie_soussol
+  with name 'chose' 'femme' 'vieille',
+       article "la",
+  description "elle est affreusement laide.",
+  
+
+  life [; 
+
+         Kiss: if (lachose has general) print_ret "Desormais chamboulee par tous les evenements, la chose est repartie dans l'ombre manger des rats et boire l'eau de ruisselement dans l'obscurite la plus complete.";
+               else give lachose general; print_ret "Vous essayez de ne pas deglutir, tant l'haleine est putride. Une langue molle et fetide serpente dans votre bouche.^
+Vous sentant proche de vomir, vous vous ecartez brusquement. La chose y a visiblement pris gout; elle semble en extase, aussi ses mains se font baladeuses, et vous caressent.^
+- Assez vieille gueuse! Criez-vous. Cela est en dehors de ce que nous avions convenu! Maintenant, la clef!^Penaude, elle glisse la boite contenant la clef jusqu'a vous. "; 
+
+         Talk, Ask, Tell: 
+                       if (lachose has general) print_ret "Desormais chamboulee par tous les evenements, la chose est repartie dans l'ombre manger des rats et boire l'eau de ruisselement dans l'obscurite la plus complete.";
+                       else print_ret "Dans un charabia quasi-inaudible, la chose parle de son feu mari. Il etait un brave homme, elle regrette de n'avoir pu l'embrasser une derniere fois avant sa mort.^
+La chose s'etrangle sur son histoire, sa voix lui manque, son regard est desepere. Elle aimerait embrasser sur la bouche une derniere fois avant de trepasser dans sa cave.^
+Elle veut que vous l'embrassiez, elle vous trouve fort bel homme.^- Alors, qu'elle vous dit dans un dernier souffle qui semble surhumain, vous pourrez prendre la clef dans la boite.";
+
+         Attack: if (lachose has general) print_ret "Desormais chamboulee par tous les evenements, la chose est repartie dans l'ombre manger des rats et boire l'eau de ruisselement dans l'obscurite la plus complete.";
+                 else print_ret "Etes-vous sans-coeur?"
+
+       ;],
+
+
+  has animate female proper concealed;
+
+
+
+
+!------------------------------------------------------------------------------!
+
+Object boite "boite" copie_soussol
+  with name 'boite' 'box',
+       description "une boite en bois ouvrage, avec des enluminures estompees par le temps.",
+before [; take: print_ret "Il serait mieux de la laisser ici." ;],
+has container open concealed;
+
+Object clef "clef" boite
+  with name 'clef' 'key',
+       description "Une grosse clef en fer",
+  before [; Take: if (lachose has general) return false; else print_ret "La chose veut etre embrassee.";],
+  has concealed;
+
+Object lighter "briquet"
+  with description "votre bon vieux briquet",
+       name 'briquet' 'lighter',
+       before [; Open: give sous_sol light; rtrue ;];
+
+Object journal "journal"
+  with description "Un journal simple quoique eleguant.",
+       name 'journal' 'cahier',
+        before [; Examine: print_ret "PROJET NATHALIE^^Projet Nathalie est une histoire en inform6.^L'histoire prend place dans un futur dystopique avec une cite technologiquement avancee et des quartiers circonvoisins de travailleurs (je sais, c'est un topos de la science-fiction).^
+Le systeme politique en place est une espece de republique platonicienne defaillante.^La cite est geree par Cora (Centre Operatoire pour une Republique Automatisee), une intelligence artificielle.^
+Nathalie est un acronyme pour NAntir, THeoriser ALimenter l'Intelligence Emulee.^Nathalie est un projet gouvernemental ayant pour but d'avoir un element fiable controle par Cora oeuvrant dans les quartiers.^
+Le projet Nathalie consiste a implanter un puce afin de controler une personne qui etait dans le coma depuis plusieurs annees.^Cette personne doit ensuite alimenter l'insurrection qui couve dans les quartiers, afin de declencher une prise d'armes qui a son tour amenerait une repression des autorites.^^ 
+Seulement, le projet Nathalie tourne mal, et la patiente semble retrouver son esprit et s'enfuir. A moins que Cora n'ait deliberement sabote le projet?^Un des meilleurs detectives habitant dans les quartiers est contacte par le gouvernement de la cite afin de retrouver Nathalie.^
+Or, il sait peu de choses sur elle.^Le but de l'histoire serait donc de se promener dans un des quartiers des travailleurs afin de recuperer de l'information et de trouver Nathalie.^C'est la partie jouable de l'histoire, et lorsque le joueur trouve Nathalie, il gagne le jeu.^";];
+
+Object journal_deux "journal"
+  with description "Un journal simple quoique eleguant.",
+       name 'journal' 'cahier',
+        before [; Examine: print_ret "^^Il n'est d'inquietude que la nature n'apaise^Et de soupir qu'elle ne saurait allonger^Il n'est d'homme que sa nature ne lese^Tous doivent en quelque lieu s'alleger^^ 
+PROJET NATHALIE^^Projet Nathalie est une histoire en inform6.^L'histoire prend place dans un futur dystopique avec une cite technologiquement avancee et des quartiers circonvoisins de travailleurs (je sais, c'est un topos de la science-fiction).^
+Le systeme politique en place est une espece de republique platonicienne defaillante.^La cite est geree par Cora (Centre Operatoire pour une Republique Automatisee), une intelligence artificielle.^
+Nathalie est un acronyme pour NAntir, THeoriser ALimenter l'Intelligence Emulee.^Nathalie est un projet gouvernemental ayant pour but d'avoir un element fiable controle par Cora oeuvrant dans les quartiers.^
+Le projet Nathalie consiste a implanter un puce afin de controler une personne qui etait dans le coma depuis plusieurs annees.^Cette personne doit ensuite alimenter l'insurrection qui couve dans les quartiers, afin de declencher une prise d'armes qui a son tour amenerait une repression des autorites.^^ 
+Seulement, le projet Nathalie tourne mal, et la patiente semble retrouver son esprit et s'enfuir. A moins que Cora n'ait deliberement sabote le projet?^Un des meilleurs detectives habitant dans les quartiers est contacte par le gouvernement de la cite afin de retrouver Nathalie.^
+Or, il sait peu de choses sur elle.^Le but de l'histoire serait donc de se promener dans un des quartiers des travailleurs afin de recuperer de l'information et de trouver Nathalie.^C'est la partie jouable de l'histoire, et lorsque le joueur trouve Nathalie, il gagne le jeu.^";];
+
+
+!-----------------------------------------------------------------------------!
+
+[ Initialise;
+    
+    move lighter to player;
+    move journal to player;
+    location = hall;
+    "^Inform is a system for creating adventure games. It translates an author's textual description into a simulated world which can be explored by readers using almost any computer, with the aid of an interpreter program^";
+    
+];
+
+!-----------------------------------------------------------------------------!
+
+
+Include "Grammar";
+
+
+!-----------------------------------------------------------------------------!
+
+[ TalkSub; 
+if (noun == player) print_ret "Nothing you hear surprises you.";
+if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+print_ret "At the moment, you can't think of anything to say.";
+];
+
+Verb 'talk' 't//' 'converse' 'chat' 'gossip'
+* 'to'/'with' creature -> Talk
+* creature             -> Talk;
