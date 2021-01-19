@@ -21,7 +21,7 @@ Adapter en film d'animation francais ou un vrai film québécois avec que de la 
 
 Les fusils des andros sont de longs tubes minces reliés à des pack dans leur dos. De la bouche en sort un trait de lazer qui une fois sa cible atteinte, explose.
 
-Nathalie ∏-e un acronyme, ça serait génial!
+Nathalie pourrait-être un acronyme, ça serait génial!
 
 Il y aurait des rapprochements, une symbolisation de l'appocalypse dans l'assault final.
 

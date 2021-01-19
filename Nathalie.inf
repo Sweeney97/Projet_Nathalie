@@ -3,6 +3,7 @@
 Constant Story "Projet Nathalie";
 Constant Headline "^Antoine Sweeney^";
 Constant MANUAL_PRONOUNS;           ! Optional, but useful
+Constant MAX_CARRIED 10;
 
 Include "Parser";
 Include "VerbLib";
@@ -11,14 +12,14 @@ Include "VerbLib";
 !------------------------------------------------------------------------------!
 
 [ Initialise;
-    location = etude;
+    location = postepolice;
     "^Bienvenue!^";
 ];
 
 !------------------------------------------------------------------------------!
 
-Class   Room
-  with  description "Une simple chambre.",
+Class   Policecite
+  with description "Le poste de police de la cit@'e'",
   has   light;
 
 Class   Furniture
@@ -28,19 +29,226 @@ Class   Furniture
         ],
   has   static supporter;
 
-!------------------------------------------------------------------------------!
+  Class Street
+    has light;
 
-Room  etude "Un bureau d'etude"
-  with  description "Il y a un couloir a l'est pour aller dans la descente.",
-        e_to ladescente;
+  Class Carrefour
+    has light;
 
-Furniture pupitre "Pupitre" etude
-  with  name 'pupitre' 'bureau' 'table',
-        description "Un bureau...";
+!--------------------Première partie, introduction, dans la cité-------------------------------------!
 
-Room    ladescente "La descente"
-  with  description "Ca descend.",
-        w_to etude;
+Policecite policeaccueil "L'accueil du poste de police de la cit@'e."
+    with description "Vous @^etes @`a l'entr@'e du poste de police",
+      e_to sallepratique,
+      s_to citysub;
+
+Furniture bureauaccueil "bureau imposant" policeaccueil
+  with description "Un bureau en ch@`ene vernis.",
+          name 'bureau' 'meuble';
+
+Policecite sallepratique "La salle pour pratiquer"
+    with description "Voici la salle pour s'exercer",
+      w_to policeaccueil;
+
+Object citysub "Une rue de la cit@'e"
+      with description "Une jolie rue que voil@`a",
+        n_to policeaccueil,
+        has light;
+!------------------------------Premier quartier------------------------------------------------!
+
+Object postepolice "Le bon vieux poste du Quartier Sud."
+    with description "Votre maison, votre abris, et tous vos collegues. Il y a une salle au Nord, a l'Ouest et a l'Est. La sortie est au Sud.",
+      n_to salleun,
+      s_to grandeallee1,
+      w_to salledeux,
+      e_to salletrois
+      has light;
+
+Object salleun
+with description "salle un.",
+    s_to postepolice,
+    has light;
+
+Object salledeux
+with description "salle deux.",
+    e_to postepolice,
+    has light;
+
+Object salletrois
+with description "salle trois",
+    w_to postepolice,
+    has light;
+
+Street rueblanche1 "La rue blanche"
+    with description "la rue est ainsi appelee puisqu'elle borde la cours de justice. Le parc est a l'est, la rue continue au sud, et a l'Ouest se trouve le palais de justice et l'hotel de ville.",
+      e_to parc,
+      w_to "Le palais de justice et l'hotel de ville ne vous interesse pas.",
+      s_to carrefour1;
+
+  Street rueblanche2 "La rue blanche."
+      with description "la rue est ainsi appelee puisqu'elle borde la cours de justice. La rue se poursuit au Sud et au Nord",
+          n_to carrefour1,
+          s_to carrefour4;
+
+
+Street rueblanche3 "la rue blanche"
+      with description "la rue est ainsi appelee puisqu'elle borde la cours de justice. La rue se poursuit au Nord et au Sud se trouve un enbranchement.",
+          n_to carrefour4,
+          s_to carrefour8;
+
+Street rueduparc1 "rue du parc"
+    with description "La rue qui borde le parc. Au nord se trouve le parc, la rue se poursuit a l'Est, et se termine a l'ouest par un enbranchement. ",
+        n_to parc,
+        w_to carrefour1,
+        e_to carrefour2;
+
+Street rueduparc2 "rue du parc"
+  with description "La rue qui borde le parc. Au nord se trouve le parc, la rue se poursuit a l'Ouest, et se termine a l'Est par un enbranchement. Au Sud il y a un cybercaffe.",
+      n_to parc,
+      w_to carrefour2,
+      e_to carrefour3,
+      s_to hypercoffe;
+
+  Object hypercoffe "Cybercaffe"
+      with description "Ce caffe vous permet d'avoir acces a un ordinateur.",
+        s_to arrierecours,
+        n_to rueduparc2,
+      has light;
+
+  Object arrierecours "l'arriere cours du cybercafe"
+   with description "Une jolie terasse.",
+        n_to hypercoffe,
+        has light;
+
+  Object parc "parc"
+     with description "Un immense parc. Au Sud vous pouvez rejoindre la rue du parc. A l'Ouest, la rue Blanche, et a l'Est, la Grande Allee.",
+        w_to rueblanche1,
+        e_to grandeallee1,
+        s_to rueduparc1,
+        has light;
+
+  Street grandeallee1 "La grande allee"
+      with description "L'allee borde l'hypermarche. A l'Ouest, il y a le parc du quartier, au sud la Grande Alle se poursuit. Au Nord se trouve le poste de police.",
+          w_to parc,
+          n_to postepolice,
+          s_to carrefour3;
+
+ Street grandeallee2 "La grande allee"
+     with description "L'allee borde l'hypermarche. La route se poursuit au Nord et au Sud, a l'Est se trouve l'hypermarche.",
+        n_to carrefour3,
+        s_to carrefour7,
+        e_to hypermarche;
+
+  Street grandeallee3 "La grande allee"
+      with description "L'allee borde l'hypermarche. La route se poursuit au Nord, et au Sud se trouve un enbranchement.",
+          n_to carrefour7,
+          s_to carrefour10;
+
+  Street ruedestravailleurs1 "La rue des travailleurs"
+      with description "cette rue borde l'usine. Au Sud se trouve l'usine, la route se poursuit a l'Est, et a l'Ouest se trouve un enbranchement.",
+        s_to usine,
+        w_to carrefour8,
+        e_to carrefour9;
+
+  Street ruedestravailleurs2 "La rue des travailleurs"
+      with description "cette rue borde l'usine. Laroute se poursuit a l'Ouest et a l'Est se trouve un enbranchement.",
+          s_to "l'entree de l'usine se trouve un peu plus a l'Ouest.",
+          e_to carrefour9,
+          w_to carrefour10;
+
+    Street ruebernardlee1 "La rue Bernard-Lee"
+        with description "rue bernard lee. La rue descend au Sud, au Nord se trouve un enbranchement.",
+            n_to carrefour2,
+            s_to carrefour5;
+
+  Street ruebernardlee2 "La rue Bernard-Lee"
+        with description "rue bernard lee. La rue se poursuit au Nord et au Sud.",
+            n_to carrefour5,
+            s_to carrefour6;
+
+  Street ruebernardlee3 "La rue Bernard-Lee"
+        with description "rue bernard lee. La rue monte au Nord, au Sud se trouve un enbranchement",
+            n_to carrefour6,
+            s_to carrefour9;
+
+Street laruelle1 "Une ruelle"
+  with description "le genre de lieu pour des transaction louches",
+      w_to carrefour4,
+      e_to carrefour5;
+
+Street laruelle2 "Une ruelle"
+  with description "le genre de lieu pour des transaction louches",
+            w_to carrefour6,
+            e_to carrefour7;
+
+Object usine "L'usine"
+  with description "une sombre usine",
+  n_to ruedestravailleurs1,
+  has light;
+
+Object hypermarche "L'hypermarche"
+    with description "Plus immense encore qu'aux temps de l'empire Americain.",
+    w_to grandeallee2,
+    has light;
+
+Carrefour carrefour1 "Un embranchement"
+    with description "Ici  se croisent la rue blanche (Nord-Sud) et la rue du parc (Ouest-Est)",
+        n_to rueblanche1,
+        s_to rueblanche2,
+        e_to rueduparc1;
+
+Carrefour carrefour2 "Un embranchement"
+      with description "Ici se croisent la rue du parc (Ouest-Est) et la rue Bernad-Lee (sud)",
+          n_to parc,
+          s_to ruebernardlee1,
+          w_to rueduparc1,
+          e_to rueduparc2;
+
+Carrefour carrefour3 "Un embranchement"
+    with description "Ici se croisent la rue du parc (Ouest) et la Grande Allee (Nord-Sud)",
+        n_to grandeallee1,
+        s_to grandeallee2,
+        w_to rueduparc2;
+
+Carrefour carrefour4 "Un embranchement"
+    with description "Ici se croisent la rue Blanche (Nord-Sud) et une ruelle a l'Est.",
+        n_to rueblanche2,
+        s_to  rueblanche3,
+        e_to laruelle1;
+
+Carrefour carrefour5 "Un embranchement"
+    with description "Ici se croisent la rue Bernad-Lee (Nord-Sud) et une ruelle a l'Ouest.",
+        n_to ruebernardlee1,
+        s_to ruebernardlee2,
+        w_to laruelle1;
+
+Carrefour carrefour6 "Un embranchement"
+    with description "Ici se croisent la rue Bernad-Lee (Nord-Sud) et une ruelle a l'Est.",
+        n_to ruebernardlee2,
+        s_to ruebernardlee3,
+        e_to laruelle2;
+
+Carrefour carrefour7 "Un embranchement"
+    with description "Ici se croisent la Grande Alle (Nord-Sud) et une ruelle a l'Ouest",
+        n_to grandeallee2,
+        s_to grandeallee3,
+        w_to laruelle2;
+
+Carrefour carrefour8 "Un embranchement"
+    with description "Ici se croisent la rue blanche au Nord et la rue des travailleur a l'Est",
+        n_to rueblanche3,
+        e_to ruedestravailleurs1;
+
+Carrefour carrefour9 "Un embranchement"
+    with description "Ici se croisent la rue des travailleurs (Ouest-Est) et la rue Bernad-Lee au Nord.",
+        n_to ruebernardlee3,
+        w_to ruedestravailleurs1,
+        e_to ruedestravailleurs2;
+
+Carrefour carrefour10 "Un embranchement"
+    with description "Ici se croisent la rue des travailleurs de l'Ouest et la Grande Allee vers le Nord.",
+        n_to grandeallee3,
+        w_to ruedestravailleurs2;
 
 !------------------------------------------------------------------------------!
 
