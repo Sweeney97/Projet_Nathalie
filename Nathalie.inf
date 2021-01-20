@@ -12,11 +12,11 @@ Include "VerbLib";
 !------------------------------------------------------------------------------!
 
 [ Initialise;
-    location = postepolice;
+    location = policeaccueil;
     "^Bienvenue!^";
 ];
 
-!------------------------------------------------------------------------------!
+!--------------------------Les Classes----------------------------------------------------!
 
 Class   Policecite
   with description "Le poste de police de la cit@'e'",
@@ -41,6 +41,17 @@ Policecite policeaccueil "L'accueil du poste de police de la cit@'e."
     with description "Vous @^etes @`a l'entr@'e du poste de police",
       e_to sallepratique,
       s_to citysub;
+
+Object receptionniste "La r@'eceptionniste" policeaccueil
+      with description "Une jeune femme dans la trentaine, un sourire parfait peu sentie.",
+              name 'femme' 'receptionniste' 'secretaire' 'jeune',
+              life [;
+
+                      Talk, Ask, Tell: "Oh! je suis occup@'ee d@'esormais. D@'esol@'ee."
+                        ;],
+              initial "Bonjour. Vous etes l'inspecteur des quartiers sud? Oui?.^ Voyons votre dossier... hum hum. Parfait. Si vous voulez foncer directement ce n'est pas moi qui vous en empecherais. Par contre, si vous avez besoin d'indication supplementaire, sur ce que vous pouvez faire ou non, et comment, allez je prie a la salle d'exercecice, cela sera votre introduction. Notre collegue pourra vous aider. C'est a l'Est, au bout. Merci.",
+      has animate female;
+
 
 Furniture bureauaccueil "bureau imposant" policeaccueil
   with description "Un bureau en ch@`ene vernis.",
@@ -255,3 +266,13 @@ Carrefour carrefour10 "Un embranchement"
 Include "FrenchG";
 
 !------------------------------------------------------------------------------!
+
+[ TalkSub;
+if (noun == player) print_ret "Nothing you hear surprises you.";
+if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+print_ret "At the moment, you can't think of anything to say.";
+];
+
+Verb 'talk' 't//' 'converse' 'chat' 'gossip'
+* 'to'/'with' creature -> Talk
+* creature             -> Talk;
