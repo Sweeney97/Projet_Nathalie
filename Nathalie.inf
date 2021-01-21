@@ -68,13 +68,16 @@ Object receptionniste "r@'eceptionniste" policeaccueil
               times_spoken_to 0,
               life [;
 
-
                       Talk, Ask, Tell:
+                      if (ticket in player) {
+                      print_ret "Merci ce sera tout. (Puis elle semble se concentrer sur son travail)"; }
                       if ( certification in player ) {
                       print "Vous avez la certification d'aptitude? Parfait. Tenez, je vous l'echange contre votre ticket de train.";
                       move certification to receptionniste;
                       move ticket to player;
                       return true; }
+                      if (sallepratique has visited) {
+                      print_ret "Vous y etes alle, mais n'avez pas ecoute?";}
                        else {
                       self.times_spoken_to = self.times_spoken_to + 1;
                       switch (self.times_spoken_to) {
@@ -174,8 +177,10 @@ if (player in chaise && identifiant in professeur) {
                    default: "Vous savez desormais tout ce qui est necessaire. D'autre instructions pourront etre donnees en cours de route. Soyez attentif et surtout,
                                   lisez attentivement! Bonne chance.";
                  }    }
-                 else print "Montrez-moi votre badge, donnez-moi votre identifiant puis asseyez-vous.";
-                 return true;
+
+                 if (certification in player) { print_ret "duegerpissez!";
+                 }
+                 else { print_ret "Je dois voir votre badge. Donner-moi votre identifiant. Asseyez-vous."; }
                   Show: if (noun == badge)
                         {
                           print "Parfait!";
@@ -220,16 +225,19 @@ Object garecite "gare"
 
 Object cheftrain "chef de train" garecite
     with description "Un vieux bonhomme a la tronche sympathique quoique fatiguee.",
+            name    'chef' 'vieil' 'homme' 'conducteur',
             life [;
-            Give: if (noun == ticket)   {
-              move player to postepolice;
-              print_ret "vous effectuez un court voyage de train.";
-             }
+            Give: if (noun == ticket)
+              <<talk self>>;
+
             Show: if ( noun == ticket)
              {
-              move ticket to cheftrain;
-              move player to postepolice;
-              print_ret "vous effectuez un court voyage de train.";
+              print_ret "c'est un ticket valide oui. Donnez-le-moi quand vous voudre partir.";
+             }
+             Talk, Ask, Tell: if (ticket in player)
+             {
+               move player to postepolice;
+               print_ret "vous effectuez un court voyage de train.";
              }
              ;],
              has animate;
