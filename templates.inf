@@ -12,3 +12,34 @@ before  [;
 found_in [;
   return (location ofclass palace_chambers);
 ],
+
+!---------------------------------------------------------------------------------
+
+times_spoken_to 0,
+life [;
+
+        Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
+        switch (self.times_spoken_to) {
+         1: "Premier texte";
+         2: " Deuxième texte";
+         default: "dernier texte";
+       }
+
+          ;],
+!--------------------------------------------------------------------------------------
+
+each_turn [; StartDaemon(self); ],
+       daemon [;
+           if (location ~= thedark) {
+               self.turns_active = 0;
+               StopDaemon(self);
+               rtrue;
+               }
+           switch (++(self.turns_active)) {
+               1:  "Premier tour dans lenoir.";
+               2:  "Deuxieme tour dans le noir";
+               3:  deadflag = true;
+                   "Troisieme tour dans le noir, mort du joueur.";
+               }
+           ],
+       turns_active 0;

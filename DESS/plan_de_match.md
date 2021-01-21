@@ -5,6 +5,9 @@
  - Recommencer Swift playground
  - Essayer DeadLine et Zork
   - Penser à l'ouverture du jeu et à l'histoire
+  - Remplir le poste de police de la cité et la citysub
+  - Créer la salle de pratique et le NPC d'aide
+
 
 - Semaine 2
  - Finir Swift Playground
@@ -12,6 +15,7 @@
  - Lire la théorie sur la narration (documents PDF)
  - Créer l'ouverture du jeu (mettre sur le repos et écrire à Marcello)
  - Maîtriser le codage en français
+ - Insérer le temps dans l'histoire
 
 - Semaine 3
 

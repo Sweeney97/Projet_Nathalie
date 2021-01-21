@@ -1,0 +1,57 @@
+!% -SD
+!%
+Constant Story "MYGAME1";
+Constant Headline "^My first Inform game.^";
+Constant MANUAL_PRONOUNS;           ! Optional, but useful
+
+Include "Parser";
+Include "VerbLib";
+
+
+!------------------------------------------------------------------------------!
+
+[ Initialise;
+    location = study;
+    "^Bienvenu!^";
+];
+
+
+!------------------------------------------------------------------------------!
+
+Object  study "Mon laboratoire"
+  with  description "Une piece blanche, avec tout le necessaire du scientifique.",
+  has light;
+
+  Object receptionniste " r@'eceptionniste" study
+        with description "Une jeune femme dans la trentaine, un sourire parfait peu sentie.",
+                name 'femme' 'receptionniste' 'secretaire' 'jeune',
+                times_spoken_to 0,
+                life [;
+
+                        Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
+                        switch (self.times_spoken_to) {
+                         1: "Bonjour jeune scientifique";
+                         2: " Vous etes insistant";
+                         default: "haaaaaaaaaaaa!";
+                       }
+
+                          ;],
+
+        has animate female;
+
+
+!------------------------------------------------------------------------------!
+
+Include "FrenchG";
+
+!------------------------------------------------------------------------------!
+
+[ TalkSub;
+if (noun == player) print_ret "Nothing you hear surprises you.";
+if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+print_ret "At the moment, you can't think of anything to say.";
+];
+
+Extend 'parler' replace
+* 'a'/'avec' creature -> Talk
+* creature             -> Talk;

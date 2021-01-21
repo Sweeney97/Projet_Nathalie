@@ -24,6 +24,17 @@ L'inspecteur pourraient s'y rendre, perdre la shaman et sa lumière (elle «s'é
 Après un nombre prédéfinis de tour (5 à 20 tours), le joueurs seraient avalés par les ténèbres (voir Ruins, DM4).
 Ainsi, la routine AfterLife() serait appelée.
 C'est une possibilité, qui ferait comprendre à l'inspecteur que le corps n'est qu'une enveloppe, et qu'il serait possible que Nathalie soit une possédée, comme les crois les sauvage des terres brûlées.
+À ce moment, l'inspecteur serait un esprit ou une âme, il vivrait une expérience post-mortem.
+L'object ame aurait l'attribut light, ainsi, une fois mort, il serait possible de «voir» les mines.
+Finalement, une fois mort, le joueur devrait trouver une porte ayant la propriété concealed, il devrait la prendre (littéralement) et entrer dans le monde des esprits.
+Une fois dans le monde des esprit, il pourrait rencontrer Nathalie,  qui tente de fuir son corps (c'est-à-dire qu'elle veut mourir, ayant abandonné tout espoir).
+L'inspecteur promet de la retrouver et de l'aider lui demande de rester.
+Nathalie lui explique qu'elle est parfois posséder.
+À son réveil l'inspecteur ne sait pas s'il a tout halluciné, puisqu'il y a devant lui le repas et la boisson de la veille, et les cendres du feu de la veillée.
+Ainsi il pense pouvoir avoir été empoisonné.
+L'armée débarque, il doit se cacher (le général le suit de son propre chef, le même présent lors de la scène du bar, ).
+Peut-être le joueur pourrait revenir après la scène pour acheter des potions au village?
+Les potions permettrait de le guérir lorsqu'il est blessé.
 
 Il pourrait être intéressant d'utiliser les fonctionnalités random + switch, qui permettent plusieurs utilisations. De même, utiliser des Daemon et des timer serait cool.
 J'aimerais, dans la même lancée, créer au moins un PNJ intéressant, pas nécessairement Nathalie.
@@ -41,4 +52,10 @@ Pour l'automobile, ça serait soit un objet avec l'attribut vehicle, ou bien, un
 Ça serait plus simple pour moi de coder la deuxième option.
 
 Finalement, je pourrais jouer avec Concealed: cet attribut sert pour les développeur, puisqu'une porte concealed ne peut pas être utilisée, et un objet concealed pert son attribut après avoir été saisi.
-Et si, dans le monde des morts, sous forme d'esprit, le joueur pouvait saisir les portes concealed pour les utiliser ensuite, ça serait une utilisation originale de l'attribut. 
+Et si, dans le monde des morts, sous forme d'esprit, le joueur pouvait saisir les portes concealed pour les utiliser ensuite, ça serait une utilisation originale de l'attribut.
+
+Oublier l'utilisation du temps (trop complexe et brouillon). Il fera nuit tout le jeu, excluant dans les terre brûlées.
+
+L'inspecteur pourrait être blessé parfois (lors de certaine rencontre par exemple, suivant un daemon aléatoire).
+Lorsqu'il est blessé, un timer serait enclenché, permettant environ une dizaine de tours (ou plus, à déterminer) avant la mort de l'inspecteur.
+Aller au dortoir du poste de police guérirait l'inspecteur. 
