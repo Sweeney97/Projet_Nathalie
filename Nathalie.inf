@@ -44,12 +44,14 @@ Object identifiant "fiche d'identification"
             name          'papier' 'identifiant' 'fiche' 'dossier';
 
 Object ticket "ticket de train"
-    with descirption "Les tickets de train sont extremement rares.
-                                Les voyages sont strictement surveilles.";
+    with description "Les tickets de train sont extremement rares.
+                                Les voyages sont strictement surveilles.",
+            name 'ticket' 'billet' 'papier';
 
 Policecite policeaccueil "L'accueil du poste de police de la cit@'e."
-    with description "Vous @^etes @`a l'entr@'e du poste de police",
-    initial [;
+    with description [;
+    print "Vous @^etes @`a l'entr@'e du poste de police";
+  if (self hasnt visited)
                   print "^Vous arrivez au poste de police de la cite. Pour parler avec une personne, ecrivez -parler avec (la personne)-.
                                Quand il n'y a qu'une seule personne dans la piece, ecrivez simplement -parler-.^
                                Vous pouvez parler plus d'une fois avec les personnes.
@@ -96,6 +98,10 @@ Object receptionniste "r@'eceptionniste" policeaccueil
 
                      } }
 
+                     give: if (noun == certification) <<talk self>>;
+
+                     show: if (noun == certification) <<talk self>>;
+
                         ;],
 
       has animate female;
@@ -107,17 +113,19 @@ Furniture bureauaccueil "bureau imposant" policeaccueil
 
 
 Policecite sallepratique "La salle pour pratiquer"
-    with description "La salle est simpe, il y a un tableau au mur. Le professeur est debout, et n'a meme pas de bureau.
-                                il y a quelque chaises et quelques pupitres.",
-    initial [;
-            print "Le professeur se presente. C'est un policier retraite appele Louis. Il demande a voir votre badge.
+    with description  [;
+    print "La salle est simpe, il y a un tableau au mur. Le professeur est debout, et n'a meme pas de bureau.
+                                il y a quelque chaises et quelques pupitres.";
+
+        if (self hasnt visited)    print "Le professeur se presente. C'est un policier retraite appele Louis. Il demande a voir votre badge.
                       De plus, il doit prendre votre dossier. Finalement, vous devez vous assoire a un pupitre";
 
               ],
-    before [; sit:
+    before [;
+    enter: if (noun == chaise) {
     move player to chaise;
     print_ret "Vous vous assoyez sur la chaise";
-
+    }
     ],
       w_to policeaccueil;
 
@@ -148,8 +156,9 @@ if (player in chaise && identifiant in professeur) {
                   switch (self.times_spoken_to) {
                    1:   move certification to player;
                          print_ret "Bienvenue! Donc, si vous etes ici, c'est que vous savez deja comment vous promener, comment montrer ou donner des objets.
-                         C'est deja la moitie de tout ce qu'il y a a savoir. Premierement, taper -verbose- dans la console. Je vous le conseille fortement.
-                         Cela permet de disposer a l'ecran chaque definition de ce que vous visitez, meme si vous l'avez deja visite. Optionnel, mais je vous le conseille.
+                         C'est deja la moitie de tout ce qu'il y a a savoir. Premierement, si vous taper -verbose- dans la console, cela permet de disposer a l'ecran
+                         chaque definition de ce que vous visitez, meme si vous l'avez deja visite.
+                         Taper -brief- pour desactiver cette fonction. Je vous conseille de l'activer lorsque vous vous promenerez dans les rues des quartiers.
                          Ensuite, si vous utiliser Frotz, vous pouvez sauvegarder et je vous le conseille de le faire regulierement puisque vous pourrez mourir.
                          Personne n'a envie de faire la meme mission deux fois, ou pire, de lire le meme texte encore et encore. Ce jeu est code avec Inform 6.
                          C'est un code creer en anglais. Donc, inutile de mettre des accent quand vous ecrvivez, et soyez lapidaire. Le moins d'articles le mieux.
@@ -191,37 +200,39 @@ if (player in chaise && identifiant in professeur) {
             article "le",
             has animate;
 
-!-------essayer d'embarquer la routine dans la switch, autrement, le joueur prend lui-même le badge------------------
 
 Object certification "Certification" professeur
             with description "un bout de papier",
                     name          "certification";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Object citysub "Une rue de la cit@'e"
-      with description "Une jolie rue que voil@`a",
+Object citysub "rue de la cit@'e"
+      with description "On peut voir non loin de la, l'accident de la veille.",
         n_to policeaccueil,
+        sw_to garecite,
+        cant_go "Vous devez allez dans les quartiers sud commencer votre enquete."
         has light;
+
+Object garecite "gare"
+    with description "Une gare qu'on eu dit fantome.",
+    ne_to citysub
+    has light;
+
+Object cheftrain "chef de train" garecite
+    with description "Un vieux bonhomme a la tronche sympathique quoique fatiguee.",
+            life [;
+            Give: if (noun == ticket)   {
+              move player to postepolice;
+              print_ret "vous effectuez un court voyage de train.";
+             }
+            Show: if ( noun == ticket)
+             {
+              move ticket to cheftrain;
+              move player to postepolice;
+              print_ret "vous effectuez un court voyage de train.";
+             }
+             ;],
+             has animate;
 !------------------------------Premier quartier------------------------------------------------!
 
 Object postepolice "Le bon vieux poste du Quartier Sud."
@@ -443,17 +454,9 @@ if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
 print_ret "A ce moment, vous ne savez que dire.";
 ];
 
-[ SitSub;
-print "Vous decidez de ne pas vous asseoir.";
-];
-
-Extend 'asseoir' replace
-* 's^'                        -> Sit
-* creature noun     -> Sit
-* 's^' 'asseoir' noun  -> Sit
-*creature 'sur' 'la' noun -> Sit
-*creature 'sur' 'une' noun -> Sit;
-
+Extend 'asseoir' first
+* 's^' 'sur' noun -> Enter
+* 's^' 'sur' 'la' noun -> Enter;
 
 Extend 'parler' replace
 * 'a'/'avec' creature -> Talk
