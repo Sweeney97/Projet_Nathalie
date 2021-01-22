@@ -273,9 +273,10 @@ Room sallepoliciers "Salle de pause"
 with description [;
 print "Plusieurs policiers y sont. Ils discutent.";
 if (self hasnt visited)
-  print "^Description jamais visite.";
+  print "^Presentation Richard.";
   ],
     s_to postepolice,
+    cant_go "La sortie est au Sud",
     has light;
 
 Figurants policiers "policiers" sallepoliciers
@@ -324,12 +325,18 @@ with description "Il goute la mort, mais il reveille.",
          ;],
         has edible;
 
-Room infirmerie
-with description "Un banc blanc, des armoires, des trousses de soins. Et, evidemment, une infirmiere.",
+Room infirmerie "Infirmerie"
+with description [;
+print "Un banc blanc, des armoires, des trousses de soins. Et, evidemment, une infirmiere.";
+if (self hasnt visited)
+  print "^presentation infirmiere.";
+  ],
+
     e_to postepolice,
+    cant_go "La sortie est a l'Est.",
     has light;
 
-Npc infirmiere "infirmerie"
+Npc infirmiere "infirmerie" infirmerie
   with description "Elle semble s'affaire a remplir des papiers.",
           name 'infirmiere' 'femme',
           life [;
@@ -341,9 +348,10 @@ Room salleenquete "Salle d'enquete"
 with description [;
 print "La salle ou tout commence";
 if (self hasnt visited)
-  print "^Description jamais visite.";
+  print "^Presentation enqueteur.";
   ],
     w_to postepolice,
+    cant_go "La sortie est a l'Ouest.",
     has light;
 
 Npc enqueteur "Enqueteur" salleenquete
