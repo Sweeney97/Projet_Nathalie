@@ -21,7 +21,7 @@ life [;
         Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
         switch (self.times_spoken_to) {
          1: "Premier texte";
-         2: " Deuxième texte";
+         2: " Deuxieme texte";
          default: "dernier texte";
        }
 
@@ -43,3 +43,11 @@ each_turn [; StartDaemon(self); ],
                }
            ],
        turns_active 0;
+
+!-------------------------------------------------------------------------------------------------
+
+description [;
+print "premiere description";
+if (self hasnt visited)
+  print "^Description jamais visite.";
+  ],

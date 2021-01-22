@@ -58,4 +58,44 @@ Oublier l'utilisation du temps (trop complexe et brouillon). Il fera nuit tout l
 
 L'inspecteur pourrait être blessé parfois (lors de certaine rencontre par exemple, suivant un daemon aléatoire).
 Lorsqu'il est blessé, un timer serait enclenché, permettant environ une dizaine de tours (ou plus, à déterminer) avant la mort de l'inspecteur.
-Aller au dortoir du poste de police guérirait l'inspecteur. 
+Aller au dortoir du poste de police guérirait l'inspecteur.
+
+Pour ne pas abandonner ma veille intention sur la moralité.
+Lors de quelques que points clefs il est possible de faire les actions en bien ou en mal.
+Par exemple, arrêter un personnage (intercepte par un before) ou le tuer (dans la routine life).
+Chaque action bonne donne un credit au dossier (global variable?), chaque mauvaise action donne un soupçon au dossier.
+
+Il est impossible de se promener entre les quartiers.
+Chaque endroit sera un arc narratif isolé.
+La carte de crédit se mérite, pour aller au supermarché.
+Autrement, affilié avec les criminel, ce sera au bar pour acheter, ou a la planque (àvoir).
+
+
+Cela changerait la fin selon l'affiliation.
+Aussi, il y aurait un policier et un criminels aléatoires (avec un daemon).
+Un policier dans le quartier de la planque.
+Un criminel dans le quartier principal.
+Tomber sur l'un ou sur l'autre change l'issue selon l'affiliation.
+Affilié avec les criminels - guérison dans la planque.
+Affilié avec les policiers - guérison dans le dortoir
+Blessé en territoire «ennemi» - il faut un objet pour se guérir!
+Le badge sera l'élément qui sert de flag pour savoir dans quel camp est le joueur (coder un before pour pas que le joueur le donne/drop).
+Sans badge, l'inspecteur est un criminel.
+Se rendre en voiture pourrait se faire avec une volée ou donne par le poste selon si le joueur est criminel ou non.
+La carte de crédit s'obtient à la fin du parcours du premier quartier, comme récompense d'avoir gardé son badge.
+Si le joueur a tué/intimidé un seul perso, il n'aura pas de carte de crédit.
+
+J'aimerais coder aussi trois autres PNJ:
+un marchant ambulant(commun)
+Un évènement dans le quartier principal (à voir)
+un renégat (rare)
+Nathalie (hyper rare)
+
+
+oublier la voiture/moto comme objet interactif.
+En faire un objet dans le jeu seulement descriptif.
+
+Il sera impossible de rentrer dans la bibliothèque.
+Elle ne sera présente que dans l'histoire.
+
+Le quartier finale, c'est à ce moment que le joueur devient Nathalie.

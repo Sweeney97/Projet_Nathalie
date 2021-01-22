@@ -1,25 +1,6 @@
-Constant Story "Projet Nathalie";
-Constant Headline "^Antoine Sweeney^";
-Constant MANUAL_PRONOUNS;           ! Optional, but useful
-Constant MAX_CARRIED = 10;
-
-Include "Parser";
-Include "VerbLib";
-
-
-
-!------------------------------------------------------------------------------!
-
-[ Initialise;
-    TitlePage();
-    location = policeaccueil;
-    move badge to player;
-];
-
 !--------------------------Les Classes----------------------------------------------------!
 
-Class   Policecite
-  with description "Le poste de police de la cit@'e'",
+Class   Room
   has   light;
 
 Class   Furniture
@@ -35,6 +16,14 @@ Class   Furniture
   Class Carrefour
     has light;
 
+Class Deco
+with before [;
+        Take,Pull,Push,PushDir:
+          print_ret "Vous voulez red@'ecorer?.";
+      ],
+has scenery;
+
+
 !--------------------Première partie, introduction, dans la cité-------------------------------------!
 
 Object identifiant "fiche d'identification"
@@ -46,14 +35,11 @@ Object ticket "ticket de train"
                                 Les voyages sont strictement surveilles.",
             name 'ticket' 'billet' 'papier';
 
-Policecite policeaccueil "L'accueil du poste de police de la cit@'e."
+Room policeaccueil "L'accueil du poste de police de la cit@'e."
     with description [;
     print "Vous @^etes @`a l'entr@'e du poste de police";
   if (self hasnt visited)
-                  print "^Vous arrivez au poste de police de la cite. Pour parler avec une personne, ecrivez -parler avec (la personne)-.
-                               Quand il n'y a qu'une seule personne dans la piece, ecrivez simplement -parler-.^
-                               Vous pouvez parler plus d'une fois avec les personnes.
-                               Quand ils radotent, ils n'ont plus rien a dire!";
+                  print "^Vous arrivez au poste de police de la cite. ";
               ],
 
 
@@ -81,11 +67,13 @@ Object receptionniste "r@'eceptionniste" policeaccueil
                       switch (self.times_spoken_to) {
                        1: move identifiant to player;
                       print_ret
-                     "Bonjour.";
-                       2: "Ne me regardez pas ainsi.";
-                       3: "Oh! je suis occupee.";
+                     "Bonjour";
 
-                       default: "(Elle vous ignore.)";
+                       2: "Ne me regardez pas ainsi, vous ne savez pas comment marcher encore?
+                       ";
+                       3: "Oh! je suis occup@'ee d@'esormais. D@'esol@'ee.";
+
+                       default: "(Elle vous ignore, et semble s'etre place des ecouteurs dans les oreilles.)";
 
                      } }
 
@@ -98,12 +86,7 @@ Object receptionniste "r@'eceptionniste" policeaccueil
       has animate female;
 
 
-Furniture bureauaccueil "bureau imposant" policeaccueil
-  with description "Un bureau en ch@`ene vernis.",
-          name 'bureau' 'meuble';
-
-
-Policecite sallepratique "La salle pour pratiquer"
+Room sallepratique "La salle pour pratiquer"
     with description  [;
     print "La salle est simpe, il y a un tableau au mur. Le professeur est debout, et n'a meme pas de bureau.
                                 il y a quelque chaises et quelques pupitres.";
@@ -120,13 +103,6 @@ Policecite sallepratique "La salle pour pratiquer"
     ],
       w_to policeaccueil;
 
-
-Furniture chaise "chaise" sallepratique
- with description"une chaise en plastique bon marche. Il doit y en avoir des centaines dans la reserve.",
-         name 'chaise',
-         article "une",
-
-         has female;
 
 Furniture pupitre "pupitre" sallepratique
  with description "Un pupitre en bois, il doit certainement venir d'un surplus d'ecole.",
@@ -146,12 +122,11 @@ if (player in chaise && identifiant in professeur) {
                   self.times_spoken_to = self.times_spoken_to + 1;
                   switch (self.times_spoken_to) {
                    1:   move certification to player;
-                         print_ret "Bienvenue!.";
+                         print_ret "Bienvenue! ";
 
 
-                   2: "enseignement. ";
-                   default: "Vous savez desormais tout ce qui est necessaire. D'autre instructions pourront etre donnees en cours de route. Soyez attentif et surtout,
-                                  lisez attentivement! Bonne chance.";
+                   2: " Il y a dux types d'action: les meta-action.. ";
+                   default: "Vous savez desormais tout ce qui est necessaire. ";
                  }    }
 
                  if (certification in player) { print_ret "duegerpissez!";
@@ -210,47 +185,84 @@ Object cheftrain "chef de train" garecite
              {
               print_ret "c'est un ticket valide oui. Donnez-le-moi quand vous voudre partir.";
              }
-             Talk, Ask, Tell: if (ticket in player)
-             {
-               move player to postepolice;
-               print_ret "vous effectuez un court voyage de train.";
-             }
+             Talk, Ask, Tell:
+            print "Vous voulez partir? Avez-vous votre ticket?";
+            if (YesOrNo (true)) {
+            if (ticket in player)
+            {
+              move player to postepolice;
+              move ticket to cheftrain;
+              print_ret "vous effectuez un court voyage de train.";
+            }}
+            if (YesOrNo (false)) {
+            print_ret "Il semble que vous ne soyez pas pres. J'attends ici patiemment";   }
+            else print_ret "il me faut absolument votre ticket";
+
              ;],
              has animate;
 !------------------------------Premier quartier------------------------------------------------!
 
-Object postepolice "Le bon vieux poste du Quartier Sud."
-    with description "Votre maison, votre abris, et tous vos collegues. Il y a une salle au Nord, a l'Ouest et a l'Est. La sortie est au Sud.",
-
-    !-------------------------Page titre------------------------------------------------------!
-
-    [ TitlePage;
-     print "Text d'introduction";
-     ];
-
-    !------------------------------------------------------------------------------!
-
-    Include "FrenchG";
-
-    !----------------------------------Objects--------------------------------------------!
-
-    Object badge "Votre badge"
-         with description "Un badge officiel",
-                  name "Badge";
+Room postepolice "Le bon vieux poste du Quartier Sud."
+    with description "Votre maison, votre abris, et tous vos collegues.";
 
 
 
-    !------------------------------------------------------------------------------!
-    [ TalkSub;
-    if (noun == player) print_ret "Nothing you hear surprises you.";
-    if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
-    print_ret "A ce moment, vous ne savez que dire.";
-    ];
+!-------------------------Page titre------------------------------------------------------!
 
-    Extend 'asseoir' first
-    * 's^' 'sur' noun -> Enter
-    * 's^' 'sur' 'la' noun -> Enter;
+[ TitlePage;
+ print "Text d'introduction";
+ ];
 
-    Extend 'parler' replace
-    * 'a'/'avec' creature -> Talk
-    * creature             -> Talk;
+!------------------------------------------------------------------------------!
+
+Include "FrenchG";
+
+!----------------------------------Objects--------------------------------------------!
+
+Object badge "Votre badge"
+     with description "Un badge officiel",
+              name "Badge";
+
+
+
+!-------------------Objets récurrents, les postes de police-----------------------------------------------------------!
+
+Furniture bureauaccueil "bureau imposant"
+  with description "Un bureau en ch@`ene vernis.",
+          name 'bureau' 'meuble',
+          found_in policeaccueil;
+
+Furniture chaise "chaise"
+           with description"une chaise en plastique bon marche.
+                                      Il doit y en avoir des centaines dans la reserve.",
+                   name 'chaise',
+                   article "une",
+                   found_in sallepratique,
+                   has female;
+
+Deco plante "plante verte"
+ with description "Une plante",
+         name "plante",
+         found_in policeaccueil postepolice;
+
+
+!-------------------Objets récurrents-----------------------------------------------------------!
+
+
+
+
+
+!------------------------------------------------------------------------------!
+[ TalkSub;
+if (noun == player) print_ret "Rien d'inattendu.";
+if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+print_ret "A ce moment, vous ne savez que dire.";
+];
+
+Extend 'asseoir' first
+* 's^' 'sur' noun       ->Enter
+* 's^' 'sur' 'la' noun -> Enter;
+
+Extend 'parler' replace
+* 'a'/'avec' creature -> Talk
+* creature                -> Talk;
