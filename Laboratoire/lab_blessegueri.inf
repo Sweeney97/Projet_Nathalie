@@ -12,6 +12,7 @@ Include "VerbLib";
 
 [ Initialise;
     location = study;
+    StartDaemon(study);
     lookmode = 2;
     "^Bienvenu!^";
 ];
@@ -19,19 +20,40 @@ Include "VerbLib";
 
 !------------------------------------------------------------------------------!
 
+Global playerhurt = 0;
+
+!------------------------------------------------------------------------------!
 Object  study "Mon laboratoire"
   with  description "Une piece blanche, avec tout le necessaire du scientifique.",
-  n_to piece,
+           turns_wait 0,
+  daemon [;
+
+    self.turns_wait = self.turns_wait + 1;
+    switch (self.turns_wait) {
+1: return false;
+2: return false;
+default:
+playerhurt = 1;
+StopDaemon(self);
+ print_ret "Un homme fait irruption et vous blesse";
+}
+;],
+s_to infirmerie,
   has light;
 
+Object infirmerie "Infirmerie"
+with description [;
 
-Object piece "Piece"
- with description "Une piece banale",
- initial [;
-    print "Test initial";
-           ;],
- s_to study,
- has light;
+if (playerhurt == 1) {
+  playerhurt = 0;
+print_ret "Enfin! vous pouvez vous soiger.";
+
+}
+print "Aussi blanc, mais avec le materiel necessaire pour vouz soigner.";
+                         ;],
+       n_to study,
+        has light;
+
 
 
 !------------------------------------------------------------------------------!

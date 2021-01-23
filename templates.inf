@@ -51,3 +51,19 @@ print "premiere description";
 if (self hasnt visited)
   print "^Description jamais visite.";
   ],
+
+  !---------------------------------------------------------------------------------------------------------
+
+turns_wait 0,
+daemon [;
+
+self.turns_wait = self.turns_wait + 1;
+switch (self.turns_wait) {
+1: return false;
+2: return false;
+3: "Quelqu'un approche, cachez-vous.";
+default:
+StopDaemon(self);
+print_ret "Un homme arrive sur les lieux.";
+}
+;],

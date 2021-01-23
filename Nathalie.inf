@@ -17,9 +17,24 @@ Include "VerbLib";
     location = postepolice;
     lookmode = 2; !-----permet d'afficher en tout temps les descriptions des endroits
     move badge to player;
+!   StartDaemon(marchand);
+!   StartDaemon(foule);
     StartDaemon(policiers);
+    StartDaemon(policier);
+!    StartDaemon(nathalie);
+!   StartDaemon(sansabris);
+!  StartDaemon(danger);
+! StartDaemon(faim);
+! StartDaemon(checker);
+    StartDaemon(criminel);
     player.description = "Un homme incroyable.";
 ];
+
+!---------------------------------------Global variables---------------------------------------------------------------------!
+
+! Global playerhurt = 0;
+! Global playerhnugry = 0;
+! Global playerpoison = 0;
 
 !--------------------------Les Classes----------------------------------------------------!
 
@@ -40,8 +55,8 @@ Include "VerbLib";
   Class Street
     has light;
 
-  Class Carrefour
-    has light;
+  Class ruelle
+  has light;
 
   Class Deco
     with before [;
@@ -127,7 +142,7 @@ Npc receptionniste "r@'eceptionniste" policeaccueil
 
                      give: if (noun == certification) <<talk self>>;
 
-                     show: if (noun == certification) <<talk self>>;
+                     Show: if (noun == certification) <<talk self>>;
 
                         ;],
 
@@ -418,7 +433,7 @@ Lieu appartement1 "appartement pauvre"
 
 Lieu appartement2 "appartement moyen"
     with description "un appartement de classe moyenne. En face du stationnement.",
-            w_to ruebernardlee1;
+            e_to ruebernardlee1;
 
 
 Lieu maison "maison"
@@ -435,6 +450,9 @@ Lieu maison "maison"
                          with description "Plus immense encore qu'aux temps de l'empire Americain.",
                          w_to grandeallee2;
 
+                         Room hangar "hangar"
+                                   with description "un lieu assez meta.";
+                         !                 e_to sous-sol;      ! le sous-sol de la maison. l'entrée du hangar est cachée derriere un meuble qu'il faut pousser.
 
 !---------------------------------------------------Npc premier quartier ------------------------------------------------!
 
@@ -485,7 +503,7 @@ Street grandeallee1 "La grande allee"
           n_to appartement1;
 
     Street ruebernardlee1 "La rue Bernard-Lee"
-        with description "rue bernard lee. La rue descend au Sud, au Nord elle croise la rue du parc. À l'Ouest se trouve l'entree du stationnement.",
+        with description "rue bernard lee. La rue descend au Sud, au Nord elle croise la rue du parc. A l'Ouest se trouve l'entree du stationnement.",
             n_to carrefour1,
             w_to stationnement,
             s_to carrefour3,
@@ -498,13 +516,13 @@ Street grandeallee1 "La grande allee"
             w_to "une rangee d'appartements sans interet.",
             e_to "une rangee d'appartements sans interet.";
 
-Street ruelle1 "Une ruelle"
+Ruelle ruelle1 "Une ruelle"
   with description "le genre de lieu pour des transaction louches",
       w_to carrefour3,
       e_to carrefour4,
       cant_go "Aller dans l'arriere cours des autres n'est pas une option.";
 
-Carrefour carrefour1 "Un embranchement"
+Street carrefour1 "Un embranchement"
     with description "Ici  se croisent la rue Bernard-Lee au Sud et la rue du parc a l'Est.",
         n_to "D'ici le parc est au Nord-Est",
         nw_to "L'hotel de ville ne vous interesse pas.",
@@ -512,40 +530,42 @@ Carrefour carrefour1 "Un embranchement"
         s_to ruebernardlee1,
         e_to rueduparc;
 
-Carrefour carrefour2 "Un embranchement"
+Street carrefour2 "Un embranchement"
       with description "Ici se croisent la rue du parc a l'Ouest et la Grande Allee (Nord-Sud)",
           n_to grandeallee1,
           nw_to parc,
           s_to grandeallee2,
           w_to rueduparc;
 
-Carrefour carrefour3 "Un embranchement"
+Street carrefour3 "Un embranchement"
     with description "Ici se croisent la rue Bernard-Lee (Nord-Sud) et une ruelle a l'Est.",
         n_to ruebernardlee1,
         s_to ruebernardlee2,
         w_to "l'entree du stationnement est plus au Nord",
         e_to ruelle1;
 
-Carrefour carrefour4 "Un embranchement"
+Street carrefour4 "Un embranchement"
     with description "Ici se croisent une ruelle a l'Ouest et la Grande Allee (Nord-Sud).",
         n_to grandeallee2,
         e_to "l'entree de l'hyermarche se trouve plus au Nord",
         s_to grandeallee3,
         w_to ruelle1;
 
-Carrefour carrefour5 "Un embranchement"
+Street carrefour5 "Un embranchement"
     with description "Ici se croisent la rue Bernad-Lee au Nord et la rue des travailleurs a l'Est.",
         n_to ruebernardlee2,
         s_to "l'entree de l'usine se trouve plus a l'Est.",
         e_to ruedestravailleurs,
         w_to "l'entree du stationnement se trouve plus au Nord";
 
-Carrefour carrefour6 "Un embranchement"
+Street carrefour6 "Un embranchement"
     with description "Ici se croisent la rue des travailleurs au Sud et la Grande Allee au Nord.",
         n_to grandeallee3,
         s_to "l'entree de l'usine est plus a l'Ouest.",
         w_to ruedestravailleurs,
         e_to "Vous ne pouvez aller plus loin";
+
+
 
 !----------------------------Cut-scene 2--------------------------------------------------!
 
@@ -622,14 +642,238 @@ with description "Un tableau blanc.",
         name 'tableau',
         found_in sallepratique salleenquete;
 
+!---------------------centre de données----------------------------------------------------------------------------!
 
+Object centredonnees "centre de donnees"
+has light;
 !-------------------Objets récurrents-----------------------------------------------------------!
 
 
 
 
+!---------------------Évènements aléatoires------------------------------------------------------------!
 
-!------------------------------------------------------------------------------!
+!  Pour le dernier quartier avec Nathalie et la bibliothèque, arrêter tous les Daemon!
+!  Allumer pour le deuxième quartier le daemon pour les commentaire au bar (s'il y a lieu) et pour les indigènes poisonneux!
+
+
+! Object checker "verificateur" hangar
+!             with description "une machine tres compliquee",
+!              turns_bad 0,
+!                      daemon [;
+!               if (playerhungry == 1) {
+! self.turns_bad = self.turns_bad + 1;
+! switch (self.turns_bad) {
+! 1: return false;
+! 2: "avertissement";
+! 3: "Vous devez vraiment manger";
+! default: deadflag2;   ! changer le deadflag pour une mort contextuelle
+!  }
+!
+!             if (playerhurt == 1) {
+!  self.turns_bad = self.turns_bad + 1;
+!  switch (self.turns_bad) {
+!  1: return false;
+!  2: "avertissement";
+!  3: "Vous devez vraiment vous soigner";
+!   default: deadflag2;   ! changer le deadflag pour une mort contextuelle
+!                                          }
+!            if (playerpoison == 1) {
+!  self.turns_bad = self.turns_bad + 1;
+!  switch (self.turns_bad) {
+!  1: return false;
+!  2: "avertissement";
+!  3: "Vous devez vraiment prendre un antidote";
+!   default: deadflag2;   ! changer le deadflag pour une mort contextuelle
+!                                          }
+!
+!
+!             if (playerhungry == 0 && playerhurt == 0 && playerpoison == 0)  {
+!             turns_bad = 0;
+!                           ;];
+
+
+
+! Object faim "faim"
+!   with    daemon [;
+!             if (random (100) == 1) {
+!             playerhungry = 1;
+!             print_ret "une faim incroyable vous saisit";
+!                                                  }
+!                             ;];
+
+
+! Figurant foule "foule" hangar
+!            with description "Une foule se forme autour de deux combattants"
+!                     daemon  [;
+!       if (location ofclass Lieu && random(50) == 1)  {
+!      move foule to location;
+!      move combattant1 to location;
+!     move combattant2 to location;
+!    print "Un comat se declenche, une foule se rassembre, voulez-vous intervenir?";
+!    Rixe();
+!     }
+!                                    ;];
+
+!Npc combattant1 hangar
+!     with description "un fierce combatant";
+
+!Npc combattant2 hangar
+! with description "l'oeil terrible, la poigne forte.";
+
+! Rixe  [;
+! If (YesOrNo(true)) {
+!  if (random (2) == 1) {
+!  print "votre intervention est un succes!";
+!  give reward to player;
+! return true;
+!   }
+!  else  { print "Vous vous faite tabasser";
+!            player hurt = 1;
+!          }
+! else {
+! print "vous decidez de ne pas intervenir pour ne pas attirer l'attention." ;}
+! move foule to hangar;
+! move combattant1 to hangar;
+! move combattant2 to hangar; } }
+!   ;];
+
+! Npc sansabris "sans-abris"
+! with description "un vieil homme.",
+! initial [; print "Le viel homme se presente.";
+!            ;]
+!  times_spoken_to 0,
+!           daemon  [;
+! if (location ofclass Ruelle && (random(50) == 1))
+!                                   move sansabris to location;
+!                                   StopDaemon(sansabris);
+!                          ;]
+
+
+
+!         life [;
+!                  Give: if (noun == alcool) {
+!                            give sansbris general;
+!                            move alcool to sansabris;
+!                           print_ret "Magnifique! Merci mille fois!";
+!                                                          }
+!                    Talk, ask, order: if (self has general) {
+!                               self.times_spoken_to = self.times_spoken_to + 1;
+!                               switch (self.times_spoken_to) {
+!                               1: "Premier texte";
+!                                2: " Deuxieme texte";
+!                              default: "dernier texte";
+!                                                                      } }
+!                              else print_ret "J'ai l'esprit embrume sans alcool."
+!               ;]
+
+
+
+Npc marchand "marchand ambulant" hangar
+      with name 'marchant' 'ambulant' 'vendeur',
+      each_turn "Un marchant ambulant! vous pouvez le suivre.",
+      daemon [ direction marchand_at way exit_count exit_chosen;
+      if (random(3) ~= 1) rfalse;
+      marchand_at = parent(marchand);
+      objectloop (direction in compass) {
+way = marchand_at.(direction.door_dir);
+if (way ofclass Street && way hasnt door) exit_count++;
+}
+if (exit_count == 0) rfalse;
+exit_chosen = random(exit_count); exit_count = 0;
+objectloop (direction in compass) {
+way = marchand_at.(direction.door_dir);
+if (way ofclass Street && way hasnt door) exit_count++;
+if (exit_count == exit_chosen) {
+move self to way;
+if (marchand_at == location) "Le marchand part.";
+if (way == location) "le marchand ambulant fait irruption.";
+rfalse;
+} }
+];
+
+Npc nathalie "Nathalie"
+ with name 'Nathalie',
+  with description "Une rencontre speciale",
+         rencontre 0,
+          daemon [;
+             if (location ofclass Street) self.rencontre = self.rencontre + 1;
+             if (self.rencontre == 50) {
+             move nathalie to location;
+             print  "Vous rencontrer Nathalie.";
+             }
+             if (self.rencontre == 51) {
+             move nathalie to centredonnees;
+             StopDaemon(nathalie);
+             }
+             ],
+             has female;
+
+Npc policier "policier"
+with name 'policier',
+        description "Un policier faisant sa ronde.",
+        daemon [;
+        if (location ofclass Street && (random(100) == 1))
+        move policier to location;
+                      ],
+! inclure le verbe saluer!
+
+       life [;
+
+         Talk, Ask, Tell: if (badge in player) {
+        print "Vous vous saluez";
+        move policier to hangar;
+        return true;
+                  }
+        else <<Attack self>>;
+
+        Attack:
+        move policier to hangar;
+        print_ret "il s'enfuit, blesse, mais non mort.";
+
+            ],
+        react_before  [;
+
+     Go: print_ret "Essayer de partir sans tenir compte de la vigie est une pietre idee.";
+
+                      ];
+
+
+                      !  if (badge in player) print_ret "Il vous salue.";
+                      !  else  {
+                      !  playerhurt = 1;
+                      !  print_ret "Vous etes blesse.";
+                      ! }
+                      ! ];
+
+ Npc criminel "criminel" hangar
+          with name 'criminel',
+            description "un criminel furtif.",
+              daemon [;
+                     if (location ofclass Street && (random(80) == 1))
+                     move criminel to location;
+                          ],
+                          life [;
+
+                            Talk, Ask, Tell: if (badge notin player) {
+                           print "Un regard discret vous suffit.";
+                           move criminel to hangar;
+                           return true;
+                                     }
+                           else <<Attack self>>;
+
+                           Attack:
+                           move criminel to hangar;
+                           print_ret "il s'enfuit, blesse, mais non mort.";
+
+                               ],
+                react_before       [;
+
+                      Go: print_ret "Vous etes repere par un criminel de la planque. Tenter de vous enfuir sans lui parler serait une mauviase idee.";
+
+                                       ];
+
+!------------------------------------------------------------------------------------------------!
 [ TalkSub;
 if (noun == player) print_ret "Rien d'inattendu.";
 if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
