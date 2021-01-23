@@ -1,10 +1,33 @@
+!% -SD
+!%
+Constant Story "Projet Nathalie";
+Constant Headline "^Antoine Sweeney^";
+Constant MANUAL_PRONOUNS;           ! Optional, but useful
+Constant MAX_CARRIED = 10;
+
+Include "Parser";
+Include "VerbLib";
+
+
+
+!------------------------------------------------------------------------------!
+
+[ Initialise;
+    TitlePage();
+    location = postepolice;
+    lookmode = 2; !-----permet d'afficher en tout temps les descriptions des endroits
+    move badge to player;
+    StartDaemon(policiers);
+    player.description = "Un homme incroyable.";
+];
+
 !--------------------------Les Classes----------------------------------------------------!
 
-Class   Room
-  has   light;
+    Class   Room
+      has   light;
 
-Class   Furniture
-  with  before [;
+    Class   Furniture
+      with  before [;
           Take,Pull,Push,PushDir:
             print_ret "Cela est inutile.";
         ],
@@ -16,13 +39,23 @@ Class   Furniture
   Class Carrefour
     has light;
 
-Class Deco
-with before [;
+  Class Deco
+    with before [;
         Take,Pull,Push,PushDir:
-          print_ret "Vous voulez red@'ecorer?.";
+          print_ret "Vous voulez r@'eam@'enager?.";
       ],
 has scenery;
 
+Class Npc
+has animate;
+
+Class Figurants
+    with before [;
+    Take,Pull,Push,PushDir:
+      print_ret "Personne n'apprecierait.";
+
+  ],
+    has animate pluralname scenery;
 
 !--------------------Première partie, introduction, dans la cité-------------------------------------!
 
@@ -39,14 +72,18 @@ Room policeaccueil "L'accueil du poste de police de la cit@'e."
     with description [;
     print "Vous @^etes @`a l'entr@'e du poste de police";
   if (self hasnt visited)
-                  print "^Vous arrivez au poste de police de la cite. ";
+                  print "^Vous arrivez au poste de police de la cite. Pour parler avec une personne, ecrivez -parler avec (la personne)-.
+                               Quand il n'y a qu'une seule personne dans la piece, ecrivez simplement -parler-.^
+                               Vous pouvez parler plus d'une fois avec les personnes.
+                               Quand ils radotent, ils n'ont plus rien a dire!";
               ],
 
 
       e_to sallepratique,
-      s_to citysub;
+      s_to citysub,
+      cant_go "La salle de pratique est @`a l'Est. La sortie est au Sud. ";
 
-Object receptionniste "r@'eceptionniste" policeaccueil
+Npc receptionniste "r@'eceptionniste" policeaccueil
       with description "Une jeune femme dans la trentaine, un sourire parfait peu sentie.",
               name 'femme' 'receptionniste' 'secretaire' 'Ana' 'Anabelle',
               times_spoken_to 0,
@@ -67,10 +104,8 @@ Object receptionniste "r@'eceptionniste" policeaccueil
                       switch (self.times_spoken_to) {
                        1: move identifiant to player;
                       print_ret
-                     "Bonjour";
-
-                       2: "Ne me regardez pas ainsi, vous ne savez pas comment marcher encore?
-                       ";
+                     "Bonjour.";
+                       2: "Ne me regardez pas ainsi, vous ne savez pas comment marcher encore?";
                        3: "Oh! je suis occup@'ee d@'esormais. D@'esol@'ee.";
 
                        default: "(Elle vous ignore, et semble s'etre place des ecouteurs dans les oreilles.)";
@@ -83,7 +118,7 @@ Object receptionniste "r@'eceptionniste" policeaccueil
 
                         ;],
 
-      has animate female;
+      has female;
 
 
 Room sallepratique "La salle pour pratiquer"
@@ -101,7 +136,8 @@ Room sallepratique "La salle pour pratiquer"
     print_ret "Vous vous assoyez sur la chaise";
     }
     ],
-      w_to policeaccueil;
+      w_to policeaccueil,
+      cant_go "La seule sortie est a l'Ouest, vers l'accueil.";
 
 
 Furniture pupitre "pupitre" sallepratique
@@ -109,7 +145,7 @@ Furniture pupitre "pupitre" sallepratique
         name 'pupitre' 'bureau',
         article "un";
 
-Object professeur "professeur" sallepratique
+Npc professeur "professeur" sallepratique
   with description "L'air severe, le regard sec.",
           name 'professeur' 'enseignant' 'homme' 'policier' 'prof' 'Louis',
           times_spoken_to 0,
@@ -122,11 +158,11 @@ if (player in chaise && identifiant in professeur) {
                   self.times_spoken_to = self.times_spoken_to + 1;
                   switch (self.times_spoken_to) {
                    1:   move certification to player;
-                         print_ret "Bienvenue! ";
+                         print_ret "Bienvenue!.";
 
 
-                   2: " Il y a dux types d'action: les meta-action.. ";
-                   default: "Vous savez desormais tout ce qui est necessaire. ";
+                   2: " Il y a dux types d'action. ";
+                   default: "Vous savez desormais tout ce qui est necessaire.";
                  }    }
 
                  if (certification in player) { print_ret "duegerpissez!";
@@ -166,15 +202,16 @@ Object citysub "rue de la cit@'e"
       with description "On peut voir non loin de la, l'accident de la veille.",
         n_to policeaccueil,
         sw_to garecite,
-        cant_go "Vous devez allez dans les quartiers sud commencer votre enquete."
+        cant_go "Vous devez allez dans les quartiers sud commencer votre enquete. La gare est au Sud-Ouest."
         has light;
 
 Object garecite "gare"
     with description "Une gare qu'on eu dit fantome.",
-    ne_to citysub
+    ne_to citysub,
+    cant_go "L'entree principale est au Nord-Est. Vous promener dans la gare est sans interet."
     has light;
 
-Object cheftrain "chef de train" garecite
+Npc cheftrain "chef de train" garecite
     with description "Un vieux bonhomme a la tronche sympathique quoique fatiguee.",
             name    'chef' 'vieil' 'homme' 'conducteur',
             life [;
@@ -190,7 +227,7 @@ Object cheftrain "chef de train" garecite
             if (YesOrNo (true)) {
             if (ticket in player)
             {
-              move player to postepolice;
+              PlayerTo(postepolice);
               move ticket to cheftrain;
               print_ret "vous effectuez un court voyage de train.";
             }}
@@ -200,10 +237,129 @@ Object cheftrain "chef de train" garecite
 
              ;],
              has animate;
-!------------------------------Premier quartier------------------------------------------------!
+!------------------------------Poste de police à l'entrée des quartiers Sud------------------------------------------------!
 
-Room postepolice "Le bon vieux poste du Quartier Sud."
-    with description "Votre maison, votre abris, et tous vos collegues.";
+Room postepolice "poste du Quartier Sud."
+    with description "Votre maison, votre abris, et tous vos collegues. Il y a une salle au Nord, a l'Ouest et a l'Est. La sortie est au Sud.",
+      n_to sallepoliciers,
+      s_to grandeallee1,
+      w_to infirmerie,
+      e_to salleenquete;
+
+
+Room sallepoliciers "Salle de pause"
+with description [;
+print "Plusieurs policiers y sont. Ils discutent.";
+if (self hasnt visited)
+  print "^Presentation Richard.";
+  ],
+    s_to postepolice,
+    cant_go "La sortie est au Sud",
+    has light;
+
+Figurants policiers "policiers" sallepoliciers
+  with description "Plusieur lancent vous lancent un regard mauvais.",
+          name  'policier' 'collegue' 'collegues//p' 'policiers//p',
+          number_of_comments 0,
+          daemon [;
+               if (location == sallepoliciers && random(3) == 1) {
+                 self.number_of_comments = self.number_of_comments + 1;
+                 switch (self.number_of_comments) {
+1: "commentaire";
+2: "commentaire deux";
+3: "commentaire trois";
+default: StopDaemon(self);
+} }
+];
+
+
+Npc boncollegue "Richard" sallepoliciers
+      with description "moustache molle, un peu niais. Mais bon.",
+              name 'richard' 'ami',
+
+              times_spoken_to 0,
+              life [;
+
+                      Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
+                      switch (self.times_spoken_to) {
+                       1: "Premier texte";
+                       2: " Deuxieme texte";
+                       default: "dernier texte";
+                     }
+
+                        ;];
+
+Deco machinecafe "machine a cafe" sallepoliciers
+      with description "une bonne vieille machine a cafe. Intuable.",
+              name 'machine';
+
+Object cafe "cafe" sallepoliciers
+with description "Il goute la mort, mais il reveille.",
+        name 'cafe',
+        before
+        [;
+      take,eat: print_ret "Cela vous reveille.";
+
+         ;],
+        has edible;
+
+Room infirmerie "Infirmerie"
+with description [;
+print "Un banc blanc, des armoires, des trousses de soins. Et, evidemment, une infirmiere.";
+if (self hasnt visited)
+  print "^presentation infirmiere.";
+  ],
+
+    e_to postepolice,
+    cant_go "La sortie est a l'Est.",
+    has light;
+
+Furniture armoire "armoire"
+ with description "meuble avec armoire.",
+         name 'armoire' 'meuble';
+
+Furniture banc "banc"
+    with description "un banc blanc, pour les examens."
+              name 'banc';
+
+Npc infirmiere "infirmerie" infirmerie
+  with description "Elle semble s'affaire a remplir des papiers.",
+          name 'infirmiere' 'femme',
+          life [;
+          Talk, Ask, Tell: print_ret "Venez me voir quand vous serez blesse.";
+               ;],
+          has female;
+
+Room salleenquete "Salle d'enquete"
+with description [;
+print "La salle ou tout commence";
+if (self hasnt visited)
+  print "^Presentation enqueteur.";
+  ],
+    w_to postepolice,
+    cant_go "La sortie est a l'Ouest.",
+    has light;
+
+Object babillard "babillard" salleenquete
+    with description "Un babillard.",
+            name 'babillard';
+
+
+Npc enqueteur "Enqueteur" salleenquete
+with description "l'enqueteur en chef du depart.",
+        name 'enqueteur' 'inspecteur',
+
+        times_spoken_to 0,
+        life [;
+
+                Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
+                switch (self.times_spoken_to) {
+                 1: "Premier texte";
+                 2: " Deuxieme texte";
+                 default: "dernier texte";
+               }
+
+                  ;];
 
 
 
@@ -236,14 +392,49 @@ Furniture chaise "chaise"
            with description"une chaise en plastique bon marche.
                                       Il doit y en avoir des centaines dans la reserve.",
                    name 'chaise',
-                   article "une",
-                   found_in sallepratique,
-                   has female;
+                   article "la",
+
+                   found_in sallepratique postepolice sallepoliciers salleenquete,
+                   has;
+
+  Furniture table "table"
+        with description "une table robuste, mais bon marche.",
+                name 'table',
+                found_in sallepratique salleenquete sallepoliciers;
 
 Deco plante "plante verte"
  with description "Une plante",
          name "plante",
-         found_in policeaccueil postepolice;
+         found_in policeaccueil postepolice infirmerie sallepoliciers;
+
+Deco horloge "horloge"
+with description "Une horloge des plus banales",
+        name 'horloge',
+ before [;
+ look, examine: if (noun == horloge) "~~ Quoi, vous n'avez jamais vu d'horloge?~~ S'exclame la receptionniste.";
+
+          ;],
+      found_in policeaccueil postepolice;
+
+Deco tapisgris "Tapis"
+with description "un tapis gris, sale, triste.",
+        name 'tapis',
+        found_in policeaccueil postepolice;
+
+Deco ordinateur "ordinateur"
+with description "l'ordinateur de travail pour les employes de l'accueil.",
+        name 'ordinateur' 'tour',
+        found_in policeaccueil postepolice;
+
+Deco telephone "telephone"
+with description "Le telephone de travail des employes.",
+        name 'telephone' 'combine',
+          found_in policeaccueil postepolice infirmerie;
+
+Furniture tableau "tableau"
+with description "Un tableau blanc.",
+        name 'tableau',
+        found_in sallepratique salleenquete;
 
 
 !-------------------Objets récurrents-----------------------------------------------------------!
@@ -260,9 +451,9 @@ print_ret "A ce moment, vous ne savez que dire.";
 ];
 
 Extend 'asseoir' first
-* 's^' 'sur' noun       ->Enter
+* 's^' 'sur' noun -> Enter
 * 's^' 'sur' 'la' noun -> Enter;
 
 Extend 'parler' replace
 * 'a'/'avec' creature -> Talk
-* creature                -> Talk;
+* creature             -> Talk;
