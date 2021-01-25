@@ -1,5 +1,117 @@
 ## Idées pour l'histoire en lien avec Inform
 
+Les indigènes sont inoffensif, si le joueur les attaques, il devient automatiquement empoisonné. Mais s'il leur parle simplement, il pourrait même avoir des indices sur les statuettes.
+
+La moto est trouvable dans la cours à scrap. Mais elle n'a pas d'essence. Sans essence, le joueur à faim? (encore).
+Ou avec la police le joueur doit trouver l'essence dans le quartier, contre avec les criminel l'essence est fournie.
+Il y a une piece avant la cours à scrap (à gauche) où le joueur peut déposer des objets. Cela afin de chercher des statuettes et des objets dans la cours à scrap.
+
+Répartir les goodies dans les trois quartier
+
+Me mettre dans le jeu (un appartement au complet avec moi dedans, 5 étages, chacun étant un de mes lieux de vie, et où j'epxlique la création de nathalie. Cela dans le dernier quartier.
+
+Objet rêve colonne
+
+un rêve, à l'arrivée des terres brûlées, ou l'inspecteur doit marcher sur un sol invisible (un chemin tracé invisible), s'il va dans la mauvaise direction, il tombe et retourne sur la colonne.
+Il pourrait voir un visage géant (du croco?) avec qui il parle. Mettre un chemin caché?
+Faire un rêve méta sur le hangar
+
+Flaguer le joueur s'il vient du hangar *vers* les cinématique, pour pas que le hangar soit accessible depuis les cinématiques.
+
+Fusionner les Daemon du criminel et du policier en un seul Daemon ennemis dont la description change selon le badge
+
+###### Moyen de transport
+avec la police:
+- voiture (sabotée)
+- moto
+
+avec les criminels:
+- Voiture (chauffeur)
+- Moto (essence fournie par la planque?)
+
+
+
+Ensuite une moto de la scrap?
+Faux choux de la voiture de police qui crash (maison abandonnée)
+
+
+L'enfant prodige habite en bordure de la ligne verte, ver le dernier quartier, genre de lieu abandonné.
+
+Mettre le hangar sous une rue/poste
+
+
+Score:
+Prier a l'autel
+Nourrir les canard au parc
+Découvrir le hangar
+L'entrée derrière l'armoire dans la maison
+Converser avec le vieil homme
+Découvrir l'appartement spécial
+Découvrir une statuette rare
+
+Peut être pris au magasin :
+
+Pain
+Essence
+Alcool
+Bandage
+Antidote
+Bombe fumée (crocodile)
+Corde (intrus)
+
+Drone: désactive les daemons ennemis (fournis par les criminels, ou volé à la maison)
+Pistol laser (volé à la maison) joker pour n'importe quelle rencontre ennemie (une utilisation, tue automatiquement)
+
+
+Potion des terre brûlée (cure anything)
+
+
+Les cut scene pourrait être accessible depuis le hangar!
+
+Personnifier la faim dans le hangar
+
+Éléments aléatoire possible:
+
+- Un homme blessé (nécessite une trousse ou une potion)
+À réserver pour le dernier quartier,
+Quand tous les autres daemon sont stoppés
+
+Faire des lieux caché (pour le score)
+Score objet maison lieu cache perso rares
+L'autel trou clôture stationnement
+
+
+La bibliothécaire c'est l'oracle?
+
+
+Faire l'entrée secrète de l'infirmerie?
+(En parlant plus d'une fois avec l'infirmière)
+
+La maison est loin.
+
+Après l'épisode du cybercafe, le joueur est flagué:
+Il ne peut plus entrer dans les appartements ou dans l'usine.
+Seul reste l'oracle, l'hypermarché (et le poste?)
+Pour s'en aller du quartier, il doit retourner à sa voiture
+
+Finalement, coder la bibliothèque
+(Chaque livre = un objet à examiner)
+Une seule pièce
+
+L'ordinateur est un lieu!
+Avec autant de dossier-objet à examiner
+Pour aller a l'ordi il faut s'adresse au commis, une routine YesOrNo est invoquée
+Si oui : MovePlayerTo(Ordi)
+Print_ret "vous vous installer à un poste de travail"
+StartDaemon: nombre de tours comptés pour le joueur!!!
+(Genre 3-4)
+Afin qu'il ne puisse pas lire tous les fichiers (rejouabilité haha)
+Quand le code hit default: scène avec l'enfant prodige
+If self hast visited: {
+Interaction avec le commis}
+
+Else (Vous n'avec aucune instant à perdre avec cette information en main)
+
 La commande examine me permet de produire un texte sur le player. Il serait intéressant d’intercepter des commandes examine me selon ou le joueur se trouve, avec différentes description. Ou encore, de créer des routines qui appelle différentes descriptions selon un système de points .
 
 Il est possible de programmer différentes fin de jeu à l’aide d’un système de valeur (DeathMessage)
@@ -94,8 +206,5 @@ Nathalie (hyper rare)
 
 oublier la voiture/moto comme objet interactif.
 En faire un objet dans le jeu seulement descriptif.
-
-Il sera impossible de rentrer dans la bibliothèque.
-Elle ne sera présente que dans l'histoire.
 
 Le quartier finale, c'est à ce moment que le joueur devient Nathalie.

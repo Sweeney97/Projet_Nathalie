@@ -1,5 +1,7 @@
 ### Nathalie VADE
 
+L'essence est rare dans les quartiers. L'exploitation de pétrole est une relique. Les voitures sont électrique ou à l'hydrogène. 
+
 Les ordinateurs personnels sont interdits à la population des quartiers. Ils n'y ont accès que dans les cybercafé (alors ils pourraient être surveillés/contrôlés).
 À l'exception des officiels, ex. l'armée ou la police.
 L'enquêteur possède un terminal portatif, genre de micro-ordinateur.

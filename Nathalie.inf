@@ -1,72 +1,92 @@
 !% -SD
-!%
+
 Constant Story "Projet Nathalie";
-Constant Headline "^Antoine Sweeney^";
-Constant MANUAL_PRONOUNS;           ! Optional, but useful
-Constant MAX_CARRIED = 10;
+ Constant Headline "^Antoine Sweeney^";
+ Constant MANUAL_PRONOUNS;           ! Optional, but useful
+ Constant MAX_CARRIED = 10;
 
 Include "Parser";
-Include "VerbLib";
-
-
+  Include "VerbLib";
 
 !------------------------------------------------------------------------------!
 
 [ Initialise;
     TitlePage();
-    location = postepolice;
+    location = introduction;
     lookmode = 2; !-----permet d'afficher en tout temps les descriptions des endroits
     move badge to player;
+
+! Daemons à vérifier-coder
 !   StartDaemon(marchand);
 !   StartDaemon(foule);
     StartDaemon(policiers);
-    StartDaemon(policier);
+! StartDaemon(policier);
 !    StartDaemon(nathalie);
 !   StartDaemon(sansabris);
-!  StartDaemon(danger);
 ! StartDaemon(faim);
 ! StartDaemon(checker);
-    StartDaemon(criminel);
+!    StartDaemon(criminel);
+
     player.description = "Un homme incroyable.";
 ];
 
 !---------------------------------------Global variables---------------------------------------------------------------------!
 
+! Global variable à défénir
 ! Global playerhurt = 0;
 ! Global playerhnugry = 0;
 ! Global playerpoison = 0;
 
+Global lecture = 0;
+
 !--------------------------Les Classes----------------------------------------------------!
 
-    Class   Lieu
+Class Cutscene
+        with  before [;
+
+   Examine: <<talk self>>;
+
+    Drop:  print_ret "S'il vous plait, tapez ~lire~.";
+
+   Talk: print_ret "S'il vous plait, tapez ~lire~.";
+
+   Wait: print_ret "S'il vous plait, tapez ~lire~.";
+
+                              ],
+
+     cant_go "S'il vous plait, tapez ~lire~.",
+
+   has light;
+
+
+Class   Lieu
       with cant_go "Vous n'etes pas la pour vous ballader en explorateur.",
       has   light;
 
-  Class Room
+Class Room
   has light;
 
-    Class   Furniture
-      with  before [;
+Class   Furniture
+     with  before [;
           Take,Pull,Push,PushDir:
-            print_ret "Cela est inutile.";
-        ],
-  has   static supporter scenery;
+            print_ret "Cela est inutile.";  ],
+   has   static supporter scenery;
 
-  Class Street
+Class Street
     has light;
 
-  Class ruelle
+Class ruelle
   has light;
 
-  Class Deco
+Class Deco
     with before [;
         Take,Pull,Push,PushDir:
           print_ret "Vous voulez r@'eam@'enager?.";
       ],
-has scenery;
+   has scenery;
 
 Class Npc
-has animate;
+  has animate;
 
 Class Figurants
     with before [;
@@ -148,7 +168,6 @@ Npc receptionniste "r@'eceptionniste" policeaccueil
 
       has female;
 
-
 Room sallepratique "La salle pour pratiquer"
     with description  [;
     print "La salle est simpe, il y a un tableau au mur. Le professeur est debout, et n'a meme pas de bureau.
@@ -167,7 +186,6 @@ Room sallepratique "La salle pour pratiquer"
       w_to policeaccueil,
       cant_go "La seule sortie est a l'Ouest, vers l'accueil.";
 
-
 Furniture pupitre "pupitre" sallepratique
  with description "Un pupitre en bois, il doit certainement venir d'un surplus d'ecole.",
         name 'pupitre' 'bureau',
@@ -180,9 +198,8 @@ Npc professeur "professeur" sallepratique
           badgeshown 0,
 
           life [;
-
                   Talk, Ask, Tell:
-if (player in chaise && identifiant in professeur) {
+          if (player in chaise && identifiant in professeur) {
                   self.times_spoken_to = self.times_spoken_to + 1;
                   switch (self.times_spoken_to) {
                    1:   move certification to player;
@@ -196,16 +213,16 @@ if (player in chaise && identifiant in professeur) {
                          Si votre commande est incomprise reformulez, et essayer d'enlever des articles.
                          Ah oui. Et reverifier l'orthographe! Une lettre de trop et rienne sera compirs.";
 
-
                    2: " Il y a dux types d'action: les meta-action comme quitter, recommencer et undo. Ces actions affectent le logiciel Frotz.
                          Puis il y a les actions que vous ferez souvent en jeu: inventaire (pour voir votre inventaire), lire, regarder, sentir, examiner, chercher, toucher.
                          Cette enquete ne devrait pas etre bien compliquee: peu d'enigmes, peu de combat. Beaucoup de lecture.
                          Mais si vous etes coince essayer de penser. Peut-etre cela sera utile durant certaine occasion. Taper simplement -penser- a la console.
                          Si rien n'arrive, c'est que votre cervelle ne vous aidera pas. ";
+
                    default: "Vous savez desormais tout ce qui est necessaire. D'autre instructions pourront etre donnees en cours de route. Soyez attentif et surtout,
                                   lisez attentivement! Bonne chance.";
-                 }    }
 
+                 }    }
                  if (certification in player) { print_ret "duegerpissez!";
                  }
                  else { print_ret "Je dois voir votre badge. Donner-moi votre identifiant. Asseyez-vous."; }
@@ -217,8 +234,6 @@ if (player in chaise && identifiant in professeur) {
                         }
                     print "Je dois voir votre"; style underline; print " badge.";
                     return true;
-
-
                 give:    if (self.badgeshown == 1) {
                      if (noun == identifiant)
                     {
@@ -228,16 +243,13 @@ if (player in chaise && identifiant in professeur) {
                     }  }
                   else print "Je dois"; style underline; print " voir "; style roman; print "votre badge.";
                   return true;
-
                     ;],
             article "le",
             has animate;
 
-
 Object certification "Certification" professeur
             with description "un bout de papier",
                     name          "certification";
-
 
 Object citysub "rue de la cit@'e"
       with description "On peut voir non loin de la, l'accident de la veille.",
@@ -265,16 +277,17 @@ Npc cheftrain "chef de train" garecite
              }
              Talk, Ask, Tell:
             print "Vous voulez partir? Avez-vous votre ticket?";
-            if (YesOrNo (true)) {
+            if (YesOrNo ()) {
             if (ticket in player)
             {
               PlayerTo(postepolice);
               move ticket to cheftrain;
               print_ret "vous effectuez un court voyage de train.";
-            }}
-            if (YesOrNo (false)) {
+            }       print_ret "il me faut absolument votre ticket";
+
+                    }
+            else {
             print_ret "Il semble que vous ne soyez pas pres. J'attends ici patiemment";   }
-            else print_ret "il me faut absolument votre ticket";
 
              ;],
              has animate;
@@ -287,13 +300,12 @@ Room postepolice "poste du Quartier Sud."
       w_to infirmerie,
       e_to salleenquete;
 
-
 Room sallepoliciers "Salle de pause"
-with description [;
-print "Plusieurs policiers y sont. Ils discutent.";
-if (self hasnt visited)
+ with description [;
+ print "Plusieurs policiers y sont. Ils discutent.";
+ if (self hasnt visited)
   print "^Presentation Richard.";
-  ],
+   ],
     s_to postepolice,
     cant_go "La sortie est au Sud",
     has light;
@@ -306,13 +318,12 @@ Figurants policiers "policiers" sallepoliciers
                if (location == sallepoliciers && random(3) == 1) {
                  self.number_of_comments = self.number_of_comments + 1;
                  switch (self.number_of_comments) {
-1: "commentaire";
-2: "commentaire deux";
-3: "commentaire trois";
-default: StopDaemon(self);
-} }
-];
-
+ 1: "commentaire";
+ 2: "commentaire deux";
+ 3: "commentaire trois";
+ default: StopDaemon(self);
+ } }
+ ];
 
 Npc boncollegue "Richard" sallepoliciers
       with description "moustache molle, un peu niais. Mais bon.",
@@ -335,7 +346,7 @@ Deco machinecafe "machine a cafe" sallepoliciers
               name 'machine';
 
 Object cafe "cafe" sallepoliciers
-with description "Il goute la mort, mais il reveille.",
+ with description "Il goute la mort, mais il reveille.",
         name 'cafe',
         before
         [;
@@ -345,9 +356,9 @@ with description "Il goute la mort, mais il reveille.",
         has edible;
 
 Room infirmerie "Infirmerie"
-with description [;
-print "Un banc blanc, des armoires, des trousses de soins. Et, evidemment, une infirmiere.";
-if (self hasnt visited)
+ with description [;
+ print "Un banc blanc, des armoires, des trousses de soins. Et, evidemment, une infirmiere.";
+ if (self hasnt visited)
   print "^presentation infirmiere.";
   ],
 
@@ -366,28 +377,34 @@ Furniture banc "banc"
 Npc infirmiere "infirmerie" infirmerie
   with description "Elle semble s'affaire a remplir des papiers.",
           name 'infirmiere' 'femme',
+          times_spoken_to 0,
           life [;
-          Talk, Ask, Tell: print_ret "Venez me voir quand vous serez blesse.";
-               ;],
+
+                  Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
+                  switch (self.times_spoken_to) {
+                   1: "Background infirmière";
+                   2: " chemin caché";
+                   default: "N'hésitez pas à revenir me voir si vous vous blessez.";
+                 }
+
+                    ;],
           has female;
 
 Room salleenquete "Salle d'enquete"
-with description [;
-print "La salle ou tout commence";
-if (self hasnt visited)
+ with description [;
+ print "La salle ou tout commence";
+ if (self hasnt visited)
   print "^Presentation enqueteur.";
   ],
     w_to postepolice,
     cant_go "La sortie est a l'Ouest.";
 
-
 Object babillard "babillard" salleenquete
     with description "Un babillard.",
             name 'babillard';
 
-
 Npc enqueteur "Enqueteur" salleenquete
-with description "l'enqueteur en chef du depart.",
+  with description "l'enqueteur en chef du depart.",
         name 'enqueteur' 'inspecteur',
 
         times_spoken_to 0,
@@ -397,25 +414,23 @@ with description "l'enqueteur en chef du depart.",
                 switch (self.times_spoken_to) {
                  1: "Premier texte";
                  2: " Deuxieme texte";
-                 default: "dernier texte";
+                 default: "dernier texte";  !donner un indice, une pièce à conviction? un journal d'enquête!
                }
 
                   ;];
 
 !---------------------------------------------------------Les lieux du premier Quartier----------------------------------------------------------------!
 
-
 Lieu hypercoffe "Cybercaffe"
     with description "Ce caffe vous permet d'avoir acces a un ordinateur.",
       s_to arrierecours,
       n_to rueduparc;
 
-
-      Lieu arrierecours "l'arriere cours du cybercafe"
+Lieu arrierecours "l'arriere cours du cybercafe"
        with description "Une jolie terasse.",
             n_to hypercoffe;
 
-      Lieu parc "parc"
+Lieu parc "parc"
          with description "Un immense parc. Au Sud vous pouvez rejoindre la rue du parc. A l'Ouest, se trouve le palais de justice, et a l'Est, la Grande Allee.",
             e_to grandeallee1,
             s_to rueduparc,
@@ -435,24 +450,22 @@ Lieu appartement2 "appartement moyen"
     with description "un appartement de classe moyenne. En face du stationnement.",
             e_to ruebernardlee1;
 
-
 Lieu maison "maison"
  with description "une grande et belle maison",
          w_to grandeallee1,
          sw_to carrefour2;
 
-
-                     Lieu usine "L'usine"
+Lieu usine "L'usine"
                        with description "une sombre usine",
                        n_to ruedestravailleurs;
 
-                     Lieu hypermarche "L'hypermarche"
+Lieu hypermarche "L'hypermarche"
                          with description "Plus immense encore qu'aux temps de l'empire Americain.",
                          w_to grandeallee2;
 
-                         Room hangar "hangar"
-                                   with description "un lieu assez meta.";
-                         !                 e_to sous-sol;      ! le sous-sol de la maison. l'entrée du hangar est cachée derriere un meuble qu'il faut pousser.
+Room hangar "hangar"
+  with description "un lieu assez meta.";
+     !                 e_to sous-sol;      ! le sous-sol de la maison. l'entrée du hangar est cachée derriere un meuble qu'il faut pousser.
 
 !---------------------------------------------------Npc premier quartier ------------------------------------------------!
 
@@ -469,8 +482,6 @@ Street rueduparc "rue du parc"
         w_to carrefour1,
         s_to hypercoffe,
         e_to carrefour2;
-
-
 
 Street grandeallee1 "La grande allee"
       with description "L'allee borde l'hypermarche. A l'Ouest, il y a le parc du quartier, au sud la Grande Alle croise la rue du parc.
@@ -565,15 +576,22 @@ Street carrefour6 "Un embranchement"
         w_to ruedestravailleurs,
         e_to "Vous ne pouvez aller plus loin";
 
-
-
 !----------------------------Cut-scene 2--------------------------------------------------!
 
 !-------------------------Page titre------------------------------------------------------!
 
-[ TitlePage;
- print "Text d'introduction";
- ];
+[ TitlePage i;
+ @erase_window -1; print "^^^^^^^^^^^^^";
+ i = 0->33; if (i > 30) i = (i-30)/2;                                             ! le crédit revient à Graham Nelson pour la boîte d'intro, tirée depuis "Ruins"
+ style bold; font off; spaces(i);
+ print "[Appuyez sur Entree pour debuter.]";
+ font on;
+ box "Il est moins difficile d'echaper a la mort"
+        "qu'a la mechancete."
+        "- Platon";
+        @read_char 1 -> i;
+        @erase_window -1;
+        ];
 
 !------------------------------------------------------------------------------!
 
@@ -584,8 +602,6 @@ Include "FrenchG";
 Object badge "Votre badge"
      with description "Un badge officiel",
               name "Badge";
-
-
 
 !-------------------Objets récurrents, les postes de police-----------------------------------------------------------!
 
@@ -614,38 +630,38 @@ Deco plante "plante verte"
          found_in policeaccueil postepolice infirmerie sallepoliciers;
 
 Deco horloge "horloge"
-with description "Une horloge des plus banales",
+  with description "Une horloge des plus banales",
         name 'horloge',
- before [;
- look, examine: if (noun == horloge) "~~ Quoi, vous n'avez jamais vu d'horloge?~~ S'exclame la receptionniste.";
+   before [;
+   look, examine: if (noun == horloge) "~~ Quoi, vous n'avez jamais vu d'horloge?~~ S'exclame la receptionniste.";
 
           ;],
       found_in policeaccueil postepolice;
 
 Deco tapisgris "Tapis"
-with description "un tapis gris, sale, triste.",
+    with description "un tapis gris, sale, triste.",
         name 'tapis',
         found_in policeaccueil postepolice;
 
 Deco ordinateur "ordinateur"
-with description "l'ordinateur de travail pour les employes de l'accueil.",
+   with description "l'ordinateur de travail pour les employes de l'accueil.",
         name 'ordinateur' 'tour',
         found_in policeaccueil postepolice;
 
 Deco telephone "telephone"
-with description "Le telephone de travail des employes.",
+  with description "Le telephone de travail des employes.",
         name 'telephone' 'combine',
           found_in policeaccueil postepolice infirmerie;
 
 Furniture tableau "tableau"
-with description "Un tableau blanc.",
+   with description "Un tableau blanc.",
         name 'tableau',
         found_in sallepratique salleenquete;
 
 !---------------------centre de données----------------------------------------------------------------------------!
 
-Object centredonnees "centre de donnees"
-has light;
+!Lieu centredonnees "centre de donnees"
+
 !-------------------Objets récurrents-----------------------------------------------------------!
 
 
@@ -655,7 +671,6 @@ has light;
 
 !  Pour le dernier quartier avec Nathalie et la bibliothèque, arrêter tous les Daemon!
 !  Allumer pour le deuxième quartier le daemon pour les commentaire au bar (s'il y a lieu) et pour les indigènes poisonneux!
-
 
 ! Object checker "verificateur" hangar
 !             with description "une machine tres compliquee",
@@ -692,8 +707,6 @@ has light;
 !             turns_bad = 0;
 !                           ;];
 
-
-
 ! Object faim "faim"
 !   with    daemon [;
 !             if (random (100) == 1) {
@@ -701,7 +714,6 @@ has light;
 !             print_ret "une faim incroyable vous saisit";
 !                                                  }
 !                             ;];
-
 
 ! Figurant foule "foule" hangar
 !            with description "Une foule se forme autour de deux combattants"
@@ -722,8 +734,8 @@ has light;
 ! with description "l'oeil terrible, la poigne forte.";
 
 ! Rixe  [;
-! If (YesOrNo(true)) {
-!  if (random (2) == 1) {
+! If (YesOrNo(true)) {                                             !enlever la valeur true dans la routine YesOrNo: elle est incluse logiquement
+!  if (random (2) == 1) {                                        !Voir chef gare de train
 !  print "votre intervention est un succes!";
 !  give reward to player;
 ! return true;
@@ -748,9 +760,6 @@ has light;
 !                                   move sansabris to location;
 !                                   StopDaemon(sansabris);
 !                          ;]
-
-
-
 !         life [;
 !                  Give: if (noun == alcool) {
 !                            give sansbris general;
@@ -767,78 +776,67 @@ has light;
 !                              else print_ret "J'ai l'esprit embrume sans alcool."
 !               ;]
 
+! Npc marchand "marchand ambulant" hangar
+!      with name 'marchant' 'ambulant' 'vendeur',
+!      each_turn "Un marchant ambulant! vous pouvez le suivre.",
+!      daemon [ direction marchand_at way exit_count exit_chosen;
+!      if (random(3) ~= 1) rfalse;
+!      marchand_at = parent(marchand);
+!      objectloop (direction in compass) {
+!way = marchand_at.(direction.door_dir);
+!if (way ofclass Street && way hasnt door) exit_count++;
+!}
+!if (exit_count == 0) rfalse;
+!exit_chosen = random(exit_count); exit_count = 0;
+!objectloop (direction in compass) {
+!way = marchand_at.(direction.door_dir);
+!if (way ofclass Street && way hasnt door) exit_count++;
+!if (exit_count == exit_chosen) {
+!move self to way;
+!if (marchand_at == location) "Le marchand part.";
+!if (way == location) "le marchand ambulant fait irruption.";
+!rfalse;
+!} }
+!];
 
+! Npc nathalie "Nathalie"
+ ! with name 'Nathalie',
+  ! with description "Une rencontre speciale",
+  !       rencontre 0,
+!          daemon [;
+!             if (location ofclass Street) self.rencontre = self.rencontre + 1;
+!             if (self.rencontre == 50) {
+!             move nathalie to location;
+!             print  "Vous rencontrer Nathalie.";
+!             }
+!             if (self.rencontre == 51) {
+!             move nathalie to centredonnees;
+!             StopDaemon(nathalie);
+!             }
+!             ],
+!             has female;
 
-Npc marchand "marchand ambulant" hangar
-      with name 'marchant' 'ambulant' 'vendeur',
-      each_turn "Un marchant ambulant! vous pouvez le suivre.",
-      daemon [ direction marchand_at way exit_count exit_chosen;
-      if (random(3) ~= 1) rfalse;
-      marchand_at = parent(marchand);
-      objectloop (direction in compass) {
-way = marchand_at.(direction.door_dir);
-if (way ofclass Street && way hasnt door) exit_count++;
-}
-if (exit_count == 0) rfalse;
-exit_chosen = random(exit_count); exit_count = 0;
-objectloop (direction in compass) {
-way = marchand_at.(direction.door_dir);
-if (way ofclass Street && way hasnt door) exit_count++;
-if (exit_count == exit_chosen) {
-move self to way;
-if (marchand_at == location) "Le marchand part.";
-if (way == location) "le marchand ambulant fait irruption.";
-rfalse;
-} }
-];
-
-Npc nathalie "Nathalie"
- with name 'Nathalie',
-  with description "Une rencontre speciale",
-         rencontre 0,
-          daemon [;
-             if (location ofclass Street) self.rencontre = self.rencontre + 1;
-             if (self.rencontre == 50) {
-             move nathalie to location;
-             print  "Vous rencontrer Nathalie.";
-             }
-             if (self.rencontre == 51) {
-             move nathalie to centredonnees;
-             StopDaemon(nathalie);
-             }
-             ],
-             has female;
-
-Npc policier "policier"
-with name 'policier',
-        description "Un policier faisant sa ronde.",
-        daemon [;
-        if (location ofclass Street && (random(100) == 1))
-        move policier to location;
-                      ],
+!Npc policier "policier"
+!with name 'policier',
+!        description "Un policier faisant sa ronde.",
+  !      daemon [;
+  !      if (location ofclass Street && (random(100) == 1))
+  !      move policier to location;                      ],
 ! inclure le verbe saluer!
-
-       life [;
-
-         Talk, Ask, Tell: if (badge in player) {
-        print "Vous vous saluez";
-        move policier to hangar;
-        return true;
-                  }
-        else <<Attack self>>;
-
-        Attack:
-        move policier to hangar;
-        print_ret "il s'enfuit, blesse, mais non mort.";
-
-            ],
-        react_before  [;
-
-     Go: print_ret "Essayer de partir sans tenir compte de la vigie est une pietre idee.";
-
-                      ];
-
-
+  !     life [;
+    !     Talk, Ask, Tell: if (badge in player) {
+    !    print "Vous vous saluez";
+    !    move policier to hangar;
+    !    return true;
+    !              }
+!        else <<Attack self>>;
+  !      Attack:
+  !      move policier to hangar;
+    !    print_ret "il s'enfuit, blesse, mais non mort.";
+  !          ],
+  !      react_before  [;
+!     Go: print_ret "Essayer de partir sans tenir compte de la vigie est une pietre idee.";
+  !                    ];
                       !  if (badge in player) print_ret "Il vous salue.";
                       !  else  {
                       !  playerhurt = 1;
@@ -846,44 +844,76 @@ with name 'policier',
                       ! }
                       ! ];
 
- Npc criminel "criminel" hangar
-          with name 'criminel',
-            description "un criminel furtif.",
-              daemon [;
-                     if (location ofclass Street && (random(80) == 1))
-                     move criminel to location;
-                          ],
-                          life [;
+   ! il serait possible de mettre un before dans la classe street:
+   ! before: if (policier in location)
 
-                            Talk, Ask, Tell: if (badge notin player) {
-                           print "Un regard discret vous suffit.";
-                           move criminel to hangar;
-                           return true;
-                                     }
-                           else <<Attack self>>;
 
-                           Attack:
-                           move criminel to hangar;
-                           print_ret "il s'enfuit, blesse, mais non mort.";
+ !Npc criminel "criminel" hangar
+    !      with name 'criminel',
+      !      description "un criminel furtif.",
+      !        daemon [;
+      !               if (location ofclass Street && (random(80) == 1))
+      !               move criminel to location;
+      !                    ],
+      !                    life [;
+            !                Talk, Ask, Tell: if (badge notin player) {
+          !                 print "Un regard discret vous suffit.";
+          !                 move criminel to hangar;
+          !                 return true;
+        !                             }
+        !                   else <<Attack self>>;
+            !               Attack:
+          !                 move criminel to hangar;
+        !                   print_ret "il s'enfuit, blesse, mais non mort.";
+    !                           ],
+    !            react_before       [;
+      !                Go: print_ret "Vous etes repere par un criminel de la planque. Tenter de vous enfuir sans lui parler serait une mauviase idee.";
+      !                                 ];
 
-                               ],
-                react_before       [;
+!----------------------------------------Cutscene---------------------------------------------------------!
 
-                      Go: print_ret "Vous etes repere par un criminel de la planque. Tenter de vous enfuir sans lui parler serait une mauviase idee.";
+Cutscene introduction "Introduction"
+                 with description "Introduction de Projet Nathalie.",
 
-                                       ];
+
+                 before    [;
+
+                Exit: PlayerTo(policeaccueil);
+                        return true;
+
+                Read:
+                            lecture = lecture + 1;
+                            switch (lecture) {
+                             1: "Premier texte";
+                             2: " Deuxieme texte";
+                             default:  lecture = 0;
+                            "Vous avez termine la lecture. Vous pouvez recommencer a nouveau.
+                               Tapez ~Sortir~ lorsque vous avez termine.";
+
+                           }
+
+
+                                ];
 
 !------------------------------------------------------------------------------------------------!
 [ TalkSub;
-if (noun == player) print_ret "Rien d'inattendu.";
-if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
-print_ret "A ce moment, vous ne savez que dire.";
-];
+ if (noun == player) print_ret "Rien d'inattendu.";
+ if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+ print_ret "A ce moment, vous ne savez que dire.";
+ ];
+
+[ReadSub;
+ "Vous lisez pour passer le temp.";
+ ];
 
 Extend 'asseoir' first
-* 's^' 'sur' noun -> Enter
-* 's^' 'sur' 'la' noun -> Enter;
+ * 's^' 'sur' noun -> Enter
+ * 's^' 'sur' 'la' noun -> Enter;
 
 Extend 'parler' replace
-* 'a'/'avec' creature -> Talk
-* creature             -> Talk;
+ * 'a'/'avec' creature -> Talk
+ * creature             -> Talk;
+
+Extend 'lire' first
+*                         -> Read
+* noun               -> Read;
