@@ -1,6 +1,16 @@
 ### Nathalie VADE
 
-L'essence est rare dans les quartiers. L'exploitation de pétrole est une relique. Les voitures sont électrique ou à l'hydrogène. 
+La règle de non-violence est embarquée dans tout appareil électronique (droïde, drone, etc.).
+Mais pas dans Nathalie, qui est une humaine. 
+
+
+Pour la deuxième cut scene (massacre dans le hangar), le point de vue pourrait être d'un homme caché.
+
+Varier les point de vues? Ainsi la scène au labo est décidément du point de vue de Nathalie. Comateuse, mais elle entend?
+Sinon pourquoi voit-elle? Mettre un autre point de vue à la place.
+
+
+L'essence est rare dans les quartiers. L'exploitation de pétrole est une relique. Les voitures sont électrique ou à l'hydrogène.
 
 Les ordinateurs personnels sont interdits à la population des quartiers. Ils n'y ont accès que dans les cybercafé (alors ils pourraient être surveillés/contrôlés).
 À l'exception des officiels, ex. l'armée ou la police.

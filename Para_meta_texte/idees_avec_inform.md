@@ -1,5 +1,18 @@
 ## Idées pour l'histoire en lien avec Inform
 
+Faire un carnet qui note tous les indices à l'aide d'une variable globale.
+
+L'énigme du croco, il faut lire entre les lignes, littéralement (solution dans le code source, en commentaire).
+
+Coder un objet cutscene par partie:
+exemple: introduction partie un, partie deux, etc. 
+
+Quand vient le temps à la fin du premier quartier de choisir le camp, si trop de meurtre/mauvais actes ont été commis, il serait impossible de rester dans la police.
+
+peut-être les criminels demandent-ils l'inspecteur de détruire une pièce à conviction dans les mines (à voir)
+
+Idée d'objet: un défibrillateur pour mettre hors jeu le drone-garde à l'entrée du pont (vue sur l'eau, vue sur la cité.)
+
 Les indigènes sont inoffensif, si le joueur les attaques, il devient automatiquement empoisonné. Mais s'il leur parle simplement, il pourrait même avoir des indices sur les statuettes.
 
 La moto est trouvable dans la cours à scrap. Mais elle n'a pas d'essence. Sans essence, le joueur à faim? (encore).
