@@ -1,7 +1,17 @@
 ### Nathalie VADE
 
+Les sillo gigantesque, plus large qu'haut, cylindre applatis, enrobé de toiles de vinyle, avec leur numéro aussi grand qu'un homme peint en jaune, et leur tuyeau qui part de leur sommet vers leur base, le toutenroulé dans un escalier métalique.
+
+Les cheminées crachent leur étenrelle gerbe de fume qui s'enroule en torsade gris-sale. L'usine est grande de par son étendue, elle est en réalité un lot de bâtiment plat dans un complexe industriel. (ce qu'on appelle l'usine)
+
+Elle baigne toujours dans ce constant bruit d'usine, mi-métalique, mi-machinique, dans cette fumée cancérigène,dans cett ambiance morose du travail difficile, sale, assomant. 
+
+
+
+
+
 La règle de non-violence est embarquée dans tout appareil électronique (droïde, drone, etc.).
-Mais pas dans Nathalie, qui est une humaine. 
+Mais pas dans Nathalie, qui est une humaine.
 
 
 Pour la deuxième cut scene (massacre dans le hangar), le point de vue pourrait être d'un homme caché.
