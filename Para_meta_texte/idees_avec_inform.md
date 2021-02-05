@@ -1,11 +1,15 @@
 ## Idées pour l'histoire en lien avec Inform
 
+Faire un chat qui se promène dans le premier quartier? le ramener à son proprio ferait monter le score. Je peux prendre le même code que pour le vendeur ambulant et confiner le vendeur aux quartiers 2 et 3.
+
+Si les string pour les cut-scene sont trop grosses pour Frotz-z5, je peux toujours faire un e-book ou un html à côté pour que le joueur puisse le lire. (Exemple, dans le jeu: lisez le chapitre trois du livre). Dans tous les cas je peux faire une stand-alone file pour l'histoire.
+
 Faire un carnet qui note tous les indices à l'aide d'une variable globale.
 
 L'énigme du croco, il faut lire entre les lignes, littéralement (solution dans le code source, en commentaire).
 
 Coder un objet cutscene par partie:
-exemple: introduction partie un, partie deux, etc. 
+exemple: introduction partie un, partie deux, etc.
 
 Quand vient le temps à la fin du premier quartier de choisir le camp, si trop de meurtre/mauvais actes ont été commis, il serait impossible de rester dans la police.
 
@@ -15,7 +19,7 @@ Idée d'objet: un défibrillateur pour mettre hors jeu le drone-garde à l'entr�
 
 Les indigènes sont inoffensif, si le joueur les attaques, il devient automatiquement empoisonné. Mais s'il leur parle simplement, il pourrait même avoir des indices sur les statuettes.
 
-La moto est trouvable dans la cours à scrap. Mais elle n'a pas d'essence. Sans essence, le joueur à faim? (encore).
+La moto est trouvable dans la cours à scrap. Mais elle n'a pas d'essence. Sans essence, le joueur à faim? (encore). 
 Ou avec la police le joueur doit trouver l'essence dans le quartier, contre avec les criminel l'essence est fournie.
 Il y a une piece avant la cours à scrap (à gauche) où le joueur peut déposer des objets. Cela afin de chercher des statuettes et des objets dans la cours à scrap.
 
@@ -53,30 +57,30 @@ L'enfant prodige habite en bordure de la ligne verte, ver le dernier quartier, g
 Mettre le hangar sous une rue/poste
 
 
-Score:
-Prier a l'autel
-Nourrir les canard au parc
-Découvrir le hangar
-L'entrée derrière l'armoire dans la maison
-Converser avec le vieil homme
-Découvrir l'appartement spécial
-Découvrir une statuette rare
+### Score
+- Prier a l'autel
+- Nourrir les canard au parc
+- Découvrir le hangar
+- L'entrée derrière l'armoire dans la maison
+- Converser avec le vieil homme
+- Découvrir l'appartement spécial
+- Découvrir une statuette rare
+- Ramener l'animal
 
-Peut être pris au magasin :
+### Objets
 
-Pain
-Essence
-Alcool
-Bandage
-Antidote
-Bombe fumée (crocodile)
-Corde (intrus)
+###### Magasin
+- Pain (pour la faim, nourrir les canards)
+- Essence (mettre le feu, faire fonctionner la moto de la scrap)
+- Alcool (Trompe-faim, feu, sans-abris, nettoie la plaie)
+- Tissu (cocktail molotov, étouffer, bandage)
+- Bombe fumée (crocodile, enemis)
+- Corde (intrus)
 
-Drone: désactive les daemons ennemis (fournis par les criminels, ou volé à la maison)
-Pistol laser (volé à la maison) joker pour n'importe quelle rencontre ennemie (une utilisation, tue automatiquement)
-
-
-Potion des terre brûlée (cure anything)
+###### Autre objets
+- Drone (désactive les daemons ennemis, à voir)
+- Pistol laser (joker pour n'importe quelle rencontre incluant le droïde)
+- Potion des terre brûlée (cure anything)
 
 
 Les cut scene pourrait être accessible depuis le hangar!

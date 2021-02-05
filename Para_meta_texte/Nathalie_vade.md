@@ -1,10 +1,12 @@
-### Nathalie VADE
+métallique### Nathalie VADE
 
-Les sillo gigantesque, plus large qu'haut, cylindre applatis, enrobé de toiles de vinyle, avec leur numéro aussi grand qu'un homme peint en jaune, et leur tuyeau qui part de leur sommet vers leur base, le toutenroulé dans un escalier métalique.
+Ce n'est pas que l'inspecteur s'affilie *réellement* avec les criminels, mais plutôt qu'il le fait afin de venger sa femme/fille/autre. Seulement, au fur et à mesure qu'il avance dans cette direction, il doit commetre des actes de plus en plus difficiles... jusqu'à quel point est-il prêt à aller pour venger celle qu'il aime.
 
-Les cheminées crachent leur étenrelle gerbe de fume qui s'enroule en torsade gris-sale. L'usine est grande de par son étendue, elle est en réalité un lot de bâtiment plat dans un complexe industriel. (ce qu'on appelle l'usine)
+Les silo gigantesque, plus large qu'haut, cylindre aplatie, enrobé de toiles de vinyle, avec leur numéro aussi grand qu'un homme peint en jaune, et leur tuyaux qui part de leur sommet vers leur base, le tout enroulé dans un escalier métallique.
 
-Elle baigne toujours dans ce constant bruit d'usine, mi-métalique, mi-machinique, dans cette fumée cancérigène,dans cett ambiance morose du travail difficile, sale, assomant. 
+Les cheminées crachent leur éternelle gerbe de fume qui s'enroule en torsade gris-sale. L'usine est grande de par son étendue, elle est en réalité un lot de bâtiment plat dans un complexe industriel. (ce qu'on appelle l'usine)
+
+Elle baigne toujours dans ce constant bruit d'usine, mi-métalique, mi-machinique, dans cette fumée cancérigène, dans cette ambiance morose du travail difficile, sale, assommant.
 
 
 

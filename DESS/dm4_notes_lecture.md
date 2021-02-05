@@ -101,3 +101,23 @@ Pour cacher un objet, on peut soit: utiliser concealed, scenery, ou enlever la l
 found_in permet d'indiquer plusieurs locations
 
 l'attribu absent permet d'overide un objet déplacé par found_in voir page 109
+
+### Chapitre cinq
+
+la propriété articles sert pour les articles indéfinis alors que la propriété article (au singulier) sert pour les articles définis
+
+Un objet avec pluralname ne peut en aucun cas être appelé singulièrement par un joueur.
+
+Nelson donne l'exemple de raisins, je pourrais ajouter les cheveux.
+
+Donc, une salle avec plusieurs chaises, il faudrait l'objet chaise et l'objet chaises.
+
+### Chapitre huit
+
+Le narrateur est un personnage qui fait le pont entre la réalité et le jeu. Il est le seul dans le jeu à savoir que c'est un jeu.
+
+Les autres personnages peuvent avoir conscience du narrateur (v. page 373)
+
+Éviter qu'un objet ne serve qu'à une occasion et plus après. Plutôt faire en sorte que les objets peuvent avoir plus d'une utilité.
+
+Variety is valuable, but logic and fairness are paramount.
