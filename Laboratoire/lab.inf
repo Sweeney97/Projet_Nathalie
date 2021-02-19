@@ -15,103 +15,40 @@ Include "VerbLib";
 ];
 
 !-----------------------------------------------------------------------------!
-Global lecture = 0;
-!------------------------------------------------------------------------------!
 
-Class Cutscene
-        with  before [;
-
-   Examine: <<talk self>>;
-
-    Drop:  print_ret "S'il vous plait, tapez ~lire~.";
-
-
-   Wait: print_ret "S'il vous plait, tapez ~lire~.";
-
-                              ],
-
-     cant_go "S'il vous plait, tapez ~lire~.",
-
-   has light;
-
+!Vérifier si dis-le-moi est un ordre ou un tell
 
 !-------------------------------------------------------------------------------!
 
 Object  study "Mon laboratoire"
   with  description "Une piece blanche, avec tout le necessaire du scientifique.",
-             n_to introduction,
+
               has light;
 
-              Cutscene introduction "Introduction partie un"
-                               with description "Introduction partie un.",
+Object Stephanie "Stephanie" study
+  with description "un pantin sans vie",
+          name 'femme' 'steph' 'stef' 'stephanie',
+         life  [;
+
+          order: "c'est un ordre?"
+          Tell: "cela ne m'interesse pas"
 
 
-                               before    [;
+                      ],
+           has animate female proper;
 
-                              Exit: PlayerTo(introduction2);
-                                      return true;
+Object pierre study
+        with description  "Une pierre",
+                 name 'pierre',
+          has scenery;
 
-                              Read:
-                                          lecture = lecture + 1;
-                                          switch (lecture) {
-
-
-
-                                              !-Parfait. Le vingt-trois avril dernier, le ministre M. Cassivir donnait une reception privee dans la tour Rembrandt.
-                                              !Un meurtrier, dont ni le sexe ni l'age n'ont ete identifie, reussita s'infiltrer, ce qui est un mystere absolu pour la policea ce jour, compte tenu qu'il n'y a aucune trace de quelque violence pour l'infiltration.^
-                                             !-Systeme de securite?^
-                                             !-A la pointe, controlee par intelligence artificielle. Une fois a l'interieur, le meurtrier, arme d'un pistol laser.^
-                                             !-Un pistol laser? Waou! ca ne rigole pas cette histoire! Quel calibre?^
-                                             !-De grade militaire. Prepare-toi, c'est loin d'etre termine. Le meurtriera fait feu sur trois personne, mais alors que le groupe etait mixte entre des prostituees et des hommes ayant des charges administratives, seuls les hommes ont ete touches.^
-                                             !-C'etait un meurtre planifie et justifie?^
-
-                                         1: "-En quelque sorte oui. Nous sommes loins d'un tireur fou ou d'une revanche personnelle.^
-                                             -Le meurtrier s'est enfuit par le toit, et a fait un bond dans le vide.
-                                             On ignore comment il a pu survivre a ca.
-                                             Quelques minutes plus tard, il fuyait sur une moto volee.";
-
-                                             !Apres avoir ete pris en chasse par une escouade, il s'est dirige vers le pont menant aux quartiers sud.
-                                             !Le plus etrange, c'est que le systeme de la voiture les ayant pris en chasse s'est brouille, et la voiturea percute un batiment dans le secteur pres du pont.
-                                             !Plus encore, le meurtrier reussita passer les droide de la vigie sans probleme, et nous ne possedons aucun enregistrement video, meme si le meurtrier etait dans le gratte-ciel Rembrandt.~^
-                                             !L'inspecteur poussa un sifflement d'admiration.^ ~Est-ce tout?^ -Oui, c'est le portait.
-
-                                             3: "Attend! ne te fache pas! Si je t'ai supplie de te deplacer, c'est parce qu'on soupconne d'autres evenements d'etre relie a ce triple meurtre.
-                                             On soupconne desormais le meurtrier de se balader dans les quartiers Sud, mais la police locale est debordee: les ouvriers d'usine sont soupconnes d'organiser des reunions clandestines.
-                                             La police essaie d'elucider cette affaire-la presentement.
-                                             Ah oui! Il y eut aussi un massacre cela fait quelque mois dans le quartier de la planque.^
-                                             -Et puis? c'est monnaie courante dans ce coin la.^
-                                             -Peut-etre, mais il y a un hic.
-                                             On a epingle un temoin.
-                                             Son temoignage etait… etrange.
-                                             La police locale l'a fiche derange, mais il a parle d'un tueur a la puissance inconcevable.
-                                             Je suis certain qu'il y a un lien entre l'infiltration inexpliquee dans une batisse hyper securisee de la cite par un tueur experimente et le massacre qu'il y eut dans un hangar desaffecte pres de la planque.^
-                                             -Va savoir. C'est vrai que ce meurtre dans la cite est particulier.
-                                             Le massacre pres de la planque par contre… ca ne m'etonne pas.
-                                             Tu parlais de reunions clandestines.
-                                             Dis-m'en plus.^
-                                             -Je dois t'avouer, je ne suis pas dans le secret des Dieu pour ce coup-la, j'ai perdu Rodrigue qui me mettait au parfum.
-                                             Desormais c'est Robert qui est en charge, et je possede plus d'information sur les anarchiste des terres brulees que sur les mefaits des quartiers Sud.
-                                             J'ai eu vent de quelques infos, il serait question d'une secte.^
-                                             -Seigneur! Une secte?
-                                             Dans quelle histoire farfelue veux-tu que j'embarque, bon sang!^
-                                             -Donc tu es de la partie?^
-                                             -Tu m'as eu avec cette histoire de secte, ca l'air divertissant.
-                                             En revanche, la partouze gachee par un super-assassin et un autre massacre pres de la planque, ca, ce n'est plus de mon ressort.
-                                             Je suis rendu trop vieux pour ces histoires.";
-
-                                            default: print_ret "termine!";
+Object souvenir study
+            with description "un souvenir",
+                     name 'souvenir',
+           has scenery;
 
 
-                                         }
-
-
-                                              ];
-
-
-
-
-
-!------------------------------------------------------------------------------!
+!--------------------------------------------------------!
 
 Include "FrenchG";
 

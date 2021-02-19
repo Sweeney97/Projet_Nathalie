@@ -1,5 +1,25 @@
 ## Idées pour l'histoire en lien avec Inform
 
+Structure ce qu'il reste a faire:
+
+*Toutes les conversations seront nécessairement statiques*
+
+- Appartement 2. Bloquer le verbe examiner. Le dialogue se termine sur le fait que Julien n'a jamais été à une date X heure Y à l'usine. Et qu'il ne connait pas Z. Deux preuve possibles peuvent le réfuter: 1. L'horodateur dans l'usine (feuille d'entrées) 2. Photo de groupe chez la vieille. Montrer la preuve pousse le couple à avouer la transaction de la ruelle.
+- Intercepter la transaction dans la ruelle: arrêter ou tuer les deux hommes
+- Appeler Mauriac (tuer ou arrêter), être renseigné sur la voiture dans le stationnement (prendre la voiture concealed)
+- Aller dans la maison, écouter depuis la penderie la conversation téléphonique de Ronald qui parle de la planque (ou avec le cerveau de la planque)
+- ~~Après l'épisode de la maison (calculer le nombre minimal de tour nécessaire pour s'assurer que la rencontre avec Nathalie ait lieu) séquence d'achat~~
+- Après, si police: aller au stationnement, si criminel, appeler le chauffeur (depuis Stationnement)
+
+- ~~Rencontre avec Nathalie, indication pour l'enfant prodige (flag rencontre)~~
+- Aller sur Internet, rencontre de l'enfant prodige, affiliation (détection avec flag)
+
+
+
+
+
+
+
 Faire un chat qui se promène dans le premier quartier? le ramener à son proprio ferait monter le score. Je peux prendre le même code que pour le vendeur ambulant et confiner le vendeur aux quartiers 2 et 3.
 
 Si les string pour les cut-scene sont trop grosses pour Frotz-z5, je peux toujours faire un e-book ou un html à côté pour que le joueur puisse le lire. (Exemple, dans le jeu: lisez le chapitre trois du livre). Dans tous les cas je peux faire une stand-alone file pour l'histoire.
@@ -19,7 +39,7 @@ Idée d'objet: un défibrillateur pour mettre hors jeu le drone-garde à l'entr�
 
 Les indigènes sont inoffensif, si le joueur les attaques, il devient automatiquement empoisonné. Mais s'il leur parle simplement, il pourrait même avoir des indices sur les statuettes.
 
-La moto est trouvable dans la cours à scrap. Mais elle n'a pas d'essence. Sans essence, le joueur à faim? (encore). 
+La moto est trouvable dans la cours à scrap. Mais elle n'a pas d'essence. Sans essence, le joueur à faim? (encore).
 Ou avec la police le joueur doit trouver l'essence dans le quartier, contre avec les criminel l'essence est fournie.
 Il y a une piece avant la cours à scrap (à gauche) où le joueur peut déposer des objets. Cela afin de chercher des statuettes et des objets dans la cours à scrap.
 
