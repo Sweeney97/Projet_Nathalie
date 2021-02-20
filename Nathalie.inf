@@ -4,7 +4,7 @@
 Constant Story "Projet Nathalie";
 Constant Headline "^A. Sweeney^";
 Constant MANUAL_PRONOUNS;
-Constant MAX_CARRIED = 10;
+Constant MAX_CARRIED = 7;
 
 Include "Parser";
 Include "VerbLib";
@@ -14,7 +14,7 @@ Include "VerbLib";
 [ Initialise;
     TitlePage();
     !location = introduction;
-    location = postepolice; move calepin to player;
+    location = postepolice; !move calepin to player;
     lookmode = 2; !-----permet d'afficher en tout temps les descriptions des endroits
     move badge to player;
 
@@ -47,18 +47,19 @@ StartDaemon(maison);
  ! Global playerpoison = 0;
 
 Global lecture = 0;
-Global rencontre_prodige = 0;
 Global mathilde_talk = 0;
-
+Global player_killer = false;
+Global player_bad = 0;
+Global player_criminal = false;
 ! Variable globale pour la progression du jeu !
 Global etape1 = 0;
 Global etape2 = 0;
 Global etape3 = 0;
 Global etape4 = 0;
-  !Global etape5 = 0;
-  !Global etape6 = 0;
-  !Global etape7 = 0;
-  !Global etape8 = 0;
+Global etape5 = 0;
+Global etape6 = 0;
+Global etape7 = 0;
+Global etape8 = 0;
   !Global etape9 = 0;
   !Global etape10 = 0;
   !Global etape11 = 0;
@@ -68,7 +69,7 @@ Global etape4 = 0;
 Class Cutscene
         with  before [;
 
-   Examine: <<talk self>>;
+   examine, look: <<read self>>;
 
     Drop:  print_ret "S'il vous pla@^it, tapez ~lire~.";
 
@@ -89,7 +90,7 @@ Class   Lieu
 Class Room
   has light;
 
-Class   Furniture
+Class Furniture
      with  before [;
           Take,Pull,Push,PushDir:
             print_ret "Cela est inutile.";  ],
@@ -496,22 +497,38 @@ Ruelle ruelle1 "Une ruelle"
                               self.turns_active = 0;
                               rtrue;
                               }
+                          if (etape4 == 1 && etape5 ~= 1) {
                           switch (++(self.turns_active)) {
 
 
-                              4: "Vous commencez a vous ennuyer.";
-                              5: "Vous entendez des promeneurs venir dans la ruelle. L'inspecteur se cacha immediatement.";
+                            7: "Vous commencez a vous ennuyer.";
+                            8: "Vous entendez des promeneurs venir dans la ruelle. L'inspecteur se cacha immediatement.";
+                            9:  etape5 = 1;
+                                print "Deux hommes, venant chacun d'une direction differente, se rencontrerent au milieu de la ruelle. Le premier etait maigre avec une moustache en bataille, grisonnante, le deuxieme etait glabre portait un chandail propre. ~^Tu n'as pas ete suivi?^- Nan, j'ai verifie deux fois plutot qu'une. ^- Parfait, parfait. ^- Tu as le paquet pour le...? ^- Chut! ne dit pas son nom. Tiens, voila.^- Est-ce que tu sais si le directeur d'usine est soupconne?^-C'est que tu n'as pas ta langue dans ta poche! Non, tout roule. Maintenant, separons-nous.^-Bonne idee, marmonna l'autre~^ A ce moment l'inspecteur revela sa presence, et mit en joue les deux hommes de main.^~Halte la, ou je tire!^-Mince siffla le moustachu, un flic!~^Tous deux partirent chacun d'ou ils etaient venu, en courant cette fois.^^Voulez-vous faire feu?";
+                                if (YesOrNo ())  { player_killer = true;
+                                                          print "A une vitesse incroyable l'inspecteur tira un coup pour chaque homme. Son pistolet munis d'un silencieux n'attira pas l'attention. Il rappatria les deux morts en un tas, reflechissant a la suite. Apres une bonne minute de reflexion, il alla porter les corps dans la benne a ordure su cafe."; }
+                                else { print "L'inspecteur pris le moustachu en chasse, en direction de l'hypermarche, mais le perdis assez tot de vue. Il retourna penaud a la ruelle, reflechissant a la suite."; }
 
-                              }
+                               print_ret "L'inspecteur appela au poste de police.^~Bonjour, oui c'est l'inspecteur. Oui, est-ce que je pourrais parler a Mauriac s'il vous plait? Oui, bien sur, il est occupe.
+                                               Dites-lui que c'est urgent, j'ai des informations cruciales.~ L'inspecteur du patienter de longues secondes. ~Salut! Ouais. Je suis sur un coup. Oui, oui, je sais, je sais, il est tard. Desole.
+                                              J'ai besoin d'une voiture. Ca presse, je dois me rendre a la maison du directeur. Non, ce n'est pas un delire! Fais-moi confiance, j'ai des preuves solides.
+                                               Une voiture de police dans le stationnement en face de l'usine? Merci, Mauriac, heu, monsieur Mauriac. Pardon. Mon identifiant est bien dans la banque de donnee? Je n'ai pas envie
+                                               de faire hurler le systeme anti-vol a cette heure. Parfait. Wow! vous voulez virer de l'argent sur mon badge... et ne plus jamais m'entendre, oui. Mon identifiant, attendez un peu
+                                               que je sorte mon badge. 072488, oui, vous voulez que je repete? Tout cet argent! vous auriez pu me la virer plus tot, vous ne croyiez pas en moi? Ha ha, desole, oubliez ca.  Merci mille fois.
+                                              Etes-vous en mesure d'identifier la position de Ronald et de m'indiquer de combien de temps je dispose? Oui, je peux attendre une minute...~^Apres deux longues minutes, l'inspecteur se fit dire sechement qu'etant donne la position de la voiture de Ronald,
+                                              s'il se depechait de se rendre chez lui, il disposerait d'une demi-heure. Il n'eut pas meme le temps de remercier Mauriac qui lui raccorcha au nez.";
+                                                                        } }
                           ],
 
                           before  [;
                                              go: if (self has general && noun == s_obj) print_ret "Vous feriez mieux de ne pas y retourner apres ce que vous avez fait.";
-                                                   if (noun == s_obj && etape1 == 1)  {
+                                                   if (noun == s_obj && etape1 == 1 && etape5 ~= 1)  {
                                                    print "Linspecteur se glissa discretement entre les plants du portager, utilisant les buissons pour se camoufler. Il Cogna a la fenetre d'Anne-Marie, qui, discretement, lui fit signe, puis alla clopin-clopant se rasseoir dans son fauteil.";
                                                               return false;
                                                                                                               }
                                                     if (noun == s_obj && etape1 == 0) print_ret "Aller dans l'arriere cours des autres n'est pas une option.";
+                                                    if (noun == e_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous depecher d'aller dans la maison de Ronald.";
+                                                    if (noun == s_obj && etape5 == 1) print_ret "Il en rendu un peu tard pour reveiller cette pauvre dame.";
                                       ],
 
                    w_to carrefour3,
@@ -521,6 +538,9 @@ Ruelle ruelle1 "Une ruelle"
 
 Street carrefour1 "Un embranchement"
                  with description "Ici  se croisent la rue Bernard-Lee au Sud et la rue du parc a l'Est.",
+                 before  [;
+                                                 if (noun == e_obj || noun == ne_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous depecher d'aller dans la maison de Ronald.";
+                              ],
                      n_to "D'ici le parc est au Nord-Est",
                      nw_to "L'hotel de ville ne vous interesse pas.",
                      ne_to parc,
@@ -550,6 +570,9 @@ Street carrefour4 "Un embranchement"
 
 Street carrefour5 "Un embranchement"
                  with description "Ici se croisent la rue Bernad-Lee au Nord et la rue des travailleurs a l'Est.",
+                        before  [;
+                                                 if (noun == e_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous depecher d'aller dans la maison de Ronald.";
+                                    ],
                      n_to ruebernardlee2,
                      s_to "l'entree de l'usine se trouve plus a l'Est.",
                      e_to ruedestravailleurs,
@@ -706,8 +729,7 @@ Npc infirmiere "infirmi@`ere" infirmerie
 
 Room salleenquete "Salle d'enquete"
  with description [;
- print "La salle d'enq@^ete dans son plus simple appareil: un tableau blanc, un babillard, une table, quelques chaises. M. Mauriac semble
-            vous attendre.";
+ print "La salle d'enq@^ete dans son plus simple appareil: un tableau blanc, un babillard, une table, quelques chaises. M. Mauriac est assis.";
  if (self hasnt visited)
   print "^~Bonjour inspecteur. Je vous attendais avec apr@'ehension si je puis dire, dit M. Mauriac pour s'introduire sur un ton sec. Bienvenue dans
                  le quartier Desrosaies. Vous n'@^etes pas du genre loquace? @cCa ne fait rien. Asseyez-vous, je vais vous mettre @`a jour
@@ -760,7 +782,8 @@ Npc mauriac "M. Mauriac" salleenquete
 !--------------------------------------------------------2.0 Lieux du premier Quartier----------------------------------------------------------------!
 
 Lieu cybercoffee "Cybercaffe"
-    with description "Ce caffe vous permet d'avoir acces a un ordinateur. Une terasse plus loin au Sud se laisse entrevoir.",
+    with description "Ce caffe vous permet d'avoir acces a un ordinateur. Une terasse plus loin au Sud se laisse entrevoir. A cette heure tardive, il reste peu de client. Les bruit de conversation son feutre,
+                                 ce qui etonnement devient apaisant. Les murs sont en briques, des tableaux d'artistes locaux sont accroches au mur.",
     !   before: smell: "L'odeur du cafe!!!!"
     !    hear: "Les conversations"
       s_to arrierecours,
@@ -769,14 +792,18 @@ Lieu cybercoffee "Cybercaffe"
 
 Npc barista "barista" cybercoffee
       with description "Un jeune homme dans l'air du temps.",
-               name 'barista',
+               name 'barista' 'au',
                times_spoken_to 0,
                life [;
 
                        talk, ask, tell: self.times_spoken_to = self.times_spoken_to + 1;
                        switch (self.times_spoken_to) {
-                        1: "Mentionne Julien qui n'est pas dans la description";
-                        2: " Parle de lui, donne du pain.";
+                        1: "Salut bien, monsieur, que puis-je faire pour vous aider? Si vous voulez reserve un temps a l'ordinateur, allez parler a julien. C'est le grand deglinguande au fond, la.
+                              Voulez-vous commander quelque chose?";
+                        2: "Moi? Oh comme si comme ca. J'avais ete selectionne pour etre dans l'administration de la cite. He oui! j'ai fait une etude sur les migrations des cerfs dans la ligne verte.
+                             Comme je suis un chercheur de la faune et la flore, je dois rester dans les quartiers, pres de la ligne verte. C'est un choix, je pourrais aussi, si je le voulais, rester dans un condo de la cite.
+                             Mais ma famille reste dans ce quartier, c'est pourquoi j'ai decide de m'installer ici. Presentement, ma recherche attend la prochaine saison, je suis dans un temps mort, alors je travaille ici a temps partiel
+                             , ca me desennuie, et j'aide Julien. On dirait pas comme ca mais on est cousin! Merci de m'avoir fait la conversation, tenez, je vous paye quelque chose? Un sandwich?";
                         default: "Merci d'avoir pris le temps de me parler! Vous etes bien sympathique.";
                       }
 
@@ -786,17 +813,20 @@ Npc julien "Julien" cybercoffee
            with description "L'air nerd, corps d'echalotte.",
                    name 'Julien' 'Jule' 'Jul',
                    before [;
-                                  talk: if (rencontre_prodige == 0) {
-                                          print "~ Vous voulez utiliser un poste? Bien sur, installez-vous! repond, entousiame, l'employe. Vous avez 15 minutes.~^ L'inspecteur s'assoya a un poste^^";
+                                  talk: if (etape7 == 0) {
+                                          print "~ Bonsoir! Vous voulez utiliser un poste? Bien sur, installez-vous! repond, entousiame, l'employe. Vous avez 15 minutes.~^ L'inspecteur s'assoya a un poste^^";
                                           PlayerTo(computer);
                                           return true;   }
-                                          else print_ret "Votre temps journalier est alloue monsieur, desole.";
+                                          else print_ret "Votre temps journalier alloue est ecoule monsieur, desole. Non, on ne fait pas d'exeception pour personne.";
                                ];
 
 Object computer "ordinateur"
-              with description "un ordinateur vieux et poussif.",
+              with description "L'inspecteur s'installa a l'ordinateur, vieux et poussif. Au demarage il lanca une plainte lancinante de ventilateur debile.
+                                          Il ouvrit sa session. Sur son bureau apparaisserent ses dossiers: chaque utilisateur se connectant au reseau avait ainsi acces a ses documents.
+                                          Il ouvrit, fidele a son habitude, tout d'un coup, et attendit que l'ordi chargea. Il y avait le naviguateur web, ses courriels, et dans son dossier plusieurs fichiers: notes d'enquete, journal, une recherche sur la ligne verte, ainsi qu'un autre dossier, de photos celui-la.
+                                          Un curieux fichier nomme projet.inf etait aussi sur son bureau, mais cela ne lui sonnait aucune cloche.",
                       each_turn [;
-                                            if (player in location)    StartTimer(self, 15);
+                                            if (player in location)    StartTimer(self, 6); !mettre 15 tour. 6 tour c'est pour le test implementer des seitch pour les lectures
                                        ],
                       before  [;
 
@@ -805,9 +835,24 @@ Object computer "ordinateur"
                                    ],
               time_left,
               time_out [;
-                                    PlayerTo(Cybercoffee, 1);
-                                    rencontre_prodige = rencontre_prodige + 1;
-                                    "La rencontre avec l'enfant prodige, fin du temps alloue a l'ordi";
+                                    etape7 = 1;
+                                    print   "Alors qu'il etait en train de lire, un terminal noir apparaut subitement et pris toute l'ecran. L'inspecteur leva les mains en l'air, pour mieux se convaincre qu'il n'y etait pour rien.
+                                     ~Nom de Dieu, pensa-t-il, qu'est-ce que c'est que ce bordel.~ Du texte s'ecrivit seul sur le terminal:^^";
+                                    print     "Je suis l'enfant prodige. Je sais qui vous etes et ce que vous faites.";
+                                    print     "C'est vous qui etiez dans la ruelle afin d'intercepter la livraison.";
+                                    if (player_killer == true || player_bad > 1 ) {
+                                                              print "Nous savons que vous avez le coeur endurcis. Nous avons vu vos agissements. Au lieu de nous nuire les uns les autres, que direz-vous de venir a la planque rencontre le cerveau, Vallagnosc?";
+                                    if (YesOrNo ())  {   player_criminal = true;
+                                                                 print "Vous avez fait le bon choix. Desormais, rendez-vous au stationnement, et patientez quelques minutes le temps que notre chauffeur vienne vous chercher.";
+                                                            }
+                                   else                   { print "Vous etes desormais seul, et avec tout les forfaits que vous avez commis, ce n'est qu'une question d'heures avant que la police ne desactive votre badge.";
+                                                              print  "Bonne chance. Ah oui, un dernier conseil, ne tentez pas de venir nous rendre visite. Nous sauront faire de votre voyage votre dernier.";
+                                                            }   }
+                                     if (player_killer == false && player_bad == 0) { print " Un conseil inspecteur, ne tentez pas de venir nous rendre visite. Nous sauront faire de votre voyage votre dernier."; }
+
+                                                    print "^^L'inspecteur eteigna son ordinateur, stupefait. Il quitta son poste esperant qu'il etait pret pour aller a la planque. On ne sait jamais, se dit-il...";
+                                                    PlayerTo(Cybercoffee, 1);
+                                                    return true;
                              ],
               has light;
 
@@ -815,9 +860,57 @@ Object courriels "courriels" computer
             with description "Un message depuis internet",
                      name 'courriel' 'courrier' 'email' 'courriels',
                      before [;
-                                    read: print_ret "Vous lisez vos courriels";
+                                    examine, read: print_ret "Vous lisez vos courriels";
+                                 ],
+         has scenery;
+
+Object Naviguateur "naviguateur" computer
+            with description "naviguateur",
+                    name 'naviguateur' 'fureteur',
+                    before [;
+                                   examine, read: print_ret "Un moteur de recherche controle par l'Etat";
                                 ],
             has scenery;
+
+Object dossierphoto "dossier de photos" computer
+            with description "des photos de famille",
+                   before [;
+                                 examine, read: print_ret "L'inspecteur regarda ses photos";
+                              ],
+                    name 'photo' 'photos' 'dossier',
+          has scenery;
+
+Object journal "journal personnel" computer
+            with description "un journal personnel",
+                    name 'journal' 'intime' 'personnel',
+                    before [;
+                                   examine, read: print_ret "Vous lisez le journal";
+                                ],
+           has scenery;
+
+Object noteenquete "enquete precedante" computer
+            with description "vous notes precedante d'enquetes",
+                    name 'notes' 'enquete',
+                    before [;
+                                   examine, read: print_ret "Vous les notes d'enquetes";
+                                ],
+            has scenery;
+
+Object projetnathalie "projet nathalie" computer
+            with description "ca, c'est meta",
+                    name 'inf' 'projet',
+                    before [;
+                                   examine, read: print_ret "Vous lisez du code";
+                                ],
+            has scenery;
+
+Object recherche  "recherche sur la ligne verte" computer
+            with description "",
+                    name 'recherche' 'ligne' 'verte' 'travail',
+                    before [;
+                                   examine, read: print_ret "Vous lisez cette recherche sur la ligne verte";
+                                ],
+           has scenery;
 
 Lieu arrierecours "l'arriere cours du cybercafe"
        with description "Une jolie terasse. Une fort belle femme, assise seule a une table, sirote une boisson. Le cybercafe est au Nord",
@@ -835,7 +928,44 @@ Lieu parc "parc"
 
 Lieu stationnement "Stationnement"
         with description "Le stationnement pour les travailleurs de l'usine. La sortie est a l'Est.",
-                e_to ruebernardlee1;
+               turns_active 0,
+               each_turn [; StartDaemon(self); ],
+              daemon [;
+              if (location ~= stationnement) {
+                   StopDaemon(self);
+                  self.turns_active = 0;
+                   rtrue;
+                                                               }
+             if (etape7 == 1 && player_criminal == true) {
+             switch (++(self.turns_active)) {
+             5:  renitialise();
+                  PlayerTo(cutsceneplanque, 1);
+                  print_ret "Une voiture noire vint dans le stationnement. L'inspecteur, incertain, y embarque, esperant qu'il verrait la fin du trajet...";
+                                           }}
+                          ],
+
+
+                before  [;
+                                              take, go, enter: if (noun == voiture && etape5 == 1 && etape6 ==0)  {
+                                                                       print "^L'inspecteur s'identifia sur le terminal  de la voiture et espera que son code d'identification allait fonctionner comme on lui avait promis. La voiture se deverouilla, et il ne put reprimer un soupire de soulagement.
+                                                                                    Il roula en direction Est sur la rue du parc, et roula ainsi pres d'une vingtaine de minutes. Par precaution, il se stationna dans un cul de sac, a une dizaine de minutes de la maison de Ronald.
+                                                                                    Il verifia la cour furtivement, et inspecta les fenetres, pour bien s'assurer d'etre seul. Son coeur battait fort, il etait nerveux. Une fois arrive a la porte, il entra son numero d'identification, et put entrer sans encombre.^";
+                                                                       PlayerTo(maison);
+                                                                       return true;  }
+                                                                       if (noun == voiture && etape7 ==1 && etape8 == 0) print_ret "Vous devriez faire des provisions avant de partir, sait-on jamais.";
+                                                                       if (noun == voiture && player_criminal == false && etape8 == 1)  { renitialise();
+                                                                                                                                                                                 PlayerTo(cutsceneplanque, 1);
+                                                                                                                                                                                  print_ret "L'inspecteur embarqua dans la voiture de police. Il fendit la nuit, glissa sur les rues desertes dans un vrombissement assouvis.";}
+                                                                       if (player_criminal == true) print_ret "vous seriez mieux d'attendre le chauffeur.";
+                                                                       if (noun == voiture) print_ret "Vous ne pouvez pas embarquer dans la voiture de police pour le moment.";
+                            ],
+
+                 e_to ruebernardlee1;
+
+Object voiture "voiture de police" stationnement
+              with description "voiture de police",
+                       name 'voiture' 'police' 'bolide' 'char',
+              has  scenery;
 
 Sub appartementpauvre "appartement pauvre" ruedestravailleurs
               with description "une facade triste, des fen@^etres salies par l'@'eternelle fum@'ee crach@'ee par l'usine. Quoique le bloc ne semble pas sur le point de s'@'ecrouler,
@@ -858,14 +988,14 @@ Lieu appartement1 "appartement pauvre"
                                                          Je n'ai pas la langue dans ma poche. Alors j'ai tout dis ce que j'en pensais de ce qu'ils faisaient, qu'ils aillent au diable qu'il m'ont dit! depuis ils m'ont tous pris en grippe. Peuh. Alors je moisi dans mon appartement, seule.
                                                          Au moins, je me dis, j'ai encore pu aider, n'est-ce pas? Je ne sais plus ou habite les Dillinger, mais je dois avoir l'adresse du temps que je voyais Linda. Elle n'a jamais demenage, mais, Seigneur! j'ai oublie ou elle habitait.
                                                          C'etait peut-etre sur la rue Bernard-Lee? ou bien etait-ce Mathieu? Ah! ne prenez pas de chance, trouvez mon carnet d'adresse. Il doit bien etre quelque part dans cet appartement! Cherchez a votre guise, je ne suis pas genee.
-                                                         Et ca fait tellement longtemps que je n'ai pas eu de visite! Dieu du ciel ce que j'aurais donne pour avoir un enfant dans les quartiers. Mon fils unique habite dans la cite. Je ne sais meme pas ce qu'il aujourd'hui, vous vous imaginez.
+                                                         Et ca fait tellement longtemps que je n'ai pas eu de visite! Dieu du ciel ce que j'aurais donne pour avoir un enfant dans les quartiers. Mon fils unique habite dans la cite. Je ne sais meme pas ce qu'il devient aujourd'hui, vous vous imaginez.
                                                          Il m'ecrivait des lettes de temps a autres. Mais c'est finnis, ca les lettres. C'est finnis...^^Le salon contient une belle bibliotheque, un un fauteil et son pouf, une table basse au centre, et cole au mur, une console sur laquelle
-                                                          trone une vieille radio. Dans le coin au fond, dans une vaine tentative d'egayer le triste lieu, une plante verte malade demande desesperement de l'eau.
+                                                          trone une vieille radio. Dans le coin au fond, dans une vaine tentative d'egayer le triste lieu, une plante verte malade demande desesperement de la lumiere.
                                                           Au fond, le salon se terminer par un mur de separation, avec une arche menant a la cuisine, et une ouverture dans le mur afin de laisse passe la lumiere
                                                           de la cuisine.";
                                               ! else print "";
                                             print "Anne-Marie vous salue chaleureusement.^^Le salon contient une belle bibliotheque, un un fauteil et son pouf, une table basse au centre, et cole au mur, une console sur laquelle
-                                                      trone une vieille radio. Dans le coin au fond, dans une vaine tentative d'egayer le triste lieu, une plante verte malade demande desesperement de l'eau.
+                                                      trone une vieille radio. Dans le coin au fond, dans une vaine tentative d'egayer le triste lieu, une plante verte malade demande desesperement de la lumiere.
                                                       Au fond, le salon se terminer par un mur de separation, avec une arche menant a la cuisine, et une ouverture dans le mur afin de laisse passe la lumiere
                                                       de la cuisine.";
                                           ],
@@ -880,8 +1010,8 @@ Lieu appartement1 "appartement pauvre"
 
                        each_turn [;
                                                 if (lecture == 3)  {
-                                                                                lecture = 0;
                                                                                 move photo to appartement1;
+                                                                                lecture = lecture + 1;
                                                                                 print_ret "^^Vous trouvez une photo, glissee entre les pages. L'inspecteur la posa sur l'etagere de la bliothque.";
                                                                              }
                                          ],
@@ -937,58 +1067,42 @@ Object bibliotheque "bibliotheque" appartement1
 
 Object livres "des rangees de livre" bibliotheque
           with description "en examinant de plus pres les livres, l'inspecteur remarqua qu'ils sont tries logiquement. Il identifia la section avec les livres historiques ou
-                                      en lien avec son enquete. Il y en avait trois: un livre a la couverture rouge sang, Histoire de l'usine McConney; un autre a la couverture turquoise depeint, Moeurs et usages des quarties du Sud;
-                                      et le dernier, avec sa couverture marbree, La pensee criminelle.",
+                                      en lien avec son enquete. Il y en avait trois: un livre a la couverture rouge sang; un autre a la couverture turquoise depeint;
+                                      et le dernier avait une couverture marbree.",
           name 'rangee' 'livres' 'livre//p' 'rangee//p',
          has pluralname;
 
-Object livre2 bibliotheque
-        with description "Un epais livre rouge sang titre Histoire de l'usine McConney",
-        name 'livre' 'rouge' 'histoire',
-        before [;
-                           read: if (self hasnt general) {
-                                    lecture = lecture +1;
-                                    give self general;
-                                    print_ret "L'usine fut fondee durant les annees 50. Elle devait revitaliser un quartier qui s'essoufflait economiquement. De plus, a l'epoque, les mines commencaient a etre desertees, et la cite cherchait un moyen
-                                                    de dynamiser l'economie des quartiers. Plus d'une dizaine de complexe comme celui-ci ont ete amenages dans divers quartiers. Le surplus de production servaient entre autre a combler les besoin
-                                                    de la cite voisine, situe plus au nord. Le delegue Francis Rotweller, tres implique alors dans le developpement du quartier Roseraie, avait pousse l'administration pour ce genre de projet.
-                                                    Une statue a d'ailleurs ete erigigee en son honneur dans le parc. ^[...]^ Un des moments les plus sombres de l'usine fut les soulevements de mai 64. Ils durerent pres d'une annee entiere.
-                                                    Le syndicat de l'usine avait vu sa convention collective refusee par le conseil des hauts ministres de la cite. Il sont alors entres en greve, mais elle fut declaree illegale deux mois plus tard.
-                                                    Cependant, loin de retourner travailler, les manifestations devinrent de plus en plus violentes et les ouvrires declencherent meme des emeutes. En partie contenue par la police, qui utilisait la matraque,
-                                                    le gaz moutarde et les balles de caoutchou pour controle la situation, les emeutes pousserent l'administration a bout de ressource. En 65, pour une rare fois, l'armee de droides debarqua dans les quartiers Sud.
-                                                    Cette fois, il n'etait plus de question de balle en caoutchou... On denombra environ 200 arrestations, plus de mille blesse, et pres d'une centaine de morts. Ce sont les chiffres officiels, mais l'organisme non-gouvernemental
-                                                    pour la memoire des travailleur (PMT) declencha une enquete independante afin d'obtenir des nombres veridiques trois ans plus tard. Leur enquete n'aura jamais abouttie, en raison des batons dans les roue que..."; }
-                                    print_ret "vous l'avez deja feuillete.";
-                    ];
+Object livre bibliotheque
+        with description  [;
+                                            if (lecture == 1) print_ret "L'usine fut fondee durant les annees 50. Elle devait revitaliser un quartier qui s'essoufflait economiquement. De plus, a l'epoque, les mines commencaient a etre desertees, et la cite cherchait un moyen
+                                                                                      de dynamiser l'economie des quartiers. Plus d'une dizaine de complexe comme celui-ci ont ete amenages dans divers quartiers. Le surplus de production servaient entre autre a combler les besoin
+                                                                                      de la cite voisine, situe plus au nord. Le delegue Francis Rotweller, tres implique alors dans le developpement du quartier Roseraie, avait pousse l'administration pour ce genre de projet.
+                                                                                      Une statue a d'ailleurs ete erigigee en son honneur dans le parc. ^[...]^ Un des moments les plus sombres de l'usine fut les soulevements de mai 64. Ils durerent pres d'une annee entiere.
+                                                                                      Le syndicat de l'usine avait vu sa convention collective refusee par le conseil des hauts ministres de la cite. Il sont alors entres en greve, mais elle fut declaree illegale deux mois plus tard.
+                                                                                      Cependant, loin de retourner travailler, les manifestations devinrent de plus en plus violentes et les ouvrires declencherent meme des emeutes. En partie contenue par la police, qui utilisait la matraque,
+                                                                                      le gaz moutarde et les balles de caoutchou pour controle la situation, les emeutes pousserent l'administration a bout de ressource. En 65, pour une rare fois, l'armee de droides debarqua dans les quartiers Sud.
+                                                                                      Cette fois, il n'etait plus de question de balle en caoutchou... On denombra environ 200 arrestations, plus de mille blesse, et pres d'une centaine de morts. Ce sont les chiffres officiels, mais l'organisme non-gouvernemental
+                                                                                     pour la memoire des travailleur (PMT) declencha une enquete independante afin d'obtenir des nombres veridiques trois ans plus tard. Leur enquete n'aura jamais abouttie, en raison des batons dans les roue que...";
+                                            if (lecture == 2) print_ret "Les habitants des quarties Sud sont reputes pour leur discretion. Ils socialisent generalement en petit groupe. Plusieurs enfants ont encore souvnenir des
+                                                                                      scenes traumatisantes d'arrestation, de parents tues dans la rue, et peut-etre cela les aura rendus plutot reticents au soulevement, plus dociles. Les quartiers Sud sont reputes
+                                                                                      pour leur cafe; les plus grand bruleur y sont etablis, et fournissent le cafe des meilleurs endroits de la cite. Si autrefois les habitants des quartiers Sud aiment se rendre aux mines abandonnees afin d'explorer et
+                                                                                      de se ballader, cette activite est malheureusement aujourd'hui proscrite. Les indigenes de la ligne verte vont jusqu'a infiltrer les quartiers limitrophes, et agissent plus violemment qu'avant, ce qui rend cette expedition dangeureuse.
+                                                                                      De plus, les mines sont desormais habitees par des sauvages. Les recensements des quartiers Sud indiquent que ses habitants sont les plus bas dans les taux de reussite des tests admiistratifs.
+                                                                                      De maniere generale, la migration des habitants des quartiers Sud vers la cite a fortement diminue ces dix dernieres annees.";
+                                            if (lecture == 3) print_ret "Les criminels sont parfois percus a tort comme des genie torture ou incompris. En realite, il s'agit le plus souvent de personnes malades ou defficientes.
+                                                                                    Ces problemes sont lies a des troubles du developpement, mais pas toujours. C'est pourquoi les premiere annes du developpement de l'enfant sont strictement surveille
+                                                                                   dans les centres d'apprentissage. Les enfants pour lesquels un profil psychopatique pointe sont parfois transferes sans avertissement aux parents vers des centres de reeducation ou de travail.";
+                                            if (lecture > 3) print_ret "Vous avez deja feuillete celui-la.";
+                                   ],
+                    before [;
+                                                             examine:  lecture = lecture +1;
+                                                                             return false;
 
-Object livre3 bibliotheque
-        with description "Un livre d'asspect fragile, a la couverture turquoise titre Moeurs et usages des quarties du Sud",
-        name 'turquoise' 'livre' 'moeurs' 'usage',
-        before [;
-                           read: if (self hasnt general) {
-                                    lecture = lecture +1;
-                                    give self general;
-                                      print_ret "Les habitants des quarties Sud sont reputes pour leur discretion. Ils socialisent generalement en petit groupe. Plusieurs enfants ont encore souvnenir des
-                                                      scenes traumatisantes d'arrestation, de parents tues dans la rue, et peut-etre cela les aura rendus plutot reticents au soulevement, plus dociles. Les quartiers Sud sont reputes
-                                                      pour leur cafe; les plus grand bruleur y sont etablis, et fournissent le cafe des meilleurs endroits de la cite. Si autrefois les habitants des quartiers Sud aiment se rendre aux mines abandonnees afin d'explorer et
-                                                      de se ballader, cette activite est malheureusement aujourd'hui proscrite. Les indigenes de la ligne verte vont jusqu'a infiltrer les quartiers limitrophes, et agissent plus violemment qu'avant, ce qui rend cette expedition dangeureuse.
-                                                      De plus, les mines sont desormais habitees par des sauvages. Les recensements des quartiers Sud indiquent que ses habitants sont les plus bas dans les taux de reussite des tests admiistratifs.
-                                                      De maniere generale, la migration des habitants des quartiers Sud vers la cite a fortement diminue ces dix dernieres annees."; }
-                                    print_ret "vous avez deja feuillete celui-ci.";
-                    ];
+                                                              read: <<examine self>>;
+                                ],
 
-Object livre4 bibliotheque
-        with description "Un manuel rigide titre La pensee criminelle",
-        name 'marbree' 'marbre' 'livre' 'pensee' 'criminelle',
-           before [;
-                             read: if (self hasnt general) {
-                                      lecture = lecture +1;
-                                      give self general;
-                                      print_ret "Les criminels sont parfois percus a tort comme des genie torture ou incompris. En realite, il s'agit le plus souvent de personnes malades ou defficientes.
-                                                      Ces problemes sont lies a des troubles du developpement, mais pas toujours. C'est pourquoi les premiere annes du developpement de l'enfant sont strictement surveille
-                                                      dans les centres d'apprentissage. Les enfants pour lesquels un profil psychopatique pointe sont parfois transferes sans avertissement aux parents vers des centres de reeducation ou de travail."; }
-                                      print_ret "vous l'avez deja feuillete celui-la.";
-                      ];
+                 name 'livre' 'rouge' 'turquoise' 'marbre' 'marbree',
+             has scenery;
 
 Object photo "photo sepia"
                       with description [;
@@ -1060,7 +1174,7 @@ Lieu appartement2 "appartement moyen"
             before  [;
                              Show: if (noun == punchcard && etape3 == 1)  {  etape4 = 1;
                                                                                  print "L'inspecteur sorti calmement la carte de travail d'Eric, avec ses heures de poinconnees dessus. De grosses goutes perlerent sur les visages. L'inspecteur ressortit son magnetophone, comme s'il
-                                                                                           eu besoin d'insister sur l'evidence de leur mensonge. ^~Si vous me dites a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnat, n'est-ce pas?
+                                                                                           eu besoin d'insister sur l'evidence de leur mensonge. ^~Si vous me dites a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnant, n'est-ce pas?
                                                                                            Avec un ragard assassin, Eric dit dans un murmure: - Ce soir, attendez dans la ruelle, c'est d'ici une dizaine de minutes, alors depechez-vous. Et ne revenez jamais ici.~ Sa femme resta cois. L'inspecteur parti prestemment afin de ne pas manquer le rendez-vous.";
                                                                                  PlayerTo(ruebernardlee1, 1);
                                                                                   return true;
@@ -1068,7 +1182,7 @@ Lieu appartement2 "appartement moyen"
 
                                         if (noun == photo && etape3 == 1)          {  etape4 = 1;
                                                                                   print "L'inspecteur sorti calmement la photo qui prouvait que Linda et Anne-Marie se connaissait. De grosses goutes perlerent sur les visages. L'inspecteur ressortit son magnetophone, comme s'il
-                                                                                            eu besoin d'insister sur l'evidence de leur mensonge. ^~Si vous me dites a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnat, n'est-ce pas?
+                                                                                            eu besoin d'insister sur l'evidence de leur mensonge. ^~Si vous me dites a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnant, n'est-ce pas?
                                                                                            - Ce soir, attendez dans la ruelle, c'est d'ici une dizaine de minutes, alors depechez-vous. Et ne revenez jamais ici.~ Sa femme resta coit. L'inspecteur parti prestemment afin de ne pas manquer le rendez-vous.";
                                                                                   PlayerTo(ruebernardlee1, 1);
                                                                                   return true;
@@ -1077,6 +1191,10 @@ Lieu appartement2 "appartement moyen"
                                        if (noun == photo && etape3 == 0) print_ret "Pourquoi voudriez-vous montrer cette photo?";
 
                                      examine, look: print_ret "Etant donne la situation tendue, il serait malseant d'examiner quoi que ce soit.";
+                                     go: if (noun == w_obj) print "^Eric raccompagna l'inspecteur jusqu'a la porte. Il jura d'entendre Eric l'insulter en
+                                                                                      fermant doucement.^";
+                                                                                      return false;
+
                                       ],
 
             w_to ruebernardlee1;
@@ -1085,14 +1203,14 @@ Lieu appartement2 "appartement moyen"
                       with description "Oups! le quatrieme mur et perce!",
                              name 'sofa' 'ilot' 'television' 'tele' 'cuisinne' 'salon' 'luminaire';
 
-Room maison "maison"
- with description "une grande et belle maison. La cuisine et la sale a manger sont situ@'ees a l'Est, la toilette au sud-est. Il y a un sous-sol, une chambre au Nord-Est.",
+Room maison "Maison"
+ with description "L'interieur est d'un luxe rare pour les quartiers. La cuisine et la salle a manger sont situ@'ees a l'Est, dans une section legerement survelevees, la toilette au sud-est. Des escalier descendent au sous-sol, une porte entrebaille laisse entrevoir une chambre au Nord-Est.",
         turns_wait 0,
            daemon [;
 
         if (location == maison || location == soussol || location == chambremaison)   {       self.turns_wait = self.turns_wait + 1;
                     switch (self.turns_wait) {
-                                 11:    give chambremaison general;
+                                 11:   give chambremaison general;
                                         "Vous entendez un moteur ronronner et des pneus crisser. Ronald fera irruption dans l'entr@'e d'ici quelques instants.
                                          Peut-etre devriez-vous vous cacher?";         !-- L'inspecteur doit savoir qu'il a environ une demi-heure pour fouiller. Ronald entre plus tôt que prévu.
                                  13: if (player in maison)  { deadflag = true;
@@ -1100,17 +1218,28 @@ Room maison "maison"
                                        "Ronald entre dans sa maison, mais ne remarque rien de suspect... pour le moment.";
 
                                  14: if (player notin garderobe) deadflag = true;
-                                      "Ronald marche, se promene dans ses pieces.";
+                                      "Ronald marche, se promene dans quelques pieces pieces, ouvre des tiroirs, fouille et semble cherche quelque chose.";
 
                                   15: if (player notin garderobe) deadflag = true;
-                                        print_ret "La conversation telephonique entendue.";
-
+                                        if (player_killer == true) print_ret "Un telephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, il sont mort. Hum hum. Morts. J'ai envoye le Shinx inspecter le lieu de l'echange. Il les a retrouver dans la benne a ordure
+                                                                                               du cafe. On cherche encore a comprendre c'est qui le salaud qui a fait ca. Oui on c'est occuppe des coprs, on veut retarder la police, ca va declencher une serie d'enquete et d'interrogatoires. On veut pas ca. Si c'est la police? Pfff. Jamais. Ce n'est pas leur genre de tirer aussi gratuitement. Il n'y a aucune trace de combat.
+                                                                                               C'est ce qui me rassure aussi. On ne les a pas fait parler. On savait deja qui ils etaient. Ca laisse peut d'option. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! Ca fait qu'une soiree qu'il est sur le coup.
+                                                                                                Et comme la police ignore tout sur tout... elle ne peu pas l'avoir mis au courant. En tout cas. Je dois toujours recuperer mon colis.
+                                                                                               J'irais directement a la planque voir Vallagnosc. C'est trop important! et je dois tirer certaines choses au clair avec lui... en personne. Ma fille Mathilde revient d'une minute a l'autre, elle doit avoir terminer son tutorat.
+                                                                                               Non... ca n'a pas d'importance... tout ca n'aura plus d'importance dans quelques semaines. Allez, fais attention a toi. Bye.";
+                                        if (player_killer == false) print_ret "Un telephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, ils s'en sont sortie vivant. Ouais, la scene s'est deroulee trop rapidement qu'ils ont dit. Un homme etait cache dans un potage.
+                                                                                               Non, ils ont pris la fuite, j'ai mon colis. Mais vous savez quoi? j'irais voir Vallagnosc. Non, on est du pour se parler dans le blanc des yeux! Il faut mettre certaines choses au clair avant... avant la date de tombee.
+                                                                                               Enfin, je vais regarder tout ca; pour revenir a nos moutons, mes homme la, on savait deja qui ils etaient. Ca laisse peut d'option. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! Ca fait qu'une soiree qu'il est sur le coup.
+                                                                                              Et comme la police ignore tout sur tout... elle ne peu pas l'avoir mis au courant. En tout cas, il faudra qu'on cherche comment l'information de la rencontre a fuitee. Ma fille Mathilde revient d'une minute a l'autre, elle doit avoir terminer son tutorat.
+                                                                                               Non... ca n'a pas d'importance... tout ca n'aura plus d'importance dans quelques semaines. Allez, fais attention a toi. Bye";
                                   16: StopDaemon(self);
+                                        etape6 = 1;
                                         PlayerTo(Stationnement, 1);
-                                        print_ret "Ronald se fit couler un bain. Lorsqu'il n'entendit plus rien, l'inspecteur en profita pour s'enfuir.";
+                                        print_ret "Ronald se fit couler un bain. Lorsqu'il n'entendit plus rien, l'inspecteur en profita pour s'enfuir, tremblant et suant d'etre pris sur le fait. Il courrut de longues minutes dans la nuit afin de retrouve sa voiture, et conduisit avec soulagement jusqu'au stationnement. En sortant de la voiture, il parla a lui-meme.
+                                                        ^~C'est fou, c'est fou! Ronald est sur le coup! En contact direct avec Vallagnosc. Ca ne me laisse plus qu'une option! Je dois y aller, a cette foutue planque! Je dois aller au cafe chercher des information sur le quartier de la planque.";
                                          }  }
                                          ;],
-                 !w_to hall,
+
                  ne_to chambremaison,
                  se_to "Il serait inutile d'inspecter les toilettes.",
                  e_to "La salle a manger et la cuisine peuvent attendre.",
@@ -1119,7 +1248,7 @@ Room maison "maison"
 
 Room chambremaison "chambre des maitres"
           with description [;
-          print "Rien n'encombre cette piece qu'on eut dit zen. Un lit pres du sol, et une commode sont les seuls meubles de cet austere lieu.";
+          print "Rien n'encombre cette piece qu'on eut dit zen. Un lit pres du sol, et une commode sont les seuls meubles de cet austere lieu. Un garde-robe au fond, assez large pour que quatre personnes puissent y entrer.";
           if (self hasnt general)
             print "^En deux temps, trois mouvements, l'inspecteur fouilla precautionneusement la commode et inspecta le garde-robe.
                          Decidemment, rien d'interessant ne se trouve dans cette chambre. Les papiers et documents de Ronald sont surement
@@ -1128,10 +1257,6 @@ Room chambremaison "chambre des maitres"
             ],
      sw_to maison,
      cant_go "La piece n'a pas d'autre ouverture qu'au Sud-Ouest.";
-
-!Room hall "hall"                                               !pièce à supprimer pour la version finale, sert de connection pour y entrer directement
-!         with description "hall d'entree",
-!               e_to maison;
 
 Room soussol "sous-sol"
           with description "le sous-sol",
@@ -1161,11 +1286,27 @@ Lieu usine "L'usine"
 
 
                          ],
+
+                         before  [;
+                                                take: if (noun == punchcard && etape3 == 0)   { print_ret "Mais de quelle carte parlez-vous donc?"; }
+                                                talk: if (noun == travailleurs) print_ret "Vous feriez mieux de ne pas les deranger dans leur travail";
+                                      ],
+
         n_to ruedestravailleurs,
         w_to bureaudirecteur,
         s_to "la salle des employ@'es est r@'eserv@'ee aux personnel.";
 
-Sub puncards "Les cartes des employes" usine
+Sub remplissageusine "les choses dans l'usine" usine
+                           with description "Fouiller l'usine pourrait mal se terminer... Les travailleurs lancent des regards mauvais a l'inspecteur",
+                                    name 'courroies' 'courroie' 'machines';
+
+Npc travailleurs "travailleurs" usine
+                with description "Ils ont l'air las, fatigues.",
+                        name 'travailleurs' 'aux',
+                        article 'les',
+                        has pluralname;
+
+Sub punchcards "Les cartes des employes" usine
                with description "il n'est d'aucun interet de verifie les entrees et les sortie de chacun",
                       name "cartes" "employes",
                 has scenery;
@@ -1190,7 +1331,7 @@ Npc andre "Andr@'e" usine
                                        default: PlayerTo(ruedestravailleurs, 1);
                                                     move andre to hangar;
                                                     give ruedestravailleurs general;
-                                                    etape1 = etape1 +1;
+                                                    etape1 = 1;
                                                      print "~Tu d@'emords pas, hein?~^^L'inspecteur aida Andre @`a se relever. ensemble, il march@`erent jusqu'@`a l'exterieur.
                                                                 ~Merci quand m@`eme, pour tout a l'heure j'veux dire.^Andre cracha un peu de sang, puis continua. Mais l@`a, c'est fini, j'dis plus rien,
                                                                    d@'esol@'e, faudra creuser un aut' filon. Moi j'ai tout donn@'e.~^ Puis il s'en alla en claudiquant.",
@@ -1208,7 +1349,7 @@ Room bureaudirecteur "bureau du directeur"
                                       du directeur. La sortie est @`a l'Est.",
 
                     e_to usine,
-                    cant_go "La sortie est à l'Est";
+                    cant_go "La sortie est a l'Est";
 
 Npc directeur "directeur d'usine" bureaudirecteur
              with description "Joufflu, l'air nais, le regard vide.",
@@ -1237,8 +1378,22 @@ Npc directeur "directeur d'usine" bureaudirecteur
                         has ~scenery;
 
 Lieu hypermarche "L'hypermarche"
-                         with description "Plus immense encore qu'aux temps de l'empire Americain.",
+                         with description "Plus immense encore qu'aux temps de l'empire Americain.",  !etape5 = 1; conversation avec Mauriac, argent dans le badge
+                                before  [;
+                                                      take: if (etape6 == 1)   { etape8 = 1;
+                                                                                            return false; }
+                                                              if (etape6 ~= 5) print_ret "Vous voulez acheter ca avec quel argent?";
+                                            ],
                          w_to grandeallee2;
+
+Object alcool "alcool" hypermarche
+                      with description "une flasque en argent contenant de l'eau de vie",
+                              name 'flasque' 'alcool' 'vie',
+                              before  [;
+                                                       buy: <<take self>>;
+                                           ],
+
+                     has concealed;
 
 Room hangar "hangar"
   with description "un lieu assez meta.";
@@ -1265,6 +1420,7 @@ Npc pauvresse "Anne-Marie" appartement1
                                                                  if (etape3==1) print_ret "Vous etes alle les voir? comment cela c'est-il passe?";
                                           Attack:            if (etape2 == 0)  {
                                                                     move adresse to player;
+                                                                    player_bad = player_bad + 1;
                                                                     PlayerTo(ruedestravailleurs, 1);
                                                                     give appartement1 general;
                                                                     give ruelle1 general;
@@ -1283,7 +1439,7 @@ Npc couple "Linda et Eric" appartement2
                        Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
                        switch (self.times_spoken_to) {
                         1:  etape3 = 1;
-                            print  "L'inspecteur se racla la gorge, conscient qu'il ne semblait pas le bienvenu. ~ J'ai commence mon enquete sur la... sur les reunions clandestines. J'ai eu vent qu'en lien avec cette affaire, une transaction aurait lieu ce soir dans la ruelle.
+                            print_ret  "L'inspecteur se racla la gorge, conscient qu'il ne semblait pas le bienvenu. ~ J'ai commence mon enquete sur la... sur les reunions clandestines. J'ai eu vent qu'en lien avec cette affaire, une transaction aurait lieu ce soir dans la ruelle.
                              Apparament, selon ma source, vous auriez eu cette conversation au sortir de l'usine hier, en apres-midi...^-Votre source? Ha! je parie que c'est cette vieille folle lanca Eric. Vous etes si desesperez de trouvez quelque chose que vous aller l'ecouter?
                              - Oui, coupa Linda, elle est un peu perdu. Tenez, j'vous parie qu'elle a dit qu'on se connaissait, n'est-ce pas? He bien, je n'ai rien a voir avec une esseulle de ce genre.
                              - Et puis, monsieur, si cela peu vous aider a vous faire une idee a son sujet, les quarts de travail se terminent toujours a 17h. Personne ne termine en apres-midi, sinon le patron lui-meme.
@@ -1292,7 +1448,7 @@ Npc couple "Linda et Eric" appartement2
                            - Certain Monsieur, dit calement Eric. Linda hocha la tete, sans plus.
                            - He bien, je sais tout ce dont j'avais besoin de savoir, conclua l'inspecteur. Puis, il rendit visible son magnetophone, qu'il gardait hors de la vue.
                            - C'est quoi se bidule? demanda Eric, anxieux
-                           - Un magnetohpone, votre deposition a ete dument enregistree, s'il advenait que vous mentiez... scouac! Fit l'inspecteur, en appuyant sur le bouton arret.~";
+                           - Un magnetohpone, votre deposition a ete dument enregistree, s'il advenait que vous mentiez... scouac! Fit l'inspecteur, en appuyant sur le bouton arret tout en se  levant.~";
                         2: "~Ca alors, vous avez du culot de nous avoir enregistre a notre inssu. Vous n'etes pas le bienvenue ici, vous avez termine? Dieu merci, partez maintenant.~";
                         default: "~Allez, partez!~ rencherissa eric, alors que sa femme approuvait du regard.";
                       }
@@ -1310,7 +1466,7 @@ Npc Mathilde "Mathilde" arrierecours
                         switch (self.times_spoken_to) {
                          1:   mathilde_talk = mathilde_talk + 1;
                               "Oh bonjour, vous venez me tenir compagnie? Ce que je m'ennuie vous savez.";
-                         2: "Je suis une cliente habituee. Je m'appelle Mathilde, enchantee, je suis la femme du directeur de l'usine.
+                         2: "Je suis une cliente habituee. Je m'appelle Mathilde, enchantee, je suis la fille du directeur de l'usine.
                                Je passe beaucoup de temps ici. Ca me change les idees. Un eclair de melancolie fulgura dans son iris.";
                         3: "Bon, vous etes insistant. Je vous deballe mon coeur: mon pere avait de hautes attentes envers moi, mais je n'ai pas ete a la hauteur.
                              Je suis mauvaise a l'ecole, que voulez-vous? Je n'etais pas la plus doue dans les classes de la cite, alors j'ai ete recalee ici.
@@ -1327,7 +1483,7 @@ Npc Mathilde "Mathilde" arrierecours
 
 !-------------------------10.0 routines------------------------------------------------------!
 
-[ TitlePage i;          
+[ TitlePage i;
  @erase_window -1; print "^^^^^^^^^^^^^";
  i = 0->33; if (i > 30) i = (i-30)/2;                                             ! le credit revient a Graham Nelson pour la boite d'intro, tiree du DM4
  style bold; font off; spaces(i);
@@ -1339,6 +1495,19 @@ Npc Mathilde "Mathilde" arrierecours
         @read_char 1 -> i;
         @erase_window -1;
         ];
+
+[ Renitialise;
+
+  lecture = 0;
+  etape1 = 0;
+  etape2 = 0;
+  etape3 = 0;
+  etape4 = 0;
+  etape5 = 0;
+  etape6 = 0;
+  etape7 = 0;
+  etape8 = 0;
+  ];
 
 ! [ verificateur x;
 !
@@ -1358,10 +1527,20 @@ Object badge "badge"
                          ];
 
 Object calepin "calepin"
-          with description "Un celepin d'enquete.",
-                  name 'calepin' 'note',
+          with description  [;
+                                            if (etape1 == 0) print_ret "Vous devez vous rendre a l'usine, rue des travailleurs, tout au sud.";
+                                            if (etape1 == 1 && etape2 ~=1) print_ret "Vous devez trouver le carnet d'adresse chez Anne Marie.";
+                                            if (etape2 == 1 && etape3 ~=1) print_ret "Le couple se trouve dans un appartement sur la rue Bernad-Lee, en face de l'entree du stationnement.";
+                                            if (etape3 == 1 && etape4 ~=1) print_ret "Vous devez montrer une preuve au couple qui dementira leur propos.";
+                                            if (etape4 == 1 && etape5 ~=1) print_ret "Vous devez vous rendre dans la ruelle et attendre.";
+                                            if (etape5 == 1 && etape6 ~=1) print_ret "Vous devez vous rendre au stationnement prendre la voiture de police et inspecter la maison de Ronald.";
+                                            if (etape6 == 1 && etape7 ~=1) print_ret "Vous devez vous rendre au cybercafe faire une recherche sur la planque.";
+                                            if (etape7 == 1 && etape8 ~=1) print_ret "Vous devriez aller a l'hypermarche vous preparer pour votre voyage.";
+                                            if (etape8 == 1 && etape7 ~=0) print_ret "Vous devez vous rendre au stationnement pour partir en voiture vers le quartier de la planque.";
+                                      ],
+                  name 'calepin' 'note' 'notes' 'enquete',
                    before [;
-                                       read: print_ret "Vous devez vous rendre @`a l'usine, sur la rue des travailleur.";
+                                       read: <<examine self>>;
                                       give, drop, push: print_ret "Votre calepin est bien trop important.";
                               ];
 
@@ -1382,10 +1561,10 @@ Furniture bureauaccueil "bureau imposant"
 Furniture chaise "chaise"
            with description"Une chaise en plastique bon march@'e.
                                       Il doit y en avoir des centaines dans la reserve.",
-                   name 'chaise',
+                   name 'chaise' 'la',
 
                    found_in sallepratique postepolice sallepoliciers salleenquete,
-                   has;
+                   has female;
 
   Furniture table "table"
         with description "Une table robuste, mais bon march@'e.",
@@ -1939,6 +2118,25 @@ Cutscene introduction3 "Introduction partie trois"
 
                    ];
 
+Cutscene cutsceneplanque "Vers la planque"
+        with description "S'il vous pla@^it, tapez ~lire~",
+
+
+               before    [;
+
+               Exit:  !PlayerTo(cutsceneplanque2);
+                      lecture = 0;
+                      return true;
+
+                    Read:
+                              lecture = lecture + 1;
+                              switch (lecture) {
+
+                     1: "Cut scne 2";
+                     2: "L'histoire est rendue la";
+                                              }
+                                   ];
+
 ! Cutscene chapitre 1 remettre lecture à zéro!
 
 !-----------------------------------------10.06 VerSub-------------------------------------------------------!
@@ -1974,3 +2172,6 @@ Extend 'lire' first
 Extend 'saluer' first
 
 * creature             -> Greet;
+
+Extend 'acheter' first
+* noun                 -> Buy;
