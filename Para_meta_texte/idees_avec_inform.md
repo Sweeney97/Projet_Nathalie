@@ -1,18 +1,17 @@
 ## Idées pour l'histoire en lien avec Inform
 
-Ce qu'il reste a faire:
+coder mur, toit, porte et mettre return true pour ofclass room?
 
-Remplir la cuisine d'anne-marie
-Remplir la maison
-Remplir le caffe
+
+Ce qu'il reste a faire:
+vérifier que dillinguer apparait nul part
+Faire la carte a puce
 Remplir le parc (statue voir livre histoire)
 Remplir l'hypermarché
-
-Apres avoir parle a mauriac, move voiture to stationnement (enlever scenery ou concelead)
-Dire bye a anne marie
+Dire bye a anne marie (rien a coder, juste a ajouter dans le before)
 Mettre un sub pour le babillard
 Les odeurs, les sons (before)
-
+Bloquer le poste de police (éteindre discours infirmière)
 Faire un chat qui se promène dans le premier quartier? le ramener à son proprio ferait monter le score. Je peux prendre le même code que pour le vendeur ambulant et confiner le vendeur aux quartiers 2 et 3.
 
 Si les string pour les cut-scene sont trop grosses pour Frotz-z5, je peux toujours faire un e-book ou un html à côté pour que le joueur puisse le lire. (Exemple, dans le jeu: lisez le chapitre trois du livre). Dans tous les cas je peux faire une stand-alone file pour l'histoire.
