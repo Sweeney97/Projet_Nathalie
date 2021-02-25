@@ -1,4 +1,4 @@
-métallique### Nathalie VADE
+### Nathalie VADE
 
 Ce n'est pas que l'inspecteur s'affilie *réellement* avec les criminels, mais plutôt qu'il le fait afin de venger sa femme/fille/autre. Seulement, au fur et à mesure qu'il avance dans cette direction, il doit commetre des actes de plus en plus difficiles... jusqu'à quel point est-il prêt à aller pour venger celle qu'il aime.
 
@@ -7,10 +7,6 @@ Les silo gigantesque, plus large qu'haut, cylindre aplatie, enrobé de toiles de
 Les cheminées crachent leur éternelle gerbe de fume qui s'enroule en torsade gris-sale. L'usine est grande de par son étendue, elle est en réalité un lot de bâtiment plat dans un complexe industriel. (ce qu'on appelle l'usine)
 
 Elle baigne toujours dans ce constant bruit d'usine, mi-métalique, mi-machinique, dans cette fumée cancérigène, dans cette ambiance morose du travail difficile, sale, assommant.
-
-
-
-
 
 La règle de non-violence est embarquée dans tout appareil électronique (droïde, drone, etc.).
 Mais pas dans Nathalie, qui est une humaine.
@@ -41,7 +37,7 @@ Cyberwarfare
 
 prendre le jeu en inform6 et demander à un développeur de prendre le jeu pour l'embed dans une app de sorte que le jeu ne soit qu'en audio. La personne parle avec le jeu, et écoute les réponses.
 
-Adapter en film d'animation francais ou un vrai film québécois avec que de la musique francaise techno, genre Mari Mai!:D ça ou avec Brandon Abley. Il y aurait ce détective privé hyper loquace -perspicace (le pp?) qui irait dans une vielle bibliothèque non pas abandonnée mais pas fréquentée, bibli non-répertoriée, fréquentée par personne, tenue par une seule. Dedans il trouverait plein d'archive et des infos inédites sur la société telle qu'ell apparaît dans l'oeuvre, informations qui pourrait lui nuire si elles se publiaient. La formation et la ségrégation d'icelle pourrait avoir été hyper violante, et croche aussi. En fait les bibli soutenue  par l'état (et légale) sont uniquement virtuelle; aucun papiers. L'information y est controlée
+Adapter en film d'animation francais ou un vrai film québécois avec que de la musique francaise techno, genre Mari Mai ça ou avec Brandon Abley. Il y aurait ce détective privé hyper loquace -perspicace (le pp?) qui irait dans une vielle bibliothèque non pas abandonnée mais pas fréquentée, bibli non-répertoriée, fréquentée par personne, tenue par une seule. Dedans il trouverait plein d'archive et des infos inédites sur la société telle qu'ell apparaît dans l'oeuvre, informations qui pourrait lui nuire si elles se publiaient. La formation et la ségrégation d'icelle pourrait avoir été hyper violante, et croche aussi. En fait les bibli soutenue  par l'état (et légale) sont uniquement virtuelle; aucun papiers. L'information y est controlée
 
 Les fusils des andros sont de longs tubes minces reliés à des pack dans leur dos. De la bouche en sort un trait de lazer qui une fois sa cible atteinte, explose.
 
@@ -79,43 +75,81 @@ Et une drogue, fournie par l’État, avec des distributrices un peu partout. Pa
 
 Chanson chantée par une femme au bar, Nathalie? Style année 60.
 Refrain :
+
 Je suis contrainte aux amours d’hier et d’aujourd’hui
+
 Oh oui! Bis
+
+<br />
 
 Qu’y puis-je si le ciel ma donné des yeux fait pour aimer?
+
 Une voix suave? Une taille fine
+
 Des charmes épanouis, une grace assassine?
+
 Et un coeur, oh! Un coeur! Tendre à se pâmer?
 
+<br />
+
 Je suis contrainte à l’Amour
+
 Je suis contraite à l’Amour
 
+<br />
+
 Au bal, le pied tapait la mesure
+
 Danser! Danser! Soufflez! Tapez!
+
 Je ne veux qu’une danse
+
 Dans ses bras
+
 Et ses lèvres pour l’arrêter
+
 Je suis contrainte aux amours d’hier et d’aujourd’hui
+
 Oh oui! Bis (!)
 
+<br />
+
 Et l’autre soir, au restaurant
+
 Avec un autre
+
 Ses yeux se noyait d’amour
+
 Dans les miens
+
 Mais je n’en n’ai cure!
+
 (messieurs, un peu de tenue je vous prie)
+
 Je suis contrainte aux amours d’hier et d’aujourd’hui
+
 Oh oui! Bis
+
+<br />
 
 Car après tout
+
 Tous ne se fondent
+
 Qu’en un seul
+
 Et celui-la, le seul que j’aime
+
 S’en est allé
+
 Loin de mon coeur
 
+<br />
+
 Je suis contrainte aux amours d’hier et d’aujourd’hui
+
 Oh oui! Bis
+
 (mes chéries, c’est trop d’honneur)
 
 « Nous sommes confrontés à des systèmes techniques d’une puissance sans précédent, qui impactent très rapidement tous les secteurs, de l’éducation à la santé, de l’économie à la justice… Et la transformation en cours est concomitante à la montée de l’autoritarisme et du populisme ». Cette évolution n’est pas une coïncidence, avance la chercheuse : l’un et l’autre interrogent la centralisation du pouvoir et nécessitent d’améliorer notre compréhension critique des formes de pouvoir. Cette combinaison renforce les difficultés pour maîtriser ces outils et les rendre responsables et nécessite de comprendre en profondeur les relations entre politique, pouvoir et IA. « L’IA est une nouvelle ingénierie du pouvoir ». La science, la société et les autorités doivent trouver les modalités pour qu’elle rende réellement des comptes. « C’est bien plus qu’une question d’équité, de loyauté, d’honnêteté ou de responsabilité ! C’est une question de justice ! », introduit Kate Crawford non sans passion.
@@ -128,8 +162,8 @@ Toute classification dépend d’une abstraction, qui vise à mettre certaines c
 . La philosophe Hannah Arendt rappelait que ce qui hantait le plus sa génération après le procès de Nuremberg était de comprendre comment cela avait pu arriver ! Et comment avons-nous pu laisser cela arriver ! Elle constatait déjà que la seule chose qui a pu limiter la montée des dérives totalitaires a été de s’opposer à leurs technologies. En 1968, la philosophe nous prévenait déjà :« Le rêve de la police est qu’une carte gigantesque sur les murs de leurs bureaux suffise pour établir à chaque moment qui est en relation avec qui et selon quel niveau d’intimité… » Ce cauchemar ne paraît plus irréalisable aujourd’hui, sa réalisation technique est juste difficile.
 
  nathalie s’infiltre dans une tour en ville, et va dans un étage select de strip-tiseuse; elle va à l’encontre du proprio; un ministre très intelligent (c’est un intellectuel). C’est « sartre »; il louche, un œil pour voir les idées, un œil pour la réalité. Comme satre, il n’y a pas d’essence. Le bien perd toute prédominence. Bien sûr, avant qu’elle ne le liquide, ils parlent longuement. Elle se pousse quand la police arrive.
-NATHALIE, C’EST LE PROJET DANS NOIR ET BLANC MAIS CONCRÉTISÉ
-LA BEAUTÉ C’EST LE MAL. CITATION MARQUIS DE SADE. C’EST LE DÉVIANT.
+Nathalie, c'est le projet dans noir et blanc, mais concrétisé.
+La beauté c'est le mal (ou la déviation). Citation de Sade sur les plus belles roses.
 
 Dieu est informations
 (c’est-à-dire, la totalité des informations existantes)
@@ -176,7 +210,7 @@ Tu --> Nathalie
 Il/vous --> Inspecteur
 
 Voici: les actions neutres sont cachées; c'est toujours au joueur de les deviner.
-Les actions immorales par contre, il peut TOUJOURS les appeler dans n'importe quel contexte afin de faire avancer l'histoire.
+Les actions immorales par contre, il peut toujours les appeler dans n'importe quel contexte afin de faire avancer l'histoire.
 
 Par exemple: il vous crache au visage.
 
@@ -218,7 +252,7 @@ La deuxième partie du jeux: Score de ta faction
 
 Un ami qui dit a un moment dans l'histoire: écoute il faut que tu prenne partie. Tu peux pas être dans la zone grise éternellement. [Commentaire après lequel il faut choisir: soit le tuer pour apporter sa tête au chef des gangster ou le menoter et l'amener au poste de police]
 
-Le but de la mécanique du jeux est qu'au début, le joueurs commette des actions immorales car c'est plus facile. Vers la moitié du jeux, il sera trop immoral pour s'affilier avec la police et sera obliger d'être aveces gangster. Et dès qu'il s'affilie, le cauchemar commence. Il assiste a plein de choses horribles et s'il intervient, il augmente les chance pour les travailleurs de perdre. Les actions immorales contextuelles deviennent de plus en plus pire. Le jeux pousse le joueur à devenir gangster par facilité, puis à regretter son choix pour des questions morales, puis à essayer de se rattraper et donc de perdre et de faire perdre les innocents travailleurs. Le joueur se sent ainsi à la fin comme une nuisance, un déchet mouhahahah.
+Le but de la mécanique du jeux est qu'au début, le joueurs commette des actions immorales car c'est plus facile. Vers la moitié du jeux, il sera trop immoral pour s'affilier avec la police et sera obliger d'être avec ces gangster. Et dès qu'il s'affilie, le cauchemar commence. Il assiste a plein de choses horribles et s'il intervient, il augmente les chance pour les travailleurs de perdre. Les actions immorales contextuelles deviennent de plus en plus pire. Le jeux pousse le joueur à devenir gangster par facilité, puis à regretter son choix pour des questions morales, puis à essayer de se rattraper et donc de perdre et de faire perdre les innocents travailleurs. Le joueur se sent ainsi à la fin comme une nuisance. Le rendre moralement inconfortable.
 
 Il n'y a aucune zone fermée dans le jeux. Tous les quartiers et les districts de la cité sont accessible. Mais leur nom son donnés au cours de la partie. Sans les nom, impossible d'y aller
 
