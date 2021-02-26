@@ -7,6 +7,12 @@ Constant MANUAL_PRONOUNS;
 Constant MAX_CARRIED = 5;
 
 Include "Parser";
+
+Object LibraryMessages
+            with before  [;
+                                                if (lm_n == 30) "Il y a des choses plus importantes @`a faire.";
+                                 ];
+
 Include "VerbLib";
 
 !---------------------------------0.1 initialisation---------------------------------------------!
@@ -90,6 +96,7 @@ Class Furniture
 Class Street
     has light;
                                          !je fais une classe pour chacun même s'ils ont les même caractéristiques, au cas où je me servirais de la classe dans une routine/daemon
+
 Class Ruelle
   has light;
 
@@ -739,11 +746,6 @@ Deco babillard "babillard" salleenquete
                                 retranscription d'un t@'emoignage, etc.",
             name 'babillard' 'liege';
 
-Sub babillardremplissage "Les papiers @'epingl'es."
-              with description "Plusieurs papiers sont @'epingl@'es: des articles de journaux, une map du quartier, une
-                                          retranscription d'un t@'emoignage, etc.",
-                       name 'papiers' 'papier' 'map' 'retranscription' 'temoignage' 'journaux' 'journal' 'articles';
-
 Npc mauriac "M. Mauriac" salleenquete
   with description "l'enqu@^eteur en chef du depart.",
         name 'enqueteur' 'mauriac' 'M. Mauriac' 'homme',
@@ -871,67 +873,106 @@ Object computer "ordinateur"
                              ],
               has light;
 
-! a déplier
 Object courriels "courriels" computer
             with description "Un message depuis internet",
                      name 'courriel' 'courrier' 'email' 'courriels',
+                    email_reads 0,
                      before [;
-                                    examine, read: print_ret "Vous lisez vos courriels";
+                                     read, examine: self.email_reads = self.email_reads + 1;
+                                     switch (self.email_reads) {
+                                      1: "Monsieur,
+
+                                      @`a la suite de votre acception du contrat ci-joint pour le mandat d'enqu@^ete sur les s@'eries d'@'ev@`enements 00678 et 00679, nous tenons @`a exprimer d'une part notre incroyable gratitude envers votre d@'evouement pour la R@'epublique. Sachez, Monsieur, que si votre enqu@^ete permet de faire avancer significativement les choses, nous saurons vous remercier. Nous aurons besoin, d'ici la fin du mois, que vous vous pr@'esentiez au bureau administratif bloc C-32, section orange, afin de pr@'esenter le contrat d@^ument sign@'e. Si vous avez des questions, vous pouvez appeler du lundi au vendredi de 13h @`a 15h au bureau du ministres des enqu@^etes sp@'eciales. Pour les urgences, veuillez contactez votre sup@'erieur assign@'e pour le mandat, en l'occurrence";
+                                      2: "J'esp@`ere que tu te souviens de moi parfois. Je ne m'@'epuiserai jamais de t'@'ecrire. J'esp@`ere seulement -non une r@'eponse, cela serait trop demand@'e- que tu ne te fatigue pas de me lire. Hier j'ai re@ccus Anatole chez moi, et nous avons discut@'e de choses et d'autres. Je vois peu de gens, mais peut importe combien j'en verrais, cela ne saurait enlever la solitude incommensurable qui me creuse. ...";
+                                      3: "Salut,^ j'ai essay@'e de te rejoindre ce soir, je voulais te glisser quelques infos suppl@'ementaire... rappelle-moi quand tu auras deux minutes.
+                                      ^P.-S.-: c'est ultra confidentiel, alors appelle-moi avec le t@'el@'ephone fixe pr@`es du poste de police.";
+                                    default: "Vous n'avez plus de nouveaux courriels";
+                                    }
                                  ],
          has scenery;
 
-! a déplier
 Object Naviguateur "naviguateur" computer
             with description "naviguateur",
                     name 'naviguateur' 'fureteur',
                     before [;
-                                   examine, read: print_ret "Un moteur de recherche controle par l'Etat";
-                                ],
+                                   examine, read: if (self hasnt general)  { print"L'inspecteur fit une recherche Internet afin d'obtenir des informations sur le quartier de la planque. Comme le gouvernement se refusait d'avouer la honte que faisait cette r@'esistance @`a son autorit@'e, l'information fut difficile @`a trouver. Il r@'eussit @`a glaner, @cca et l@`a, des informations diss@'emin@'ees, mais rien d'officiel. Surtout, dans l'encyclop@'edie officielle du gouvernement, rien ne mentionnait ces hors-la-loi! Par contre, dans un rapport administratif @`a l'@'ecriture quelconque, il retrouva une certaine strat@'egie de s@'ecurisation et renforcement des zones limitrophes. Ce qui laissait sous-entendre qu'il y avait peut-@^etre un probl@`eme. Il lit, dans diff@'erents forums, quelques bribes:
+                                                            ^ ... On consid@`ere la planque comme @'etant principalement le quartier Duchamps, et ses fronti@`eres au-del@`a sont changeantes selon les guerres avec les autres gangs... ^ ... Des criminels font des rondes courantes sur leur territoire, et demandent au malheureux qui les croiserait une taxe... ^ ... Le chef de La planque, Vallagnosc, serait devenu criminel assez jeune, alors que le seul membre de sa famille, son p@`ere, fut envoy@'e dans un camp de travail... ^... L'influence de La planque s'@'etend m@^eme jusqu'@`a la cit@'e. Il para@^it que Vallagnosc re@ccoit jusqu'@`a des personages importants... ^... Depuis que les criminels de la planque tentent de trouver dans la for@^et un poison rare, les sauvages se prom@`enent parfois dans le quartier Duchamps, dans l'espoir d'abattre Vallagnosc, qu'ils savent @^etre le chef, d'un fl@'echette empoisonn@'ee... ";
+                                                              give self general;
+                                                              return true; }
+                                                          if (self has general) print_ret "Vous avez d@'ej@`a fait une recherche.";
+                              ],
+
             has scenery;
 
-! a déplier
 Object dossierphoto "dossier de photos" computer
             with description "des photos de famille",
                    before [;
-                                 examine, read: print_ret "L'inspecteur regarda ses photos";
+                                 examine, read: if (self hasnt general) { print "L'inspecteur regarda furtivement ses photos, car cela le rendait toujours sentimental. Les rires, les sourires, les anniversaires, les potentialit@'es perdues @`a jamais... cela le faisait presque pleurer. Il ne s'@'etendit pas d'avantage sur la chose.";
+                                                         give self general;
+                                                         return true; }
+                                                       if (self has general) print_ret "Une fois, c'est assez.";
                               ],
                     name 'photo' 'photos' 'dossier',
           has scenery;
 
-! a déplier
 Object journal "journal personnel" computer
             with description "un journal personnel",
                     name 'journal' 'intime' 'personnel',
                     before [;
-                                   examine, read: print_ret "Vous lisez le journal";
+                                   examine, read:  if (self hasnt general) { print "L'inspecteur tomba par hasard sur cette entr@'ee de son journal:^
+                                                            Jamais je ne me ferrai @`a la vie seul. Cela est triste, et m@^eme si j'aurais envie de rencontrer une nouvelle flamme, j'ai peur de mettre en danger ceux que j'aime.";
+                                                            give self general;
+                                                            return true;    }
+                                                            if (self has general)  print_ret "L'inspecteur connait chaque entr@'ee, inutile de perdre plus de temps. ";
                                 ],
            has scenery;
 
-! a déplier
 Object noteenquete "enquete precedante" computer
             with description "vous notes precedante d'enquetes",
                     name 'notes' 'enquete',
                     before [;
-                                   examine, read: print_ret "Vous les notes d'enquetes";
+                                   examine, read:  if (self hasnt general)  { print "
+                                   Enqu@^ete sur les disparitions dans le Quartier Saint-Hippolyte.
+                                   On m'avait assign@'e @`a cette enqu@^ete avec l'espoir que je retrouvai le criminel responsable des enfants disparus dans ce quartier pourtant hautement s@'ecuris@'e de la cit@'e, dans le secteur dix-huit. D@`es le commencement de la mission, j'ai eu acc@`es @`a une tonne d'informations confidentielles sur les entr@'ees et sorties des r@'esidants, des conversations t@'el@'ephoniques, des courriel, m@^eme des rapports @'ecrits en partie par Cora, peu de temps apr@`es son inauguration. J'avais beau essayer, j'@'etais incapable de passer au travers cette masse ph@'enom@'enale d'information, de papeterie. J'ai tout mis de c@^ot@'e pour aller discuter avec les parents endeuill@'es. Je suis tous all@'e les voir, et je me suis rendu compte qu'une information primordiale avait gliss@'ee des rapports, des syst@`emes et des algorithmes: ils inculquaient @`a leurs enfants qu'ils devaient @'etudier fort pour ne pas @'echouer dans les quartiers malpropres. Le ravisseur posait une question du genre: es-tu d@'ej@`a all@'e visiter les quartiers? aux enfants. Enfin, c'@'etait l@`a un de @'el@'ements clefs n@'ecessaire pour r@'esoudre l'affaire. La police ne r@'eussit jamais @`a coincer le criminel, mais gr@^ace @`a moi nous p@^umes l'identifier: Henry Duford, 38 ans, avait des s@'equelle, en lien avec son enfance dans...";
+                                                             give self general;
+                                                            return true; }
+                                                            if (self has general) print_ret "Vous avez besoin de vous concentrer sur cette enqu@^ete-ci!";
                                 ],
             has scenery;
 
-!a déplier
 Object projetnathalie "projet nathalie" computer
             with description "ca, c'est meta",
                     name 'inf' 'projet',
                     before [;
-                                   examine, read: print_ret "Vous lisez du code";
+                                   examine, read:  if (self hasnt general) { print "Constant Story ~Projet Nathalie~;^Constant Headline ~A. Sweeney~;^Constant MANUAL_PRONOUNS;^Constant MAX_CARRIED = 5;^^
+                                   Include ~Parser~;^Object LibraryMessages^with before  [;^if (lm_n == 30) ~Il y a des choses plus importantes @`a faire.~;^ ];^Include ~VerbLib~;^^
+                                   ---------------------------------0.1 initialisation---------------------------------------------^^
+                                   [ Initialise;^TitlePage();^location = introduction;^!location = postepolice; !move calepin to player;^lookmode = 2; !-----permet d'afficher en tout temps les descriptions des endroits^move badge to player;^StartDaemon(policiers);^StartDaemon(maison);^^^player.description = ~L'inspecteur est un homme robuste, dans l'entre deux @^ages.^
+                                   Son visage est carr@'e, parsem@'e d'un d@'ebut de barbe bien entretenu.^ Il a des yeux girs clair, un timbre assez grave.^Des rides d'inqui@'etudes et de tristesse ont grav@'e son front.^Il est v@^etu de sont @'eternelle redingote.^Quand les nuits sont fra@^iches, il porte un bonnet de laine de mouton noir.~;^];^^
+                                   !-------------------------------------0.2 Variables globales---------------------------------------------------------------------!^^
+                                   Global lecture = 0;^Global mathilde_talk = 0;^Global player_killer = false;^Global player_bad = 0;^Global player_criminal = false;^! Variable globale pour la progression du jeu !^
+                                   Global etape1 = 0;^Global etape2 = 0;^Global etape3 = 0;^Global etape4 = 0;^Global etape5 = 0;^Global etape6 = 0;^Global etape7 = 0;^Global etape8 = 0;^";
+                                   give self general;
+                                   return true; }
+                if (self has general) print_ret "Vous avez deja conulte ce fichier inexplicable.";
                                 ],
             has scenery;
 
-! a déplier
 Object recherche  "recherche sur la ligne verte" computer
             with description "",
                     name 'recherche' 'ligne' 'verte' 'travail',
                     before [;
-                                   examine, read: print_ret "Vous lisez cette recherche sur la ligne verte";
-                                ],
+                                   examine, read: if (self hasnt general)   {
+                                    print  "Extrait d'un travail de recherche sur la ligne verte, effectu@'e pour l'@'ecole en ...^
+                                   ~ La ligne verte @`a @'et@'e plant@'ee il y a pr@`es de cent ans pour emp@^echer la d@'esertification venant du Sud. Les terres br@^ul@'ees gagnent, encore aujourd'hui, du terrain chaque ann@'ee dans toutes les direction.
+                                   Durant le d@'ebut du si@`ecle, le gouvernement s'@'etait pench@'e sur la d@'esertification des Terre br@^ul@'ee, et plus particuli@`erement sur le danger qu'elles repr@'esentaient pour les quartiers limitrophe. Ils ont pu observer, au Sud-Ouest, une poche de r@'esistance venant de la for@^et de Loudun, habit@'ee par ls sauvages.
+                                   La forme de cette for@^et @'etait celle d'une bande plus ou moins ovale.
+                                   Le gouvernement d@'ecida de poursuivre cette for@^et afin d'en faire une ligne, d'o@`u son nom contemporain, qui cerne le pourtour des quartiers, et limite la d@'esertification des Terre br@^ul@'ees.
+                                   La premi@`ere section victime de la d@'esertification furent les mines, abandonn@'ees vers les ann@'ees 50. On raconte que les sauvages, profitant d@'esormais d'un plus grand terrain, d@'efendent leur for@^et contre les rares coupes, rendant plus difficile de g@'erer et d'@'etudier cet espace. Ils sont plus particuli@`erement violents quant @`a l'espace initial de leur for@^et, la poche de Loudun, qu'ils consid@`erent probablement comme sacr@'ee.~";
+                                  give self general;
+                                  return true;  }
+                                                         if (self has general) print_ret "Vous vous ennuyez avec cette recherche.";
+                                      ],
            has scenery;
 
 Lieu arrierecours "l'arri@`ere cours du cybercaf@'e"
@@ -939,19 +980,32 @@ Lieu arrierecours "l'arri@`ere cours du cybercaf@'e"
             cant_go "Vous voulez sauter de la terasse? et puis quoi encore?",
             n_to cybercoffee;
 
-!déplier
 Lieu parc "parc"
-         with description "Un immense parc. Au Sud vous pouvez rejoindre la rue du parc. @`A l'Ouest, se trouve le palais de justice, et @`a l'Est, la Grande All@'ee.",
+        with description [;
+               print "Au Sud vous pouvez rejoindre la rue du parc. @`A l'Ouest, se trouve le palais de justice, et @`a l'Est, la Grande All@'ee";
+                         if (self hasnt visited)
+               print "^Un parc bien entretenu, il sert de lieu de pause pour les policiers, les avocats, et les employ@'es de la ville. Un petit chemin contourne une @'etendue d'eau dans laquelle
+                            pataugent des cannards. En face, sur un bancs, une vieille femme noire regarde les oiseaux. Une grande statue, de la hauteur d'un @'etage d'une maison, repr@'esente Francis Rotweller.";
+                                  ],
             e_to grandeallee1,
             s_to rueduparc,
-            w_to "Nul interet @`a visiter le palais de justice ou l'hotel de ville",
+            w_to "Nul int@'eret @`a visiter le palais de justice ou l'hotel de ville",
             se_to carrefour2,
             sw_to carrefour1,
             n_to "Le poste de police, mais l'entr@'ee se fait par la grande all@'ee.";
-! Satue
-!  oracle
-!  marre
-!  cannard
+
+Object statue "statue" parc
+    with description "La statue fait bien la grandeur de deux hommes. Elle est en bronze: Fran@ccis Rotweller, ancien d@'ellegu@'e, pose sobrement avec le livre La r@'epublique sous le bras.
+                                Son regard porte au loin, symbole de l'avenir et du progr@'es.",
+            name 'statue' 'francis' 'rotweller',
+    has  female scenery;
+
+Object cannard "cannards"
+          with description "Une famille de quatre canard qui nagent joyeusement.",
+             life  [;
+                                   "Ils s'affolent et caqu@`etent";
+                     ],
+      has pluralname;
 
 Lieu stationnement "Stationnement"
         with description "Le stationnement pour les travailleurs de l'usine. La sortie est @`a l'Est.",
@@ -988,13 +1042,12 @@ Lieu stationnement "Stationnement"
 
                  e_to ruebernardlee1;
 
-! adéplier
 Object voiture "voiture de police" stationnement
-              with description "voiture de police",
+              with description "Une voiture a hydrog@`ene, un mod@`ele r@'ecent. Sa coupe est sportive et a@'erodynamique. Elle est toute @'equip@'ee:
+                                          pilotage assist@'e, intelligence artifcielle embarqu@'ee, verouillage et d@'emarrage par identifiant, etc.",
                        name 'voiture' 'police' 'bolide' 'char',
               has  static;
 
-! adéplier
 Sub appartementpauvre "appartement pauvre" ruedestravailleurs
               with description "Une facade triste, des fen@^etres salies par l'@'eternelle fum@'ee crach@'ee par l'usine. Quoique le bloc ne semble pas sur le point de s'@'ecrouler,
                                           il n'en reste pas moins d@'ecr@'epit.",
@@ -1046,9 +1099,8 @@ Lieu appartement1 "appartement pauvre"
                        cant_go "Au Nord se trouve la cuisinette. Un escalier m@`ene @`a l'@'etage superieur, la porte d'entr@'ee est au Sud.",
                        s_to "Vous feriez mieux de ne pas attirer l'attention sur Anne-Marie.";
 
-! a déplier
 Deco fautueil "fauteuil" appartement1
-               with description "fauteuil",
+               with description "Un fauteil bleu poudre trou@'e par endroits, croulant sous le poids et d'Anne-Marie, et du temps. Des griffures indiquent qu'il y eut autrefois un animal.",
                       name 'fauteuil';
 
 Furniture console "console" appartement1
@@ -1180,18 +1232,27 @@ Room cuisinette "Cuisinette"
                   n_to balcon,
                   cant_go "Au Nord, la porte donne sur le balcon. Au Sud, en passant sous l'arche, vous pouvez retourner au salon.";
 
-!Furniture gardemanger
+Furniture gardemanger "garde-manger" cuisinette
+               with description "Un garde-manger en bois qui sent les @'epices.",
+                       name 'garde-manger' 'placard',
+                      before  [;
+                                            open: print_ret "Je ne pense pas que le carnet d'adresse serait dans le garde-manger!";
+                                   ];
 
-!Furniture comptoir
+Furniture comptoir "comptor" cuisinette
+                 with description "Le comptoir ne re@ccois plus d'amour depuis des lustres: des t@^aches d'eau et d'humidit@'e le parcours, sans compter les traces de caf@'e et de sauces imprim@'ees pour l'@'eternit@'e.",
+                         name 'comptoir' 'vanite';
 
-!Furniture four
+Furniture four "four" comptoir
+               with description "Un four Westley & Harold. Ce four fait partie des premi@`eres series d'@'el@'ectrom@'enagers de la compagnie.",
+                       name 'garde-manger' 'placard',
+                      before  [;
+                                            open: print_ret "Je ne pense pas que le carnet d'adresse serait dans le four!";
+                                   ];
 
-!Object lavabo
-
-!Object fenetre
-
-!Object portecuisinette
-
+Object lavabo "lavabo" cuisinette
+                 with description "Le lavabo contient quelques assiettes sales.",
+                         name 'lavabo';
 
 Lieu balcon "balcon"
         with description "La vue n'est pas particuli@`erement int@'eressante. Il est cependant possible de voir plusieurs dos de bloc-appartements, ce qui doit @^etre
@@ -1242,32 +1303,36 @@ Lieu appartement2 "appartement moyen"
 
             w_to ruebernardlee1;
 
- Sub appart2sub "remplissage appart 2" appartement2
-                      with description "Oups! le quatrieme mur et perce!",
-                             name 'sofa' 'ilot' 'television' 'tele' 'cuisinne' 'salon' 'luminaire';
-
-! a deplier
 Room maison "Maison"
- with description "L'int@'erieur est d'un luxe rare pour les quartiers. La cuisine et la salle @`a manger sont situ@'ees a l'Est, dans une section l@'eg@`erement sur@'elev@'ees, la toilette au sud-est. Des escalier descendent au sous-sol, une porte entrebaill@'ee laisse entrevoir une chambre au Nord-Est.",
+ with description [;
+           print "La cuisine et la salle @`a manger sont situ@'ees a l'Est, dans une section l@'eg@`erement sur@'elev@'ees, la toilette au sud-est. Des escalier descendent au sous-sol, une porte entrebaill@'ee laisse entrevoir une chambre au Nord-Est.";
+              if (self hasnt visited)
+           print "^L'int@'erieur est d'un luxe rare pour les quartiers. Les meubles semblent irr@'els, comme inutilis@'es, sans trace d'usure. La maison est nettoy@'ee probablement par une bonne: pas une seule poussi@`ere,
+                        un seul objet qui ne tra@^ine.";
+                            ],
         turns_wait 0,
+           before  [;
+                               examine: print_ret "L'inspecteur doit se concentrer et trouver o@`u seraient les informations importantes.";
+                        ],
+
            daemon [;
 
         if (location == maison || location == soussol || location == chambremaison)   {       self.turns_wait = self.turns_wait + 1;
                     switch (self.turns_wait) {
-                                 11:   give chambremaison general;
+                                 6:   give chambremaison general;
                                         "Vous entendez un moteur ronronner et des pneus crisser. Ronald fera irruption dans l'entr@'ee d'ici quelques instants.
-                                         Peut-@^etre devriez-vous vous cacher?";         !-- L'inspecteur doit savoir qu'il a environ une demi-heure pour fouiller. Ronald entre plus tôt que prévu.
-                                 13: if (player in maison)  { deadflag = true;
+                                         Peut-@^etre devriez-vous vous cacher?";
+                                 7: if (player in maison)  { deadflag = true;
                                        return true; }
                                        "Ronald entre dans sa maison, mais ne remarque rien de suspect... pour le moment.";
 
-                                 14: if (player notin garderobe) deadflag = true;
+                                 8: if (player notin garderobe) deadflag = true;
                                       "Ronald marche, se prom@`ene dans quelques pieces pi@`eces, ouvre des tiroirs, fouille et semble chercher quelque chose.";
 
                                   15: if (player notin garderobe) deadflag = true;
-                                        if (player_killer == true) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, il sont mort. Hum hum. Morts. J'ai envoy2'e le Sphinx inspecter le lieu de l'@'echange. Il les a retrouvés dans la benne @`a ordure
+                                        if (player_killer == true) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, il sont mort. Hum hum. Morts. J'ai envoy@'e le Sphinx inspecter le lieu de l'@'echange. Il les a retrouv@'es dans la benne @`a ordure
                                                                                                du caf@'e. On cherche encore @`a comprendre c'est qui le salaud qui a fait @cca. Oui on c'est occupp@'e des corps, on veut retarder la police, @cca va d@'eclencher une s@'erie d'enqu@^ete et d'interrogatoires. On veut pas @cca. Si c'est la police? Pfff. Jamais. Ce n'est pas leur genre de tirer aussi gratuitement. Il n'y a aucune trace de combat.
-                                                                                               C'est ce qui me rassure aussi. On ne les a pas fait parler. On savait d@'ej@`a qui ils @'etaient. @cCa laisse peut d'option. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@,ee qu'il est sur le coup.
+                                                                                               C'est ce qui me rassure aussi. On ne les a pas fait parler. On savait d@'ej@`a qui ils @'etaient. @cCa laisse peut d'option. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@'ee qu'il est sur le coup.
                                                                                                 Et comme la police ignore tout sur tout... elle ne peut pas l'avoir mis au courant. En tout cas. Je dois toujours r@'ecup@'erer mon colis.
                                                                                                J'irais directement @`a la planque voir Vallagnosc. C'est trop important! et je dois tirer certaines choses au clair avec lui... en personne. Ma fille Mathilde revient d'une minute @`a l'autre, elle doit avoir termin@'e son tutorat.
                                                                                                Non... @cca n'a pas d'importance... tout @cca n'aura plus d'importance dans quelques semaines. Allez, fais attention @`a toi. Bye.";
@@ -1290,7 +1355,6 @@ Room maison "Maison"
                  d_to soussol,
                  cant_go "Le sous-sol est en bas, la chambre au Nord-Est.";
 
-! a deplier
 Room chambremaison "chambre des ma@^itres"
           with description [;
           print "Rien n'encombre cette pi@`ece qu'on eut dit zen. Un lit pr@`es du sol, et une commode sont les seuls meubles de cet aust@`ere lieu. Un garde-robe au fond, assez large pour que quatre personnes puissent y entrer.";
@@ -1299,24 +1363,54 @@ Room chambremaison "chambre des ma@^itres"
                          D@'ecidemment, rien d'int@'eressant ne se trouve dans cette chambre. Les papiers et documents de Ronald sont s@^urement
                          group@'es ailleurs dans sa maison.";
                       give self general;
-            ],
+                                    ],
+                   before  [;
+                                     examine: print_ret "Il n'y a rien l@`a d'int@'eressant.";
+                            ],
+
      sw_to maison,
      cant_go "La pi@`ece n'a pas d'autre ouverture qu'au Sud-Ouest.";
 
-!Object cuisinemaison
-
-!Object toilette maison
-
 ! a deplier
 Room soussol "sous-sol"
-          with description "le sous-sol",
+          with description "Le sous-sol n'a pas de cloison ou de mur, ce qui donne une impression de grandeur. L'inspecteur se dirigea vers le bureau de Ronald.
+                                       Vous pouvez voir une grande fillaire, une @'etagere, et un document pose sur le bureau. Aussi, le bureau est compl@'et@'e par un tiroir.",
                 u_to maison;
 
-! Bureau, fillaire, un classeur, un album, une etagere, un placard (trop etroit!!!)
+Object tirroir "tirroir" soussol
+         with description "Un tiroir en bois.",
+                 name 'tiroir' 'tirroir',
+                 before  [;
+                                  examine, search: give self general;
+                                                              if (self hasnt general) print_ret "Vous fouillez";
+                                                              if (self has general) print_ret "Vous avez deja fouille";
+                            ];
 
-! a deplier
+Furniture bureau "bureau" soussol
+               with description "description du bureau",
+                        name 'bureau';
+
+Object filliaire "filliaire" soussol
+                  with description "filliaire",
+                          name 'filliaire',
+                  has scenery openable female;
+
+
+Furniture etagere "@'etag@`ere" soussol
+            with description "etagere",
+                   name 'etagere',
+    has female;
+
+Object document "document" soussol
+          with  description "lire le document",
+            name 'document' 'documents',
+            before  [;
+                              take: "Vous feriez-mieux de ne rien deplacer";
+                         ],
+    has scenery;
+
 Object garderobe "Garde-robe" chambremaison
-           with description "Plein de linge m@^el@'es",
+           with description "Plein de linge m@^el@'es.",
                    name 'garde' 'robe' 'garde-robe',
            has container open enterable scenery light;
 
@@ -1351,7 +1445,8 @@ Lieu usine "L'usine"
 
 Sub remplissageusine "les choses dans l'usine" usine
                            with description "Fouiller l'usine pourrait mal se terminer... Les travailleurs lancent des regards mauvais @`a l'inspecteur",
-                                    name 'courroies' 'courroie' 'machines';
+                                    name 'courroies' 'courroie' 'machines',
+                                   has scenery;
 
 Figurants travailleurs "travailleurs" usine
                 with description "Ils ont l'air las, fatigu@'es.",
@@ -1515,6 +1610,13 @@ Npc oracle "vieille femme" parc
                                     du mouvement des autres, trop de mouvement vain. Elle semble de bon conseil.",
                     name      'vieille' 'femme' 'oracle',
 
+                     life          [;
+                                                 talk: if (etape1 == 1 && etape2 ~=1) print_ret "Vous cherchez quelque chose? Parfois, ce que l'on cherche est directement sous nos yeux, ou si pr@`es, que d'intenses recherches s'av@`erent inutiles.";
+                                                        if (etape3 == 1 && etape4 ~=1) print_ret "On vous aurait menti? Ce n'est jamais agr@'eable. Pourquoi ne liriez-vous pas pour vous changer les id@'ees? @cCa aide parfois.";
+
+                                                "Oh! vraiment? Je suis trop vieille pour cela.";
+                                    ],
+
          has female;
 
 Npc pauvresse "Anne-Marie" appartement1
@@ -1662,13 +1764,13 @@ Object punchcard "carte pour l'horodateur" usine
          has concealed female;
 
 Object cartepuce "Carte @`a puce myst@'erieuse."
-            with description "Cette carte @`a puce n'a ni image ni texte. Elle est faite d'alluminium, et a une teinte bleu-nuit. La puce est visible sur la carte."
-                    name 'carte' 'puce';
+            with description "Cette carte @`a puce n'a ni image ni texte. Elle est faite d'alluminium, et a une teinte bleu-nuit. La puce est visible sur la carte.",
+                    name 'carte' 'puce',
             has female;
 
 Object sandwich "sandwich app@'etissant"
                  with description "Un sandwich au fromage et au jambon.",
-                         name 'sandwich' 'jambon' 'fromage';
+                         name 'sandwich' 'jambon' 'fromage',
                  has edible;
 !-------------------10.2 Objets recurrents des  postes de police-----------------------------------------------------------!
 
@@ -1719,7 +1821,7 @@ Deco telephone "t@'el@'ephone"
         name 'telephone' 'combine',
           found_in policeaccueil postepolice infirmerie;
 
-Furniture tableau "tableau"
+Furniture tableaublanc "tableau"
    with description "Un tableau blanc couvert d'@'ecriture au marqueur.",
         name 'tableau',
         found_in sallepratique salleenquete;
@@ -2272,6 +2374,10 @@ Cutscene cutsceneplanque "Vers la planque"
 
 [GreetSub;
 "L'inspecteur agite la main.";
+ ];
+
+[HearSub;
+"L'inspecteur tendi l'oreille";
  ];
 
 Extend 'asseoir' first

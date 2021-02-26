@@ -3,6 +3,11 @@ Constant Headline "^My first Inform game.^";
 Constant MANUAL_PRONOUNS;           ! Optional, but useful
 
 Include "Parser";
+Object LibraryMessages
+            with before  [;
+                                                if (lm_n == 30) "Vous n'avez pas besoin d'examiner cela.";
+                                 ];
+
 Include "VerbLib";
 
 
@@ -25,27 +30,6 @@ Object  study "Mon laboratoire"
 
               has light;
 
-Object Stephanie "Stephanie" study
-  with description "un pantin sans vie",
-          name 'femme' 'steph' 'stef' 'stephanie',
-         life  [;
-
-          order: "c'est un ordre?"
-          Tell: "cela ne m'interesse pas"
-
-
-                      ],
-           has animate female proper;
-
-Object pierre study
-        with description  "Une pierre",
-                 name 'pierre',
-          has scenery;
-
-Object souvenir study
-            with description "un souvenir",
-                     name 'souvenir',
-           has scenery;
 
 
 !--------------------------------------------------------!
