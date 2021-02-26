@@ -2084,7 +2084,7 @@ Cutscene introduction "Introduction partie 1"
 
                  before    [;
 
-                Exit: PlayerTo(introduction2);
+                exit: PlayerTo(introduction2);
                         lecture = 0;
                         return true;
 
@@ -2219,7 +2219,7 @@ Cutscene introduction2 "Introduction partie deux"
 
                    before    [;
 
-                  Exit: PlayerTo(introduction3);
+                  exit: PlayerTo(introduction3);
                   lecture = 0;
                   return true;
 
@@ -2271,7 +2271,7 @@ Cutscene introduction3 "Introduction partie trois"
 
                 before    [;
 
-                Exit: PlayerTo(policeaccueil);
+                exit: PlayerTo(policeaccueil);
                        lecture = 0;
                        return true;
 
@@ -2412,7 +2412,7 @@ Extend 'asseoir' first
  * 's^' 'sur' noun -> Enter
  * 's^' 'sur' 'la' noun -> Enter;
 
-Extend 'sortir' first
+Extend 'sortir'
 * noun -> Show;
 
 Extend 'parler' replace
