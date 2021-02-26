@@ -383,7 +383,7 @@ Npc cheftrain "chef de train" garecite
             else {
             print_ret "Il semble que vous ne soyez pas pr@`es. J'attends ici patiemment";   }
 
-             ;],
+            ;],
              has animate;
 
 !-----------------------------------------2.2 Rues et carrefours du premier quartier-------------------------------------------------------------!
@@ -401,7 +401,8 @@ Street grandeallee1 "La grande all@'ee"
                                                Au Nord se trouve le poste de police.",
 
                        w_to parc,
-                       n_to postepolice,
+                  !     n_to postepolice, le poste est marqué par general à la sortie (pourrait servir)
+                       n_to "Il n'y a pas de raison d'y retourner";
                        s_to carrefour2;
 
 Street grandeallee2 "La Grande All@'ee"
@@ -592,6 +593,7 @@ Room postepolice "poste du Quartier Sud."
 
              before [;
                                 go: if (noun == s_obj && calepin notin player) print_ret "Vous devez aller voir Mauriac avant tout.";
+                                go: if (noun == s_obj && calepin in player) give self general; return false;
                          ],
             n_to sallepoliciers,
             s_to grandeallee1,
@@ -1322,14 +1324,14 @@ Room maison "Maison"
                                  6:   give chambremaison general;
                                         "Vous entendez un moteur ronronner et des pneus crisser. Ronald fera irruption dans l'entr@'ee d'ici quelques instants.
                                          Peut-@^etre devriez-vous vous cacher?";
-                                 7: if (player in maison)  { deadflag = true;
+                                 8: if (player in maison)  { deadflag = true;
                                        return true; }
                                        "Ronald entre dans sa maison, mais ne remarque rien de suspect... pour le moment.";
 
-                                 8: if (player notin garderobe) deadflag = true;
+                                 9: if (player notin garderobe) deadflag = true;
                                       "Ronald marche, se prom@`ene dans quelques pieces pi@`eces, ouvre des tiroirs, fouille et semble chercher quelque chose.";
 
-                                  15: if (player notin garderobe) deadflag = true;
+                                  9: if (player notin garderobe) deadflag = true;
                                         if (player_killer == true) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, il sont mort. Hum hum. Morts. J'ai envoy@'e le Sphinx inspecter le lieu de l'@'echange. Il les a retrouv@'es dans la benne @`a ordure
                                                                                                du caf@'e. On cherche encore @`a comprendre c'est qui le salaud qui a fait @cca. Oui on c'est occupp@'e des corps, on veut retarder la police, @cca va d@'eclencher une s@'erie d'enqu@^ete et d'interrogatoires. On veut pas @cca. Si c'est la police? Pfff. Jamais. Ce n'est pas leur genre de tirer aussi gratuitement. Il n'y a aucune trace de combat.
                                                                                                C'est ce qui me rassure aussi. On ne les a pas fait parler. On savait d@'ej@`a qui ils @'etaient. @cCa laisse peut d'option. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@'ee qu'il est sur le coup.
@@ -1341,7 +1343,9 @@ Room maison "Maison"
                                                                                                Enfin, je vais regarder tout @cca; pour revenir @`a ce qui s'est pass@'e, mes homme l@`a, on savait d@'ej@`a qui ils @'etaient. @cCa laisse peu d'options. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@'ee qu'il est sur le coup.
                                                                                               Et comme la police ignore tout sur tout... elle ne peu pas l'avoir mis au courant. En tout cas, il faudra qu'on cherche comment l'information de la rencontre a fuit@'e. Ma fille Mathilde revient d'une minute a l'autre, elle doit avoir termin@'e son tutorat.
                                                                                                Non... @cca n'a pas d'importance... tout @cca n'aura plus d'importance dans quelques semaines. Allez, fais attention @`a toi. Bye";
-                                  16: StopDaemon(self);
+                                  10: if (player notin garderobe) deadflag = true;
+                                  11: if (player notin garderobe) deadflag = true;
+                                  12: StopDaemon(self);
                                         etape6 = 1;
                                         PlayerTo(Stationnement, 1);
                                         print_ret "Ronald se fit couler un bain. Lorsqu'il n'entendit plus rien, l'inspecteur en profita pour s'enfuir, tremblant et suant d'@^etre pris sur le fait. Il courrut de longues minutes dans la nuit afin de retrouver sa voiture, et conduisit avec soulagement jusqu'au stationnement. En sortant de la voiture, il parla @`a lui-m@^eme.
@@ -1371,7 +1375,6 @@ Room chambremaison "chambre des ma@^itres"
      sw_to maison,
      cant_go "La pi@`ece n'a pas d'autre ouverture qu'au Sud-Ouest.";
 
-! a deplier
 Room soussol "sous-sol"
           with description "Le sous-sol n'a pas de cloison ou de mur, ce qui donne une impression de grandeur. L'inspecteur se dirigea vers le bureau de Ronald.
                                        Vous pouvez voir une grande fillaire, une @'etagere, et un document pose sur le bureau. Aussi, le bureau est compl@'et@'e par un tiroir.",
@@ -1381,24 +1384,40 @@ Object tirroir "tirroir" soussol
          with description "Un tiroir en bois.",
                  name 'tiroir' 'tirroir',
                  before  [;
-                                  examine, search: give self general;
-                                                              if (self hasnt general) print_ret "Vous fouillez";
-                                                              if (self has general) print_ret "Vous avez deja fouille";
+                                  examine, search: if (self hasnt general)  { print"L'inspecteur fouilla dans le tirroir, sans rien trouver d'extraordinaire, sinon des articles de bureau. Alors qu'il refermait le tirroir, un d@'etail attira son attention.
+                                                                                                            Il remarqua une fente dans le tirroir. Il prit un trombonne qu'il d@'eplia, et l'ins@'era dans la fente. Il d@'ecouvrit un double tirroir cach@'e. @`A l'int@'erieur, il d@'ecouvrit une lettre qu'il rengea dans son manteau.
+                                                                                                            Puis, minutieusement, il referma le tirroir.";
+                                                              give self general;
+                                                              move letterronald to player;
+                                                              return true;  }
+                                                              if (self has general) print_ret "Vous avez deja fouill@'e le tirroir.";
                             ];
 
 Furniture bureau "bureau" soussol
-               with description "description du bureau",
+               with description "Le bureau est d'une propret@'e factice. Il n'y a rien a redire a premi@`ere vue, tout est trop... parfait. M@^eme le rapport, pose la, semble une mise en sc@`ene. ",
                         name 'bureau';
 
 Object filliaire "filliaire" soussol
-                  with description "filliaire",
+                  with description "Une filliaire en m@'etal. Les document y sont classes soigneusement.",
                           name 'filliaire',
+                 before  [;
+                                  examine, search, open: if (self hasnt general)  { print"L'inspecteur fouilla les dossiers tri@'es en ordre alphab@'etique: des rapport d'embauche, des analyses financi@`ere, des commandes et des lettre minist@'erielle, etc.";
+                                                                        give self general;
+                                                                        return true;  }
+                                                                       if (self has general) print_ret "Vous avez deja fouill@'e la filliaire.";
+                            ],
                   has scenery openable female;
-
 
 Furniture etagere "@'etag@`ere" soussol
             with description "etagere",
                    name 'etagere',
+                   before  [;
+                                  examine, search:
+                                                              if (self hasnt general)  { print"L'@'etag@`ere ne contient que des objets normaux pour un p@`ere directeur d'usine: un album photo, des bibelots, des ouvrages en gestion, etc.";
+                                                              give self general;
+                                                              return true;  }
+                                                              if (self has general) print_ret "Vous avez deja fouill@'ee l@'etag@`ere.";
+                            ],
     has female;
 
 Object document "document" soussol
@@ -1406,11 +1425,12 @@ Object document "document" soussol
             name 'document' 'documents',
             before  [;
                               take: "Vous feriez-mieux de ne rien deplacer";
+                              examine: "Un rapport d'entreprise. Rien de suspect.";
                          ],
     has scenery;
 
 Object garderobe "Garde-robe" chambremaison
-           with description "Plein de linge m@^el@'es.",
+           with description "Un garde-robe spacieux, ou sont accroch@'es une panoplie de v@^etements.",
                    name 'garde' 'robe' 'garde-robe',
            has container open enterable scenery light;
 
@@ -1772,6 +1792,14 @@ Object sandwich "sandwich app@'etissant"
                  with description "Un sandwich au fromage et au jambon.",
                          name 'sandwich' 'jambon' 'fromage',
                  has edible;
+
+Object letterronald "lettre chach@'ee"
+          with description  "La lettre semblait grifonnee a la hate: ~Heureux d'apprendre que les foules sont gonffl@'ees a bloc. Nous avons presque termin@'e de notre c@^ot@'e. L'enfant prodige travaille fort pour entrer en contact avec Cora.^
+                                        - Vallagnosc ~",
+                  name 'lettre',
+                   before [;
+                                       read: <<examine self>>;
+                              ];
 !-------------------10.2 Objets recurrents des  postes de police-----------------------------------------------------------!
 
 Furniture bureauaccueil "bureau imposant"
@@ -2096,9 +2124,9 @@ Cutscene introduction "Introduction partie 1"
                              Quel int@'er@^et, si elle est ministre, aurait-elle @`a @^etre l@`a?
                              Dans le doute elle devra @^etre @'epargn@'ee.
                              Une vie perdue ne se repaie pas.
-                             Tranquillement, sans presse aucune, la premi@`ere cible est mise en joue: un homme @`a l'@'ecart sur son t@'el@'ephone, @`a l'extr@'emit@'e de la banquette et loin des autres.
+                             Tranquillement, sans presse aucune, la premi@`ere cible est mise en joue: un homme corpulent @`a l'@'ecart sur son t@'el@'ephone, @`a l'extr@'emit@'e de la banquette et loin des autres.
                              L'arme se met en action, et une salve laser sort et file directement faire un trou dans sa cervelle, il s'affaisse, mais personne ne le remarque.
-                             Il reste trois autres hommes. La prochaine cible ne pourra pas passer inaper@ccu; le reste des personnes sur la banquette forment un groupe compacte et volubile.
+                             Il reste trois autres hommes. La prochaine cible ne pourra pas passer inaper@ccue; le reste des personnes sur la banquette forment un groupe compacte et volubile.
                              La danseuse sur la sc@'enette voit le mort et se met @`a crier d'une voie horriblement aig@:ue.
                              Les autres ne comprennent pas son horreur.
                              La deuxi@`eme cible est rat@'ee, le laser fait un trou dans la banquette, fr@^ole l'homme.
