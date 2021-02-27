@@ -33,4 +33,4 @@ Il faut considérer que c'est un travail en cours («work in progress»). C'est 
 
 Si vous voulez y jouer, je vous conseille le logiciel [Frotz](https://gitlab.com/DavidGriffith/frotz), puisqu'il permet de faire plusieurs sauvegardes d'une partie.
 Un autre programme que je conseille est [Lectrote](https://github.com/erkyrath/lectrote) en raison de son interface plus soignée. Par contre, ce-dernier ne permet pas d'enregistrer plusieurs sauvegardes, il se souvient automatiquement où l'histoire en était à sa fermeture. Considérant que mon jeu n'est pas trop difficile (il y a peu de moments où l'on peut mourir), ce n'est pas un trop gros désavantage.
-Il est aussi possible de [jouer en ligne](https://www.antoinesweeney.com/projet-nathalie)mais je ne pense pas que vous puissiez alors sauvegarder. 
+Il est aussi possible de [jouer en ligne](https://www.antoinesweeney.com/projet-nathalie) mais je ne pense pas que vous puissiez alors sauvegarder. 
