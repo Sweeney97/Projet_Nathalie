@@ -353,7 +353,7 @@ Sub trainsub "train" garecite
 Npc cheftrain "chef de train" garecite
     with description "En l'observant de plus pr@`es, vous remarquez que sa mine sympathique
                                  cache des traits en r@'ealite fatigu@'es.",
-            name    'chef' 'vieil' 'homme' 'conducteur' 'verificateur' 'vieux' 'chauffeur',
+            name    'chef' 'vieil' 'homme' 'conducteur' 'verificateur' 'vieux' 'chauffeur' 'au',
             life [;
             Give: if (noun == ticket)
               <<talk self>>;
@@ -624,7 +624,7 @@ Room sallepoliciers "Salle de pause"
 
 Figurants policiers "policiers" sallepoliciers
   with description "Plusieur lancent vous lancent un regard mauvais.",
-          name  'policier' 'collegue' 'collegues//p' 'policiers//p',
+          name  'policier' 'collegue' 'collegues//p' 'policiers//p' 'aux',
           number_of_comments 0,
          life  [;
                       talk, order, ask: print_ret "personne semble vouloir vous parler.";
