@@ -1,10 +1,15 @@
 !% -SD
 
 !--------------------------------0.0 Constantes----------------------------------------------!
-Constant Story "Projet Nathalie";
+Constant Story "Projet Nathalie, V.1.0";
 Constant Headline "^A. Sweeney^";
 Constant MANUAL_PRONOUNS;
 Constant MAX_CARRIED = 5;
+
+! v1.0 ---> structures de l'introduction et du premier quartier terminées. Fautes corrigées, accents posés.
+
+! V.1.1 ---> correction des bogues (retour commentaire). Ajouter une switch random à la radio. Re-décomposer le livre en trois. Possibilité d'être mauvais avec le couple.
+!Définir une routine pour le ThinkSub qui agit selon le contexte. Si l'action penser est commise dans le lieu, opérer automatiquement l'action.
 
 Include "Parser";
 
@@ -180,8 +185,9 @@ Npc receptionniste "R@'eceptionniste" policeaccueil
                       move certification to receptionniste;
                       move ticket to player;
                       return true; }
-                      if (sallepratique has visited) {
-                      print_ret "Vous y @^etes alle, mais n'avez pas @'ecout@'e? Retournez-y, et t@^achez d'@'ecouter le professeur.";}
+                      if (sallepratique has visited && identifiant in player) {
+                      print  "Vous y @^etes alle, mais n'avez pas @'ecout@'e? Retournez-y, et t@^achez d'@'ecouter le professeur.";
+                              }
                        else {
                       self.times_spoken_to = self.times_spoken_to + 1;
                       switch (self.times_spoken_to) {
