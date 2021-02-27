@@ -81,7 +81,7 @@ Class Cutscene
       has light;
 
 Class Lieu
-      with cant_go "Vous n'@^etes pas l@`a pour vous ballader en explorateur.",
+      with cant_go "Vous n'@^etes pas l@`a pour vous balader en explorateur.",
       has   light;
 
 Class Room
@@ -143,7 +143,7 @@ Room policeaccueil "L'accueil du poste de police de la cit@'e."
                               Pour parler avec une personne, @'ecrivez ~parler avec (la personne)~.
                               Quand il n'y a qu'une seule personne dans la pi@`ece, @'ecrivez simplement ~parler~.
                               Vous pouvez parler plus d'une fois avec les personnes.
-                              Quand elles radotent, elles n'ont plus rien a dire!^^";
+                              Quand elles radotent, elles n'ont plus rien @`a dire!^^";
 
 
     print "Le poste de police Sud de la cit@'e ressemble @`a n'importe quel autre poste de police frontalier: froid, nu, vide.
@@ -190,15 +190,15 @@ Npc receptionniste "R@'eceptionniste" policeaccueil
                      "Bonjour, je m'appelle Anabelle, heureuse de vous accueillir inspecteur. Vous pouvez m'appeler Ana.
                       Vous @^etes l'inspecteur venu pour aider le quartier Desrosaies avec les r@'ecents tumultes? Oui? Voyons votre dossier... hum hum.
                       Voil@`a, tenez, prenez-le.
-                      Allez je vous prie @`a la salle d'exercecice, cela sera votre introduction.
+                      Allez je vous prie @`a la salle d'exercice, cela sera votre introduction.
                       Notre coll@`egue pourra vous aider.
-                      C'est a l'Est, au bout.
+                      C'est @`a l'Est, au bout.
                       Revenez me voir ensuite. Merci.";
                        2: "Ne me regardez pas ainsi, vous ne savez pas comment marcher encore?
                        H@'e bien, j'esp@`ere qu'on ne vous a pas assign@'e une mission importante. Pfff.
-                       Pour vous deplacer indiquez la direction o@`u vous voulez aller, @'ecrivez
+                       Pour vous d@'eplacer indiquez la direction o@`u vous voulez aller, @'ecrivez
                        Nord, Est, Ouest, Sud. Aussi simple que cela. Ne me remerciez pas.";
-                       3: "Oh! je suis occup@'ee desormais. Desol@'ee.";
+                       3: "Oh! je suis occup@'ee d@'esormais. D@'esol@'ee.";
 
                        default: "(Elle vous ignore, et semble s'@^etre plac@'e des @'ecouteurs dans les oreilles.)";
 
@@ -251,15 +251,15 @@ Npc professeur "professeur" sallepratique
                   switch (self.times_spoken_to) {
                    1:   move certification to player;
                          print_ret "Bienvenue! Donc, si vous @^etes ici, c'est que vous savez d@'ej@`a comment vous promener, comment montrer ou donner des objets.
-                         C'est d@'ej@`a la moiti@'e de tout ce qu'il y a @`a savoir. Si vous utilisez Frotz, vous pouvez sauvegarder et je vous le conseille de le faire reguli@`erement puisque vous pourrez mourir.
+                         C'est d@'ej@`a la moiti@'e de tout ce qu'il y a @`a savoir. Si vous utilisez Frotz, vous pouvez sauvegarder et je vous le conseille de le faire r@'eguli@`erement puisque vous pourrez mourir.
                          Personne n'a envie de faire la m@^eme mission deux fois, ou pire, de lire le m@^eme texte encore et encore. Ce jeu est cod@'e avec Inform 6.
-                         C'est un code cr@'e@'e en anglais. Donc, inutile de mettre des accents quand vous @'ecrvivez, et soyez lapidaire.
+                         C'est un code cr@'e@'e en anglais. Donc, inutile de mettre des accents quand vous @'ecrivez, et soyez lapidaire.
                          Si votre commande est incomprise, reformulez, et essayez d'enlever des articles.
                          Ah oui. Et rev@'erifier l'orthographe! Une lettre de trop et rien ne sera compris.
                          Retenez ce d@'etail: dans le jeu, un tour @'egale @`a une minute. Ce n'est pas essentiel que vous vous en souvenez pour aller jusqu'au bout,
                          mais @cca pourra vous @^etre utile.
                          Tenez, voil@`a votre certification d'aptitude que vous pourrez pr@'esenter @`a Annabelle.
-                         Si vous voulez, tant qu'a y @^etre, j'ai un ou deux autres conseils pour vous!";
+                         Si vous voulez, tant qu'@`a y @^etre, j'ai un ou deux autres conseils pour vous!";
 
                    2: "Il y a deux types d'action: les m@'eta-action comme quitter (le jeu), recommencer (la partie) et undo (une action). Ces actions affectent le logiciel Frotz.
                         Puis il y a les actions que vous ferez souvent en jeu: inventaire (pour voir votre inventaire), d@'eposer (un objet de l'inventaire, pour vous en d@'ebarrasser), montrer (un objet) lire, regarder, examiner, parler.
@@ -279,7 +279,7 @@ Npc professeur "professeur" sallepratique
                   Show: if (noun == badge)
                         {
                           print "Oh! c'est un vieux badge ma parole! Soyez s@^ur qu'il soit encore valide.";
-                          self.badgeshown = self.badgeshown + 1;
+                          self.badgeshown = 1;
                           return true;
                         }
                     print "Je dois voir votre"; style underline; print " badge.";
@@ -304,15 +304,15 @@ Object certification "Certification" professeur
             has female;
 
 Object citysub "rue de la cit@'e"
-      with description "Non loin du poste de police, vous pouvez apercevoir la b@^atisse qui fut percut@'ee par la voiture de police
+      with description "Non loin du poste de police, vous pouvez apercevoir la b@^atisse qui f@^ut percut@'ee par la voiture de police
                                   lors de la poursuite. Des b@^aches de construction y sont appos@'ee, et des travaux de r@'enovations d@'ej@`a
                                   passablement avanc@'es estompent les dommages. La route @'etant pr@`es du bord de l'eau, vous pouvez voir aussi
-                                  le long pont de metal qui m@`ene aux quartier, et la danse scintillante de l'eau. Les rues sont peu anim@'ees @`a cette heure tardive,
+                                  le long pont de m@'etal qui m@`ene aux quartiers, et la danse scintillante de l'eau. Les rues sont peu anim@'ees @`a cette heure tardive,
                                   mais le jeu de lumi@`ere qu'offre @`a voir les lampadaires est une belle image.
-                                  La gare de train, une b@^atisse sans extavagance aux lignes simples, se trouve au Sud-Ouest.",
+                                  La gare de train, une b@^atisse sans extravagance aux lignes simples, se trouve au Sud-Ouest.",
         n_to policeaccueil,
         sw_to garecite,
-        cant_go "Vous devez allez dans les quartiers Sud commencer votre enqu@^ete. La gare est au Sud-Ouest.",
+        cant_go "Vous devez aller dans les quartiers Sud commencer votre enqu@^ete. La gare est au Sud-Ouest.",
         has light;
 
 Sub accident "accident" citysub
@@ -326,15 +326,15 @@ Sub pont "pont" citysub
                 name 'pont';
 
 Sub garesub "gare" citysub
-           with description "Comme pour beaucoup d'autres batiments de la cit@'e, la gare incarne sa fonction: seulement de la voir quelques secondes, nul ne
-                                        peu se m@'eprendre sur son compte. Le mat@'eriau mis a l'honneur est le m@'etal, ce qui lui donne un aspect gris m@'etallique et une
+           with description "Comme pour beaucoup d'autres b@^atiments de la cit@'e, la gare incarne sa fonction: seulement de la voir quelques secondes, nul ne
+                                        peut se m@'eprendre sur son compte. Le mat@'eriau mis @`a l'honneur est le m@'etal, ce qui lui donne un aspect gris m@'etallique et une
                                         apparence de solidit@'e @`a toute @'epreuve.",
                     name 'gare' 'train',
              has female;
 
 Object garecite "gare"
-    with description "@`A l'interieur la gare semble abandonn@'ee. Elle est petite, et il est apparent que peu de visiteur y transitent.
-                                 Vous apercevez un vieil homme @`a la mine sympathique: le chauffeur du train. @'Etant donne le faible volume
+    with description "@`A l'int@'erieur la gare semble abandonn@'ee. Elle est petite, et il est apparent que peu de visiteur y transitent.
+                                 Vous apercevez un vieil homme @`a la mine sympathique: le chauffeur du train. @'Etant donn@'e le faible volume
                                   de voyageur, il est aussi le v@'erificateur de billets.",
     ne_to citysub,
     cant_go "L'entr@'ee principale est au Nord-Est. Vous promener dans la gare est sans int@'er@^et.",
@@ -363,15 +363,15 @@ Npc cheftrain "chef de train" garecite
             {
               PlayerTo(postepolice, 1);
               move ticket to cheftrain;
-              print_ret "Apr@`es avoir d@^ument verifi@'e le ticket, l'inspecteur et le conducteur prirent place dans le seul train de la gare.
+              print_ret "Apr@`es avoir d@^ument v@'erifi@'e le ticket, l'inspecteur et le conducteur prirent place dans le seul train de la gare.
                               Lors du court voyage entre la cit@'e et les quartiers, l'inspecteur regarda penseur l'@'etendue d'eau qui s@'eparait
-                              deux monde en vase clos. @'Etait-ce la la r@'eelle source de frustration des travailleurs de l'usine?
+                              deux mondes en vase clos. @'Etait-ce l@`a la r@'eelle source de frustration des travailleurs de l'usine?
                                Il avait de la difficult@'e @`a avaler cette histoire de secte et se sentait impatient d'@^etre au fait et de rencontrer le chef
                                de la police locale.^",
                                "Une fois arriv@'ee @`a la gare des quartiers, l'inspecteur en profita pour regarder le mouvement de l'eau, indiff@'erent aux affaires humaines.
                                 Il appr@'eciait l'@'eclat laiteux du quartier de lune d@'eform@'e par les vaguelettes.
                                 La gare, le poste de police et une partie du palais de justice @'etaient en r@'ealit@'e sur l'eau: des plateformes sur pilotis supportaient
-                                les b@^atiment officiels. C'etait une mani@`ere, symbolique, de s@'eparer les lieux du pouvoir des quartiers. Ils se trouvaient dans une
+                                les b@^atiments officiels. C'@'etait une mani@`ere, symbolique, de s@'eparer les lieux du pouvoir des quartiers. Ils se trouvaient dans une
                                 zone grise (ou bleue devrait-on dire, entre la cit@'e et les quartiers, suspendus dans le vide.)",
                                 " Apr@`es avoir admir@'e de tout son so@^ul le tableau, l'inspecteur d@'ebarqua dans le poste de police des quartiers Sud.",
                                  "^Il y a une salle de pause au Nord, @`a l'Est se trouve l'infirmerie et @`a l'Ouest la salle d'op@'erations avec M. Mauriac. L'entr@'ee du poste de police est similaire
@@ -406,7 +406,7 @@ Street grandeallee1 "La grande all@'ee"
                        s_to carrefour2;
 
 Street grandeallee2 "La Grande All@'ee"
-                  with description "L'allee borde l'hypermarch@'e. La route croise la rue du parc au Nord et se poursuit au Sud.
+                  with description "L'all@'ee borde l'hypermarch@'e. La route croise la rue du parc au Nord et se poursuit au Sud.
                                               @`A l'Est se trouve l'hypermarch@'e.",
                      n_to carrefour2,
                      s_to carrefour4,
@@ -434,8 +434,8 @@ Street ruedestravailleurs "La rue des travailleurs"
                                    -Mais... insista l'inspecteur embarrass@'e.^
                                    - Il est sourd ou quoi? cr@'etin de flic.^
                                    - Je ne suis pas un flic. Je cherche un certain M. Couvent.^
-                                   - Ha la meilleure, s'exclaffa un des travailleurs, et ses compagnons rirent aussi, d'un rire m@'echant. M. Couvent!
-                                   Le groupe partit, tout en se moquant. Cepandant, @`a la surprise de l'inspecteur, l'un d'eux se retourna un bref instant
+                                   - Ha la meilleure, s'esclaffa un des travailleurs, et ses compagnons rirent aussi, d'un rire m@'echant. M. Couvent!
+                                   Le groupe partit, tout en se moquant. Cependant, @`a la surprise de l'inspecteur, l'un d'eux se retourna un bref instant
                                    et lan@cca un regard d@'esol@'e en direction de l'usine, signifiant que l'employ@'e 149 devait y @^etre.";
                       ],
 
@@ -471,7 +471,7 @@ Street ruebernardlee1 "La rue Bernard-Lee"
                                                go: if (noun == e_obj && etape2 == 0) print_ret "Pourquoi iriez-vous dans cet appartement, chez des inconnus?";
                                                      if (noun == e_obj && etape4 == 1) print_ret "Je ne pense pas qu'ils appr@'ecieraient votre pr@'esence.";
                                                      if (noun == e_obj && etape3 == 0) { print "L'inspecteur cogna a la porte. Un visage s'immis@cca dans la fente de l'ouverture.^~Bonjour, puis-je vous aider?~ Demanda une voix m@'efiante.^ ~ Police, laissez-moi entrer intima l'inspecteur. J'ai quelques questions @`a vous poser, @cca ne sera pas bien long.~
-                                                                                                                           Comme @`a contre-coeur, @'Eric laissa entrer l'inspecteur dans son appartement.^^"; return false;  }
+                                                                                                                           Comme @`a contre-c@oeur, @'Eric laissa entrer l'inspecteur dans son appartement.^^"; return false;  }
                                                       if (noun == e_obj && etape3 == 1) {  print "L'inspecteur cogna. ^~Bonsoir, d@'esol@'e, c'est encore moi! Sans camoufler un regard suspicieux, @'Eric laissa @`a nouveau l'inspecteur entrer.^^"; return false; }
                                         ],
                          n_to carrefour1,
@@ -487,7 +487,7 @@ Street ruebernardlee2 "La rue Bernard-Lee"
                          e_to "Une rang@'ee d'appartements sans int@'er@^et.";
 
 Ruelle ruelle1 "Une ruelle"
-               with description "La ruelle connecte La Grande All@'ee et la rue Bernard-Lee. De part et d'autre, des arri@`eres-cours de blocs-appartements cernent la ruelle.",
+               with description "La ruelle connecte La Grande All@'ee et la rue Bernard-Lee. De part et d'autre, des arri@`ere-cours de blocs-appartements cernent la ruelle.",
                       turns_active 0,
                        each_turn [; StartDaemon(self); ],
                        daemon [;
@@ -501,21 +501,21 @@ Ruelle ruelle1 "Une ruelle"
                             7: "Vous commencez @`a vous ennuyer.";
                             8: "Vous entendez des promeneurs venir dans la ruelle. L'inspecteur se cacha imm@'ediatement.";
                             9:  etape5 = 1;
-                                print "Deux hommes, venant chacun d'une direction diff@'erente, se rencontr@`erent au milieu de la ruelle. Le premier etait maigre avec une moustache en bataille, grisonnante, le deuxi@`eme @'etait glabre portait un chandail propre. ~^Tu n'as pas @'et@'e suivi?^- Nan, j'ai verifi@'e deux fois plut@^ot qu'une. ^- Parfait, parfait. ^- Tu as le paquet pour le...? ^- Chut! ne dit pas son nom. Tiens, voila.^- Est-ce que tu sais si le directeur d'usine est soupconn@'e?^-C'est que tu n'as pas ta langue dans ta poche! Non, tout roule. Maintenant, s@'eparons-nous.^-Bonne id@'ee, marmonna l'autre~^ @`A ce moment l'inspecteur r@'ev@'ela sa pr@'esence, et mit en joue les deux hommes de main.^~Halte l@`a, ou je tire!^-Mince siffla le moustachu, un flic!~^Tous deux partirent chacun d'o@`u ils etaient venu, en courant cette fois.^^Voulez-vous faire feu?";
+                                print "Deux hommes, venant chacun d'une direction diff@'erente, se rencontr@`erent au milieu de la ruelle. Le premier @'etait maigre avec une moustache en bataille, grisonnante, le deuxi@`eme @'etait glabre portait un chandail propre. ~^Tu n'as pas @'et@'e suivi?^- Nan, j'ai v@'erifi@'e deux fois plut@^ot qu'une. ^- Parfait, parfait. ^- Tu as le paquet pour le...? ^- Chut! ne dit pas son nom. Tiens, voil@`a.^- Est-ce que tu sais si le directeur d'usine est soup@cconn@'e?^-C'est que tu n'as pas ta langue dans ta poche! Non, tout roule. Maintenant, s@'eparons-nous.^-Bonne id@'ee, marmonna l'autre~^ @`A ce moment l'inspecteur r@'ev@'ela sa pr@'esence, et mit en joue les deux hommes de main.^~Halte l@`a, ou je tire!^-Mince siffla le moustachu, un flic!~^Tous deux partirent chacun d'o@`u ils @'etaient venu, en courant cette fois.^^Voulez-vous faire feu?";
                                 if (YesOrNo ())  { player_killer = true;
                                                            move cartepuce to player;
-                                                           print "@`A une vitesse incroyable l'inspecteur tira un coup pour chaque homme. Son pistolet munis d'un silencieux n'attira pas l'attention. Il rappatria les deux morts en un tas, r@'efl@'echissant @`a la suite. Il les fouilla et r@'ecuperra le colis, raison de cette rencontre.
-                                                                     Il sortit d'une enveloppe matelass@'ee une carte @`a puce qu'il rangea dans sa poche. Apr@`es une bonne minute de r@'eflexion, il alla porter les corps dans la benne @`a ordure du caf@'e."; }
-                                else { print "L'inspecteur prit le moustachu en chasse, en direction de l'hypermarch@'e, mais le perdit  assez t@^ot de vue. Il retourna penaud @`a la ruelle, r@'efl@'echissant @`a la suite."; }
+                                                           print "@`A une vitesse incroyable l'inspecteur tira un coup pour chaque homme. Son pistoletet munis d'un silencieux n'attira pas l'attention. Il rapatria les deux morts en un tas, r@'efl@'echissant @`a la suite. Il les fouilla et r@'ecup@'era le colis, raison de cette rencontre.
+                                                                     Il sortit d'une enveloppe matelass@'ee une carte @`a puce qu'il rangea dans sa poche. Apr@`es une bonne minute de r@'eflexion, il alla porter les corps dans la benne @`a ordures du caf@'e."; }
+                                else { print " L'inspecteur prit le moustachu en chasse, en direction de l'hypermarch@'e, mais le perdit assez t@^ot de vue. Il retourna penaud @`a la ruelle, r@'efl@'echissant @`a la suite."; }
 
-                               print_ret "L'inspecteur appela au poste de police.^~Bonjour, oui c'est l'inspecteur. Oui, est-ce que je pourrais parler @`a Mauriac s'il vous plait? Oui, bien sur, il est occup@'e.
+                               print_ret " L'inspecteur appela au poste de police.^~Bonjour, oui c'est l'inspecteur. Oui, est-ce que je pourrais parler @`a Mauriac s'il vous plait? Oui, bien s@^ur, il est occup@'e.
                                                Dites-lui que c'est urgent, j'ai des informations cruciales.~ L'inspecteur d@^u patienter de longues secondes. ~Salut! Ouais. Je suis sur un coup. Oui, oui, je sais, je sais, il est tard. D@'esol@'e.
-                                              J'ai besoin d'une voiture. Ca presse, je dois me rendre @`a la maison du directeur. Non, ce n'est pas un d@'elire! Fais-moi confiance, j'ai des preuves solides.
+                                              J'ai besoin d'une voiture. @cCa presse, je dois me rendre @`a la maison du directeur. Non, ce n'est pas un d@'elire! Fais-moi confiance, j'ai des preuves solides.
                                                Une voiture de police dans le stationnement en face de l'usine? Merci, Mauriac, heu, monsieur Mauriac. Pardon. Mon identifiant est bien dans la banque de donn@'ee? Je n'ai pas envie
-                                               de faire hurler le syst@'eme anti-vol @`a cette heure. Parfait. Wow! vous voulez virer de l'argent sur mon badge... et ne plus jamais m'entendre, oui. Mon identifiant, attendez un peu
+                                               de faire hurler le syst@`eme anti-vol @`a cette heure. Parfait. Wow! vous voulez virer de l'argent sur mon badge... et ne plus jamais m'entendre, oui. Mon identifiant, attendez un peu
                                                que je sorte mon badge. 072488, oui, vous voulez que je r@'ep@`ete? Tout cet argent! vous auriez pu me la virer plus t@^ot, vous ne croyiez pas en moi? Ha ha, oubliez @cca.  Merci mille fois.
-                                              @^Etes-vous en mesure d'identifier la position de Ronald et de m'indiquer de combien de temps je dispose? Oui, je peux attendre une minute...~^Apr@`es deux longues minutes, l'inspecteur se fit dire sechement qu'@'etant donn@'e la position de la voiture de Ronald,
-                                              s'il se d@'ep@^echait de se rendre chez lui, il disposerait d'une demi-heure. Il n'eut pas m@^eme le temps de remercier Mauriac qui lui raccorcha au nez.";
+                                              @^Etes-vous en mesure d'identifier la position de Ronald et de m'indiquer de combien de temps je dispose? Oui, je peux attendre une minute...~^Apr@`es deux longues minutes, l'inspecteur se fit dire s@`echement qu'@'etant donn@'e la position de la voiture de Ronald,
+                                              s'il se d@'ep@^echait de se rendre chez lui, il disposerait d'une demi-heure. Il n'eut pas m@^eme le temps de remercier Mauriac qui lui raccrocha au nez.";
                                                                         } }
                           ],
 
@@ -536,7 +536,7 @@ Ruelle ruelle1 "Une ruelle"
                    cant_go "Aller dans l'arri@`ere cours des autres n'est pas une option.";
 
 Street carrefour1 "Un embranchement"
-                 with description "Ici  se croisent la rue Bernard-Lee au Sud et la rue du parc @`a l'Est.",
+                 with description "Ici se croisent la rue Bernard-Lee au Sud et la rue du parc @`a l'Est.",
                  before  [;
                                                  if (noun == e_obj || noun == ne_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous d@'ep@^echer d'aller dans la maison de Ronald.";
                               ],
@@ -568,7 +568,7 @@ Street carrefour4 "Un embranchement"
                      w_to ruelle1;
 
 Street carrefour5 "Un embranchement"
-                 with description "Ici se croisent la rue Bernad-Lee au Nord et la rue des travailleurs @`a l'Est.",
+                 with description "Ici se croisent la rue Bernard-Lee au Nord et la rue des travailleurs @`a l'Est.",
                         before  [;
                                                  if (noun == e_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous d@'ep@^echer d'aller dans la maison de Ronald.";
                                     ],
@@ -609,7 +609,7 @@ Room sallepoliciers "Salle de pause"
                 heureux de te voir ici.~ Il y eut quelques murmures dans la salle, et les regards se dirig@`erent vers le duo.^~Ne fais pas attention
                 @`a eux. Ils sont jaloux que l'enqu@^ete soit attribu@'ee @`a un inconnu. Tu es chanceux d'avoir l'enqu@^eteur en chef de la cit@'e
                 comme connaissance. J'ai peur que plusieurs se sentent laiss@'e pour compte sur ce dossier. Tu coupes l'herbe sous le pied des d@'ebutants!^
-                -Je lui ai dit, en plus, d'aller voir la jeunesse. Que veux-tu, il ne fais confiance @`a personne, c'est une t@^ete de m@^ule!^
+                -Je lui ai dit, en plus, d'aller voir la jeunesse. Que veux-tu, il ne fais confiance @`a personne, c'est une t@^ete de mule!^
                 -Tout comme toi!";
    ],
     s_to postepolice,
@@ -628,11 +628,11 @@ Figurants policiers "policiers" sallepoliciers
                if (location == sallepoliciers && random(3) == 1) {           !déclenche de manière aléatoire des commentaires
                  self.number_of_comments = self.number_of_comments + 1;
                  switch (self.number_of_comments) {
- 1: "^~Regarde les... favoris... l@`eche-bottes... incomp@'etents~ pouvez-vous entendre indistinctement au travers les murmures.^";
+ 1: "^~Regarde-les... favoris... l@`eche-bottes... incomp@'etents~ pouvez-vous entendre indistinctement au travers les murmures.^";
  2: "^Vous entendez une conversation: ~J'ai entendu dire qu'il avait une connexion... sp@'eciale avec l'enqu@^eteur en chef de la cit@'e.^
-       -Non, l'enqu@^eteur de la cit@'e est...^~ @cCa alors, pensa l'inspecteur, les rumeurs vont bon train et son imaginatives!";
+       -Non, l'enqu@^eteur de la cit@'e est...^~ @cCa alors, pensa l'inspecteur, les rumeurs vont bon train et sont imaginatives!";
  3: "^~L'inspecteur vient... les sectes clandestines... personne n'a aucune id@'ee... reli@'e au massacre de la planque...~
-        pouvez-vous entendre indistinctement au travers les murmures..^";
+        pouvez-vous entendre indistinctement au travers les murmures...^";
  default: StopDaemon(self);
  } }
  ];
@@ -647,7 +647,7 @@ Npc boncollegue "Richard" sallepoliciers
                       Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
                       switch (self.times_spoken_to) {
                        1: "^~Alors, quoi de neuf, hein? La routine? Tu habites toujours dans ton coin trop propre et tu fais mine basse?^
-                                -Ouais on peut dire @cca r@'epliqua l'inpecteur..~";
+                                -Ouais on peut dire @cca r@'epliqua l'inspecteur..~";
                        2: "~Y'a des trucs pas nets qui se passent ces temps-ci dans l'coin. La police est sur le cas, mais on a d'autres chats
                               @`a fouetter. Les criminels r@^odent dans le quartier.... Si si! Ici m@^eme, au nez et @`a la barbe de la police!
                               Imagines-tu? Mais chut! Secret! J'suis pas suppos@'e te raconter ces trucs-l@`a. ";
@@ -712,9 +712,9 @@ Npc infirmiere "infirmi@`ere" infirmerie
 
                   Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
                   switch (self.times_spoken_to) {
-                   1: "^~Oh! vous @^etes curieux! Je viens du quartier de la planque, bien avant qu'il fut d@'elaiss@'e aux criminels.
+                   1: "^~Oh! vous @^etes curieux! Je viens du quartier de la planque, bien avant qu'il f@^ut d@'elaiss@'e aux criminels.
                            Mon fr@`ere a @'et@'e bless@'e lors d'une razzia. Ne vous inqui@'etez pas, il est toujours vivant... il vit d@'esormais dans
-                           un centre pour personnes @`a mobilit@'e r@'eduite. Il est parapl@'egique. Enfin, c'est apr@`e cet @'ev@`evement que
+                           un centre pour personnes @`a mobilit@'e r@'eduite. Il est parapl@'egique. Enfin, c'est apr@`es cet @'ev@'evement que
                            j'ai d@'ecid@'ee d'@^etre infirmi@`ere pour la police. Oh! D@'esol@'ee, je dois s@^urement vous emb@^eter avec
                            ma vie.~";
                    2: "^~Vous @^etes bien gentil de me faire la conversation..."; !, si vous voulez venir me voir directement, pour des soins rapides,
@@ -726,11 +726,11 @@ Npc infirmiere "infirmi@`ere" infirmerie
                     ;],
           has female;
 
-Room salleenquete "Salle d'enquete"
+Room salleenquete "Salle d'enqu@^ete"
  with description [;
- print "La salle d'enq@^ete dans son plus simple appareil: un tableau blanc, un babillard, une table, quelques chaises. M. Mauriac est assis.";
+ print "La salle d'enqu@^ete dans son plus simple appareil: un tableau blanc, un babillard, une table, quelques chaises. M. Mauriac est assis.";
  if (self hasnt visited)
-  print "^~Bonjour inspecteur. Je vous attendais avec apr@'ehension si je puis dire, dit M. Mauriac pour s'introduire sur un ton sec. Bienvenue dans
+  print "^~Bonjour inspecteur. Je vous attendais avec appr@'ehension si je puis dire, dit M. Mauriac pour s'introduire sur un ton sec. Bienvenue dans
                  le quartier Desrosaies. Vous n'@^etes pas du genre loquace? @cCa ne fait rien. Asseyez-vous, je vais vous mettre @`a jour
                 sur les r@'ecents @'ev@`enements.";
   ],
@@ -744,7 +744,7 @@ Room salleenquete "Salle d'enquete"
     cant_go "La sortie est @`a l'Est.";
 
 Deco babillard "babillard" salleenquete
-    with description "Un tableau de li@`ege avec plusieurs papiers @'epingl@'es: des articles de journaux, une map du quartier, une
+    with description "Un tableau de li@`ege avec plusieurs papiers @'epingl@'es: des articles de journaux, une mappe du quartier, une
                                 retranscription d'un t@'emoignage, etc.",
             name 'babillard' 'liege';
 
@@ -759,7 +759,7 @@ Npc mauriac "M. Mauriac" salleenquete
 
                 self.times_spoken_to = self.times_spoken_to + 1;
                 switch (self.times_spoken_to) {
-                 1: "D'embl@'ee je tiens @`a dissiper tout malentendu; vous avez  @'et@'e assign@'e @`a cette mission seulement parce que
+                 1: "D'embl@'ee je tiens @`a dissiper tout malentendu; vous avez @'et@'e assign@'e @`a cette mission seulement parce que
                       vous @^etes dans les bonnes gr@^aces de l'enqu@^eteur de la cit@'e et pour aucune autre raison. Nous avons plein d'hommes
                        comp@'etents. Vous n'@^etes pas le bienvenu ici, inspecteur. Maintenant, finissons-en au plus vite, et j'esp@`ere que vous irez
                       dans le quartier de la planque poursuivre votre investigation dans le ventre de la b@^ete, et mourir dig@'er@'e. Vous voulez
@@ -768,10 +768,10 @@ Npc mauriac "M. Mauriac" salleenquete
                            de r@'eunions clandestines. On craint l'essor d'un gourou de secte. Notre meilleur informateur est l'employ@'e num@'ero 149.
                            Nom civil: Andr@'e Couvent. Allez @`a l'usine lui parler, @cca sera votre premi@`ere porte d'entr@'ee sur cette histoire.
                            Il est collaboratif. Les r@'eunions prennent place dans le sous-sol de l'usine, entre 23h et minuit. Il serait question d'un d@'elire
-                           d'une nouvelle soci@'et@'e, d'un nouvel ordre. Les quarts vont suivant cet horraire: de 7h @`a 17h, de midi @`a 22h. Pauses variables.
-                           Le directeur est un cr@'etin, il ignore tout sur tout, inutile de perdre votre temps avec lui. Et voil@`a tout ce que j'avais @`a vous dire.";
+                           d'une nouvelle soci@'et@'e, d'un nouvel ordre. Les quarts vont suivant cet horaire: de 7h @`a 17h, de midi @`a 22h. Pauses variables.
+                           Le directeur, Ronald, est un cr@'etin, il ignore tout sur tout, inutile de perdre votre temps avec lui. Et voil@`a tout ce que j'avais @`a vous dire.";
                  3:        move calepin to player;
-                               "Voici un calepin avec les derni@`ere infos sur l'enqu@^ete. Cadeau.";
+                               "Voici un calepin avec les derni@`eres infos sur l'enqu@^ete. Cadeau.";
                   default: "Hors de ma vue.";
                }  }
                else print_ret "Asseyez-vous je vous prie.";
@@ -781,8 +781,8 @@ Npc mauriac "M. Mauriac" salleenquete
 !--------------------------------------------------------2.0 Lieux du premier Quartier----------------------------------------------------------------!
 
 Lieu cybercoffee "Cybercaf@'e"
-    with description "Ce caf@'e vous permet d'avoir acc@`es @`a un ordinateur. Une terasse plus loin au Sud se laisse entrevoir. @`A cette heure tardive, il reste peu de clients. Les bruit de conversation sont feutr@'es,
-                                 ce qui @'etonnement devient apaisant. Les murs sont en briques, des tableaux d'artistes locaux sont accroch'es au mur. Vous voyez aussi un comptoir sur laquelle une imposante machine a caf@'e
+    with description "Ce caf@'e vous permet d'avoir acc@`es @`a un ordinateur. Une terrasse plus loin au Sud se laisse entrevoir. @`A cette heure tardive, il reste peu de clients. Les bruit de conversation sont feutr@'es,
+                                 ce qui @'etonnement devient apaisant. Les murs sont en briques, des tableaux d'artistes locaux sont accroch@'es au mur. Vous voyez aussi un comptoir sur laquelle une imposante machine @`a caf@'e
                                  brille de mille feux. Un barista s'affaire @`a pr@'eparer du caf@'e.",
                before  [;
                                  smell: print_ret "L'odeur capiteuse du caf@'e donne r@'eellement envie d'en boire.";
@@ -801,7 +801,7 @@ Figurants clients cybercoffee
                       ];
 
 Deco tableau "@OEuvre d'art" cybercoffee
-          with description "De tous les tableaux, l'inspecteur fut touch@'e par une peinture abstreinte, qui melait habilement les ton jaune-ocre bleu-ocean, le tout recouvert de brillantine.",
+          with description "De tous les tableaux, l'inspecteur f@^ut touch@'e par une peinture abstreinte, qui melait habilement les ton jaune-ocre bleu-ocean, le tout recouvert de brillantine.",
                   name 'tableaux' 'tableau' 'peinture' 'oeuvre';
 
 Deco machinecybercafe "machine @`a caf@'e" cybercoffee
@@ -821,8 +821,8 @@ Npc barista "barista" cybercoffee
                         2:  move sandwich to player;
                              print_ret "Moi? Oh comme ci comme @cca. J'avais @'et@'e s@'electionn@'e pour @^etre dans l'administration de la cit@'e. H@'e oui! j'ai fait une @'etude sur les migrations des cerfs dans la ligne verte.
                              Comme je suis un chercheur de la faune et la flore, je dois rester dans les quartiers, pr@`es de la ligne verte. C'est un choix, je pourrais aussi, si je le voulais, rester dans un condo de la cit@'e.
-                             Mais ma famille reste dans ce quartier, c'est pourquoi j'ai decid@'e de m'installer ici. Pr@'esentement, ma recherche attend la prochaine saison, je suis dans un temps mort, alors je travaille ici @`a temps partiel
-                             , @cca me d@'esennuie, et j'aide Julien. On dirait pas comme @cca, mais on est cousin! Merci de m'avoir fait la conversation, tenez, je vous paye quelque chose? Un sandwich? Voil@`a, prenez-le je vous en prie.";
+                             Mais ma famille reste dans ce quartier, c'est pourquoi j'ai d@'ecid@'e de m'installer ici. Pr@'esentement, ma recherche attend la prochaine saison, je suis dans un temps mort, alors je travaille ici @`a temps partiel,
+                            @cca me d@'esennuie, et j'aide Julien. On dirait pas comme @cca, mais on est cousin! Merci de m'avoir fait la conversation, tenez, je vous paye quelque chose? Un sandwich? Voil@`a, prenez-le je vous en prie.";
                         default: "Merci d'avoir pris le temps de me parler! Vous @^etes bien sympathique.";
                       }
 
@@ -833,19 +833,19 @@ Npc julien "Julien" cybercoffee
                    name 'Julien' 'Jule' 'Jul',
                    before [;
                                   talk: if (etape7 == 0) {
-                                          print "~ Bonsoir! Vous voulez utiliser un poste? Bien s@^ur, installez-vous! r@'epond, enthousiame, l'employ@'e. Vous avez 15 minutes.~^ L'inspecteur s'assoya @`a un poste^^";
+                                          print "~ Bonsoir! Vous voulez utiliser un poste? Bien s@^ur, installez-vous! r@'epond, enthousiasme, l'employ@'e. Vous avez 15 minutes.~^ L'inspecteur s'assit @`a un poste^^";
                                           PlayerTo(computer);
                                           return true;   }
                                           else print_ret "Votre temps journalier allou@'e est @'ecoul@'e monsieur, d@'esol@'e. Non, on ne fait pas d'exeception pour personne.";
                                ];
 
 Object computer "ordinateur"
-              with description "L'inspecteur s'installa @`a l'ordinateur, vieux et poussif. Au d@'emarage il lan@cca une plainte lancinante de ventilateur d@'ebile.
-                                          L'inspecteur ouvrit sa session. Sur son bureau apparaiss@`erent ses dossiers: chaque utilisateur se connectant au r@'eseau avait ainsi acc@`es @`a ses documents.
-                                          Il ouvrit, fid@`ele @`a son habitude, tout d'un coup, et attendit que l'ordi chargea. Il y avait le naviguateur web, ses courriels, et dans son dossier plusieurs fichiers: notes d'enqu@^ete, journal, une recherche sur la ligne verte, ainsi qu'un autre dossier, de photos celui-l@`a.
+              with description "L'inspecteur s'installa @`a l'ordinateur, vieux et poussif. Au d@'emarrage il lan@cca une plainte lancinante de ventilateur d@'ebile.
+                                          L'inspecteur ouvrit sa session. Sur son bureau apparurent ses dossiers: chaque utilisateur se connectant au r@'eseau avait ainsi acc@`es @`a ses documents.
+                                          Il ouvrit, fid@`ele @`a son habitude, tout d'un coup, et attendit que l'ordi charge@^at. Il y avait le navigateur web, ses courriels, et dans son dossier plusieurs fichiers: notes d'enqu@^ete, journal, une recherche sur la ligne verte, ainsi qu'un autre dossier, de photos celui-l@`a.
                                           Un curieux fichier nomm@'e projet.inf @'etait aussi sur son bureau, mais cela ne lui sonnait aucune cloche.",
                       each_turn [;
-                                            if (player in location)    StartTimer(self, 15); !mettre 15 tour. 6 tour c'est pour le test implementer des seitch pour les lectures
+                                            if (player in location)    StartTimer(self, 5);
                                        ],
                       before  [;
 
@@ -858,18 +858,18 @@ Object computer "ordinateur"
                                     print   "Alors qu'il @'etait en train de lire, un terminal noir apparut subitement et prit toute l'@'ecran. L'inspecteur leva les mains en l'air, pour mieux se convaincre qu'il n'y @'etait pour rien.
                                      ~Nom de Dieu, pensa-t-il, qu'est-ce que c'est que ce bordel.~ Du texte s'@'ecrivit seul sur le terminal:^^";
                                     style underline;    print     "Je suis l'enfant prodige. Je sais qui vous @^etes et ce que vous faites.";
-                                                                print     "C'est vous qui @'etiez dans la ruelle afin d'intercepter la livraison.";
+                                                                print     " C'est vous qui @'etiez dans la ruelle afin d'intercepter la livraison.";
                                     if (player_killer == true || player_bad > 1 ) {
-                                      style underline; print "Nous savons que vous avez le c@oeur endurcis. Nous avons vu vos agissements. Au lieu de nous nuire les uns les autres, que direz-vous de venir @`a la planque rencontr@'e le cerveau, Vallagnosc?";
+                                      style underline; print " Nous savons que vous avez le c@oeur endurcis. Nous avons vu vos agissements. Au lieu de nous nuire les uns les autres, que direz-vous de venir @`a la planque rencontr@'e le cerveau, Vallagnosc?";
                                     if (YesOrNo ())  {   player_criminal = true;
                                       style underline; print "Vous avez fait le bon choix. D@'esormais, rendez-vous au stationnement, et patientez quelques minutes le temps que notre chauffeur vienne vous chercher.";
                                                             }
-                                   else                   { style underline; print "Vous @^etes desormais seul, et avec tous les forfaits que vous avez commis, ce n'est qu'une question d'heures avant que la police ne d@'esactive votre badge.";
-                                                              style underline; print  "Bonne chance. Ah oui, un dernier conseil, ne tentez pas de venir nous rendre visite. Nous sauront faire de votre voyage le dernier.";
+                                   else                   { style underline; print "Vous @^etes d@'esormais seul, et avec tous les forfaits que vous avez commis, ce n'est qu'une question d'heures avant que la police ne d@'esactive votre badge.";
+                                                              style underline; print  " Bonne chance. Ah oui, un dernier conseil, ne tentez pas de venir nous rendre visite. Nous saurons faire de votre voyage le dernier.";
                                                             }   }
-                                     if (player_killer == false && player_bad == 0) { style underline; print " Un conseil inspecteur, ne tentez pas de venir nous rendre visite. Nous sauront faire de votre voyage le dernier."; }
+                                     if (player_killer == false && player_bad == 0) { style underline; print " Un conseil inspecteur, ne tentez pas de venir nous rendre visite. Nous saurons faire de votre voyage le dernier."; }
 
-                                                 style roman;  print "^^L'inspecteur @'eteigna son ordinateur, stup@'efait. Il quitta son poste esperant qu'il @'etait pr@^et pour aller @`a la planque. On ne sait jamais, se dit-il...";
+                                                 style roman;  print "^^L'inspecteur @'eteignit son ordinateur, stup@'efait. Il quitta son poste esp@'erant qu'il @'etait pr@^et pour aller @`a la planque. On ne sait jamais, se dit-il...";
                                                     PlayerTo(Cybercoffee, 1);
                                                     return true;
                              ],
@@ -885,7 +885,7 @@ Object courriels "courriels" computer
                                       1: "Monsieur,
 
                                       @`a la suite de votre acception du contrat ci-joint pour le mandat d'enqu@^ete sur les s@'eries d'@'ev@`enements 00678 et 00679, nous tenons @`a exprimer d'une part notre incroyable gratitude envers votre d@'evouement pour la R@'epublique. Sachez, Monsieur, que si votre enqu@^ete permet de faire avancer significativement les choses, nous saurons vous remercier. Nous aurons besoin, d'ici la fin du mois, que vous vous pr@'esentiez au bureau administratif bloc C-32, section orange, afin de pr@'esenter le contrat d@^ument sign@'e. Si vous avez des questions, vous pouvez appeler du lundi au vendredi de 13h @`a 15h au bureau du ministres des enqu@^etes sp@'eciales. Pour les urgences, veuillez contactez votre sup@'erieur assign@'e pour le mandat, en l'occurrence";
-                                      2: "J'esp@`ere que tu te souviens de moi parfois. Je ne m'@'epuiserai jamais de t'@'ecrire. J'esp@`ere seulement -non une r@'eponse, cela serait trop demand@'e- que tu ne te fatigue pas de me lire. Hier j'ai re@ccus Anatole chez moi, et nous avons discut@'e de choses et d'autres. Je vois peu de gens, mais peut importe combien j'en verrais, cela ne saurait enlever la solitude incommensurable qui me creuse. ...";
+                                      2: "J'esp@`ere que tu te souviens de moi parfois. Je ne m'@'epuiserai jamais de t'@'ecrire. J'esp@`ere seulement -non une r@'eponse, cela serait trop demand@'e- que tu ne te fatigue pas de me lire. Hier j'ai re@ccu Anatole chez moi, et nous avons discut@'e de choses et d'autres. Je vois peu de gens, mais peu importe combien j'en verrais, cela ne saurait enlever la solitude incommensurable qui me creuse. ...";
                                       3: "Salut,^ j'ai essay@'e de te rejoindre ce soir, je voulais te glisser quelques infos suppl@'ementaire... rappelle-moi quand tu auras deux minutes.
                                       ^P.-S.-: c'est ultra confidentiel, alors appelle-moi avec le t@'el@'ephone fixe pr@`es du poste de police.";
                                     default: "Vous n'avez plus de nouveaux courriels";
@@ -893,12 +893,12 @@ Object courriels "courriels" computer
                                  ],
          has scenery;
 
-Object Naviguateur "naviguateur" computer
-            with description "naviguateur",
-                    name 'naviguateur' 'fureteur',
+Object navigateur "navigateur" computer
+            with description "navigateur",
+                    name 'navigateur' 'fureteur' 'naviguateur',
                     before [;
-                                   examine, read: if (self hasnt general)  { print"L'inspecteur fit une recherche Internet afin d'obtenir des informations sur le quartier de la planque. Comme le gouvernement se refusait d'avouer la honte que faisait cette r@'esistance @`a son autorit@'e, l'information fut difficile @`a trouver. Il r@'eussit @`a glaner, @cca et l@`a, des informations diss@'emin@'ees, mais rien d'officiel. Surtout, dans l'encyclop@'edie officielle du gouvernement, rien ne mentionnait ces hors-la-loi! Par contre, dans un rapport administratif @`a l'@'ecriture quelconque, il retrouva une certaine strat@'egie de s@'ecurisation et renforcement des zones limitrophes. Ce qui laissait sous-entendre qu'il y avait peut-@^etre un probl@`eme. Il lit, dans diff@'erents forums, quelques bribes:
-                                                            ^ ... On consid@`ere la planque comme @'etant principalement le quartier Duchamps, et ses fronti@`eres au-del@`a sont changeantes selon les guerres avec les autres gangs... ^ ... Des criminels font des rondes courantes sur leur territoire, et demandent au malheureux qui les croiserait une taxe... ^ ... Le chef de La planque, Vallagnosc, serait devenu criminel assez jeune, alors que le seul membre de sa famille, son p@`ere, fut envoy@'e dans un camp de travail... ^... L'influence de La planque s'@'etend m@^eme jusqu'@`a la cit@'e. Il para@^it que Vallagnosc re@ccoit jusqu'@`a des personages importants... ^... Depuis que les criminels de la planque tentent de trouver dans la for@^et un poison rare, les sauvages se prom@`enent parfois dans le quartier Duchamps, dans l'espoir d'abattre Vallagnosc, qu'ils savent @^etre le chef, d'un fl@'echette empoisonn@'ee... ";
+                                   examine, read: if (self hasnt general)  { print"L'inspecteur fit une recherche Internet afin d'obtenir des informations sur le quartier de la planque. Comme le gouvernement se refusait d'avouer la honte que faisait cette r@'esistance @`a son autorit@'e, l'information f@^ut difficile @`a trouver. Il r@'eussit @`a glaner, @cca et l@`a, des informations diss@'emin@'ees, mais rien d'officiel. Surtout, dans l'encyclop@'edie officielle du gouvernement, rien ne mentionnait ces hors-la-loi! Or, dans un rapport administratif @`a l'@'ecriture quelconque, il retrouva une certaine strat@'egie de s@'ecurisation et renforcement des zones limitrophes. Ce qui laissait sous-entendre qu'il y avait peut-@^etre un probl@`eme. Il lit, dans diff@'erents forums, quelques bribes:
+                                                            ^ ... On consid@`ere la planque comme @'etant principalement le quartier Duchamps, et ses fronti@`eres au-del@`a sont changeantes selon les guerres avec les autres gangs... ^ ... Des criminels font des rondes courantes sur leur territoire, et demandent au malheureux qui les croiserait une taxe... ^ ... Le chef de La planque, Vallagnosc, serait devenu criminel assez jeune, alors que le seul membre de sa famille, son p@`ere, f@^ut envoy@'e dans un camp de travail... ^... L'influence de La planque s'@'etend m@^eme jusqu'@`a la cit@'e. Il para@^it que Vallagnosc re@ccoit jusqu'@`a des personnages importants... ^... Depuis que les criminels de la planque tentent de trouver dans la for@^et un poison rare, les sauvages se prom@`enent parfois dans le quartier Duchamps, dans l'espoir d'abattre Vallagnosc, qu'ils savent @^etre le chef, d'une fl@'echette empoisonn@'ee... ";
                                                               give self general;
                                                               return true; }
                                                           if (self has general) print_ret "Vous avez d@'ej@`a fait une recherche.";
@@ -929,13 +929,13 @@ Object journal "journal personnel" computer
                                 ],
            has scenery;
 
-Object noteenquete "enquete precedante" computer
-            with description "vous notes precedante d'enquetes",
+Object noteenquete "enqu@^ete pr@'ec@'edante" computer
+            with description "vous notes pr@'ec@'edante d'enqu@^etes",
                     name 'notes' 'enquete',
                     before [;
                                    examine, read:  if (self hasnt general)  { print "
                                    Enqu@^ete sur les disparitions dans le Quartier Saint-Hippolyte.
-                                   On m'avait assign@'e @`a cette enqu@^ete avec l'espoir que je retrouvai le criminel responsable des enfants disparus dans ce quartier pourtant hautement s@'ecuris@'e de la cit@'e, dans le secteur dix-huit. D@`es le commencement de la mission, j'ai eu acc@`es @`a une tonne d'informations confidentielles sur les entr@'ees et sorties des r@'esidants, des conversations t@'el@'ephoniques, des courriel, m@^eme des rapports @'ecrits en partie par Cora, peu de temps apr@`es son inauguration. J'avais beau essayer, j'@'etais incapable de passer au travers cette masse ph@'enom@'enale d'information, de papeterie. J'ai tout mis de c@^ot@'e pour aller discuter avec les parents endeuill@'es. Je suis tous all@'e les voir, et je me suis rendu compte qu'une information primordiale avait gliss@'ee des rapports, des syst@`emes et des algorithmes: ils inculquaient @`a leurs enfants qu'ils devaient @'etudier fort pour ne pas @'echouer dans les quartiers malpropres. Le ravisseur posait une question du genre: es-tu d@'ej@`a all@'e visiter les quartiers? aux enfants. Enfin, c'@'etait l@`a un de @'el@'ements clefs n@'ecessaire pour r@'esoudre l'affaire. La police ne r@'eussit jamais @`a coincer le criminel, mais gr@^ace @`a moi nous p@^umes l'identifier: Henry Duford, 38 ans, avait des s@'equelle, en lien avec son enfance dans...";
+                                   On m'avait assign@'e @`a cette enqu@^ete avec l'espoir que je retrouvai le criminel responsable des enfants disparus dans ce quartier pourtant hautement s@'ecuris@'e de la cit@'e, dans le secteur dix-huit. D@`es le commencement de la mission, j'ai eu acc@`es @`a une tonne d'informations confidentielles sur les entr@'ees et sorties des r@'esidents, des conversations t@'el@'ephoniques, des courriels, m@^eme des rapports @'ecrits en partie par Cora, peu de temps apr@`es son inauguration. J'avais beau essayer, j'@'etais incapable de passer au travers cette masse ph@'enom@'enale d'information, de papeterie. J'ai tout mis de c@^ot@'e pour aller discuter avec les parents endeuill@'es. Je suis tous all@'e les voir, et je me suis rendu compte qu'une information primordiale avait gliss@'ee des rapports, des syst@`emes et des algorithmes: ils inculquaient @`a leurs enfants qu'ils devaient @'etudier fort pour ne pas @'echouer dans les quartiers malpropres. Le ravisseur posait une question du genre: es-tu d@'ej@`a all@'e visiter les quartiers? aux enfants. Enfin, c'@'etait l@`a un de @'el@'ements clefs n@'ecessaire pour r@'esoudre l'affaire. La police ne r@'eussit jamais @`a coincer le criminel, mais gr@^ace @`a moi nous p@^umes l'identifier: Henry Duford, 38 ans, avait des s@'equelles, en lien avec son enfance dans...";
                                                              give self general;
                                                             return true; }
                                                             if (self has general) print_ret "Vous avez besoin de vous concentrer sur cette enqu@^ete-ci!";
@@ -966,8 +966,8 @@ Object recherche  "recherche sur la ligne verte" computer
                     before [;
                                    examine, read: if (self hasnt general)   {
                                     print  "Extrait d'un travail de recherche sur la ligne verte, effectu@'e pour l'@'ecole en ...^
-                                   ~ La ligne verte @`a @'et@'e plant@'ee il y a pr@`es de cent ans pour emp@^echer la d@'esertification venant du Sud. Les terres br@^ul@'ees gagnent, encore aujourd'hui, du terrain chaque ann@'ee dans toutes les direction.
-                                   Durant le d@'ebut du si@`ecle, le gouvernement s'@'etait pench@'e sur la d@'esertification des Terre br@^ul@'ee, et plus particuli@`erement sur le danger qu'elles repr@'esentaient pour les quartiers limitrophe. Ils ont pu observer, au Sud-Ouest, une poche de r@'esistance venant de la for@^et de Loudun, habit@'ee par ls sauvages.
+                                   ~ La ligne verte @`a @'et@'e plant@'ee il y a pr@`es de cent ans pour emp@^echer la d@'esertification venant du Sud. Les terres br@^ul@'ees gagnent, encore aujourd'hui, du terrain chaque ann@'ee dans toutes les directions.
+                                   Durant le d@'ebut du si@`ecle, le gouvernement s'@'etait pench@'e sur la d@'esertification des Terre br@^ul@'ee, et plus particuli@`erement sur le danger qu'elles repr@'esentaient pour les quartiers limitrophes. Ils ont pu observer, au Sud-Ouest, une poche de r@'esistance venant de la for@^et de Loudun, habit@'ee par ls sauvages.
                                    La forme de cette for@^et @'etait celle d'une bande plus ou moins ovale.
                                    Le gouvernement d@'ecida de poursuivre cette for@^et afin d'en faire une ligne, d'o@`u son nom contemporain, qui cerne le pourtour des quartiers, et limite la d@'esertification des Terre br@^ul@'ees.
                                    La premi@`ere section victime de la d@'esertification furent les mines, abandonn@'ees vers les ann@'ees 50. On raconte que les sauvages, profitant d@'esormais d'un plus grand terrain, d@'efendent leur for@^et contre les rares coupes, rendant plus difficile de g@'erer et d'@'etudier cet espace. Ils sont plus particuli@`erement violents quant @`a l'espace initial de leur for@^et, la poche de Loudun, qu'ils consid@`erent probablement comme sacr@'ee.~";
@@ -987,11 +987,11 @@ Lieu parc "parc"
                print "Au Sud vous pouvez rejoindre la rue du parc. @`A l'Ouest, se trouve le palais de justice, et @`a l'Est, la Grande All@'ee";
                          if (self hasnt visited)
                print "^Un parc bien entretenu, il sert de lieu de pause pour les policiers, les avocats, et les employ@'es de la ville. Un petit chemin contourne une @'etendue d'eau dans laquelle
-                            pataugent des cannards. En face, sur un bancs, une vieille femme noire regarde les oiseaux. Une grande statue, de la hauteur d'un @'etage d'une maison, repr@'esente Francis Rotweller.";
+                            pataugent des canards. En face, sur un banc, une vieille femme noire regarde les oiseaux. Une grande statue, de la hauteur d'un @'etage d'une maison, repr@'esente Francis Rotweller.";
                                   ],
             e_to grandeallee1,
             s_to rueduparc,
-            w_to "Nul int@'eret @`a visiter le palais de justice ou l'hotel de ville",
+            w_to "Nul int@'er@^et @`a visiter le palais de justice ou l'h@^otel de ville",
             se_to carrefour2,
             sw_to carrefour1,
             n_to "Le poste de police, mais l'entr@'ee se fait par la grande all@'ee.";
@@ -1023,14 +1023,14 @@ Lieu stationnement "Stationnement"
              switch (++(self.turns_active)) {
              5:  renitialise();
                   PlayerTo(cutsceneplanque, 1);
-                  print_ret "Une voiture noire vint dans le stationnement. L'inspecteur, incertain, y embarqua, esperant qu'il verrait la fin du trajet...";
+                  print_ret "Une voiture noire vint dans le stationnement. L'inspecteur, incertain, y embarqua, esp@'erant qu'il verrait la fin du trajet...";
                                            }}
                           ],
 
                 before  [;
                                               take, go, enter: if (noun == voiture && etape5 == 1 && etape6 ==0)  {
-                                                                       print "^L'inspecteur s'identifia sur le terminal de la voiture et espera que son code d'identification allait fonctionner comme on lui avait promis. La voiture se d@'everrouilla, et il ne put r@'eprimer un soupire de soulagement.
-                                                                                    Il ala en direction Est sur la rue du parc, et roula ainsi pr@`es d'une vingtaine de minutes. Par pr@'ecaution, il se stationna dans un cul de sac, @`a une dizaine de minutes de la maison de Ronald.
+                                                                       print "^L'inspecteur s'identifia sur le terminal de la voiture et esp@'era que son code d'identification allait fonctionner comme on lui avait promis. La voiture se d@'everrouilla, et il ne put r@'eprimer un soupir de soulagement.
+                                                                                    Il alla en direction Est sur la rue du parc, et roula ainsi pr@`es d'une vingtaine de minutes. Par pr@'ecaution, il se stationna dans un cul de sac, @`a une dizaine de minutes de la maison de Ronald.
                                                                                     Il v@'erifia la cour furtivement, et inspecta les fen@^etres, pour bien s'assurer d'@^etre seul. Son c@oeur battait fort, il @'etait nerveux. Une fois arriv@'e a la porte, il entra son num@'ero d'identification, et put entrer sans encombre.^";
                                                                        PlayerTo(maison);
                                                                        return true;  }
@@ -1048,7 +1048,7 @@ Object voiture "voiture de police" stationnement
               with description "Une voiture a hydrog@`ene, un mod@`ele r@'ecent. Sa coupe est sportive et a@'erodynamique. Elle est toute @'equip@'ee:
                                           pilotage assist@'e, intelligence artifcielle embarqu@'ee, verouillage et d@'emarrage par identifiant, etc.",
                        name 'voiture' 'police' 'bolide' 'char',
-              has  static;
+              has  static female;
 
 Sub appartementpauvre "appartement pauvre" ruedestravailleurs
               with description "Une facade triste, des fen@^etres salies par l'@'eternelle fum@'ee crach@'ee par l'usine. Quoique le bloc ne semble pas sur le point de s'@'ecrouler,
@@ -1059,24 +1059,24 @@ Lieu appartement1 "appartement pauvre"
                with description  [;
                                             !   if (etape3 == 1) print_ret "";
                                              if (self hasnt visited)
-                                             print_ret "^L'appartement est @`a l'etroit; apr@`es avoir pass@'e par un corridor d'entr@'ee avec son  garde-robe, vous arrivez dans le salon. Anne-Marie s'assoya de peine et de mis@`ere dans son vieux fauteil
-                                                          @'ebouriffe. Elle posa ses jambes sur un pouf et soupira d'aise. L'inspecteur resta debout, un peu g@^en@'e de constater qu'il n'y avait meme pas d'autre endroit ou s'asseoir, cela est
-                                                         un signe de solitude qui ne trompe pas. Au travers les bruits chaotiques de la radio, Anne-Mari d@'ebuta son monologue comme les personnes ag@'ees savent si bien le faire . ^~Je m'excuse! c'est la vieillesse, que voulez-vous? Je n'ai pas pu m'emp@^echer d'@'ecouter ce qui vous est arriv@'e. Triste histoire. Je n'ai pas envie que l'on sache
-                                                         que vous @^etes venu... on lancerait des oeufs sur mes fen@^etres la nuit, et je suis trop vieille pour tout nettoyer. Vous sortirez par l'arri@`ere, dans la ruelle. Je suis une fouine, je l'avoue! de mon balcon,
-                                                         d'une oreille distraite, j'entend pas mal de choses. Je me suis dis, @`a quoi bon tout garder pour moi? Haha, une vieille n'a rien a faire des secrets! Vous en ferez meilleur usage, n'est-pas?
+                                             print_ret "^L'appartement est @`a l'@'etroit; apr@`es avoir pass@'e par un corridor d'entr@'ee avec sa garde-robe, vous arrivez dans le salon. Anne-Marie s'assit de peine et de mis@`ere dans son vieux fauteuil
+                                                          @'ebouriffe. Elle posa ses jambes sur un pouf et soupira d'aise. L'inspecteur resta debout, un peu g@^en@'e de constater qu'il n'y avait m@^eme pas d'autre endroit o@^u s'asseoir, cela est
+                                                         un signe de solitude qui ne trompe pas. Au travers les bruits chaotiques de la radio, Anne-Marie d@'ebuta son monologue comme les personnes @^ag@'ees savent si bien le faire. ^~Je m'excuse! c'est la vieillesse, que voulez-vous? Je n'ai pas pu m'emp@^echer d'@'ecouter ce qui vous est arriv@'e. Triste histoire. Je n'ai pas envie que l'on sache
+                                                         que vous @^etes venu... on lancerait des @oeufs sur mes fen@^etres la nuit, et je suis trop vieille pour tout nettoyer. Vous sortirez par l'arri@`ere, dans la ruelle. Je suis une fouine, je l'avoue! de mon balcon,
+                                                         d'une oreille distraite, j'entends pas mal de choses. Je me suis dit, @`a quoi bon tout garder pour moi? Haha, une vieille n'a rien @`a faire des secrets! Vous en ferez meilleur usage, n'est-pas?
                                                          Je sais bien qu'il y a des r@'eunions la nuit avec les ouvriers, moi, on ne m'a jamais invit@'ee, non. Et j'ai vu Andr@'e se faire frapper par ceux qui @'etaient ses amis... si ce n'est pas malheureux!
-                                                         Enfin, j'ai entendu quelque chose qui pourrait vous int@'eresser. Hier, j'ai eu vent d'une transaction, ce soir, dans la ruelle derri@`ere chez moi! Si seulement j'etais assez forte pour veiller et @'epier, mais le soir, je croule de fatigue.
-                                                         Je suis certaine que c'est important, vous auriez du entendre leur ton de voix, plein de m@'efiance et discret @`a part de @cca! Celui qui s'occupait de g@'erer cette transaction, l@`a, comme s'appelle-t-il? Ah oui, @'Eric Dillinger.
-                                                         Je ne le connais pas particulir@`ement, mais j'ai connu sa femme, Linda, auparavant. H@'e oui, Linda et son ancien mari me rendaient des visites, il y a bien 20 ans de cela! D@'esormais, les temps ont chang@'es, notre diff@'erence d'@^age s'est fait sentir...
-                                                         Je n'ai pas la langue dans ma poche. Alors j'ai tout dis ce que j'en pensais de ce qu'ils faisaient, qu'ils aillent au diable qu'il m'ont dit! depuis ils m'ont tous pris en grippe. Peuh. Alors je moisis dans mon appartement, seule.
-                                                         Au moins, je me dis, j'ai encore pu aider, n'est-ce pas? Je ne sais plus ou habite les Dillinger, mais je dois avoir l'adresse du temps que je voyais Linda. Elle n'a jamais demenag@'e, mais, Seigneur! j'ai oubli@'e ou elle habitait.
+                                                         Enfin, j'ai entendu quelque chose qui pourrait vous int@'eresser. Hier, j'ai eu vent d'une transaction, ce soir, dans la ruelle derri@`ere chez moi! Si seulement j'@'etais assez forte pour veiller et @'epier, mais le soir, je croule de fatigue.
+                                                         Je suis certaine que c'est important, vous auriez d@^u entendre leur ton de voix, plein de m@'efiance et discret @`a part de @cca! Celui qui s'occupait de g@'erer cette transaction, l@`a, comme s'appelle-t-il? Ah oui, @'Eric Dillinger.
+                                                         Je ne le connais pas particuli@`erement, mais j'ai connu sa femme, Linda, auparavant. H@'e oui, Linda et son ancien mari me rendaient des visites, il y a bien 20 ans de cela! D@'esormais, les temps ont chang@'e, notre diff@'erence d'@^age s'est fait sentir...
+                                                         Je n'ai pas la langue dans ma poche. Alors j'ai tout dit ce que j'en pensais de ce qu'ils faisaient, qu'ils aillent au diable qu'ils m'ont dit! depuis ils m'ont tous pris en grippe. Peuh. Alors je moisis dans mon appartement, seule.
+                                                         Au moins, je me dis, j'ai encore pu aider, n'est-ce pas? Je ne sais plus o@`u habite les Dillinger, mais je dois avoir l'adresse du temps que je voyais Linda. Elle n'a jamais d@'em@'enag@'e, mais, Seigneur! j'ai oubli@'e o@`u elle habitait.
                                                          C'@'etait peut-@^etre sur la rue Bernard-Lee? ou bien @'etait-ce Mathieu? Ah! ne prenez pas de chance, trouvez mon carnet d'adresse. Il doit bien @^etre quelque part dans cet appartement! Cherchez @`a votre guise, je ne suis pas g@^en@'ee.
-                                                         Et ca fait tellement longtemps que je n'ai pas eu de visite! Dieu du ciel ce que j'aurais donn@'e pour avoir un enfant dans les quartiers. Mon fils unique habite dans la cit@'e. Je ne sais m@^eme pas ce qu'il devient aujourd'hui, vous vous imaginez.
-                                                         Il m'@'ecrivait des lettes de temps a autres. Mais c'est finnis, @cca les lettres. C'est finnis...^^Le salon contient une belle biblioth@`eque, un un fauteil et son pouf, une table basse au centre, et col@'e au mur, une console sur laquelle
+                                                         Et @cca fait tellement longtemps que je n'ai pas eu de visite! Dieu du ciel ce que j'aurais donn@'e pour avoir un enfant dans les quartiers. Mon fils unique habite dans la cit@'e. Je ne sais m@^eme pas ce qu'il devient aujourd'hui, vous vous imaginez.
+                                                         Il m'@'ecrivait des lettes de temps a autres. Mais c'est fini, @cca les lettres. C'est fini...^^Le salon contient une belle biblioth@`eque, un fauteuil et son pouf, une table basse au centre, et coll@'e au mur, une console sur laquelle
                                                           tr@^one une vieille radio. Dans le coin au fond, dans une vaine tentative d'@'egayer le triste lieu, une plante verte malade demande d@'esesp@'er@'ement de la lumi@`ere.
-                                                          Au fond, le salon se termine par un mur de s@'eparation, avec une arche menant @`a la cuisine, et une ouverture dans le mur afin de laiss@'e passer la lumi@`ere.";
+                                                          Au fond, le salon se termine par un mur de s@'eparation, avec une arche menant @`a la cuisine, et une ouverture dans le mur afin de laisser passer la lumi@`ere.";
                                               ! else print "";
-                                            print "Anne-Marie vous salue chaleureusement.^^Le salon contient une belle biblioth@`eque, un un fauteil et son pouf, une table basse au centre, et col@'e au mur, une console sur laquelle
+                                            print "Anne-Marie vous salue chaleureusement.^^Le salon contient une belle biblioth@`eque, un un fauteuil et son pouf, une table basse au centre, et col@'e au mur, une console sur laquelle
                                              tr@^one une vieille radio. Dans le coin au fond, dans une vaine tentative d'@'egayer le triste lieu, une plante verte malade demande d@'esesp@'er@'ement de la lumi@`ere.
                                              Au fond, le salon se termine par un mur de s@'eparation, avec une arche menant @`a la cuisine, et une ouverture dans le mur afin de laiss@'e passer la lumi@`ere.";
                                           ],
@@ -1093,7 +1093,7 @@ Lieu appartement1 "appartement pauvre"
                                                 if (lecture == 3)  {
                                                                                 move photo to appartement1;
                                                                                 lecture = lecture + 1;
-                                                                                print_ret "^^Vous trouvez une photo, gliss@'ee entre les pages. L'inspecteur la posa sur l'@'etagere de la biblioth@'eque.";
+                                                                                print_ret "^^Vous trouvez une photo, gliss@'ee entre les pages. L'inspecteur la posa sur l'@'etag@`ere de la biblioth@`eque.";
                                                                              }
                                          ],
                        n_to cuisinette,
@@ -1101,8 +1101,8 @@ Lieu appartement1 "appartement pauvre"
                        cant_go "Au Nord se trouve la cuisinette. Un escalier m@`ene @`a l'@'etage superieur, la porte d'entr@'ee est au Sud.",
                        s_to "Vous feriez mieux de ne pas attirer l'attention sur Anne-Marie.";
 
-Deco fautueil "fauteuil" appartement1
-               with description "Un fauteil bleu poudre trou@'e par endroits, croulant sous le poids et d'Anne-Marie, et du temps. Des griffures indiquent qu'il y eut autrefois un animal.",
+Deco fauteuil "fauteuil" appartement1
+               with description "Un fauteuil bleu poudre trou@'e par endroits, croulant sous le poids et d'Anne-Marie, et du temps. Des griffures indiquent qu'il y eut autrefois un animal.",
                       name 'fauteuil';
 
 Furniture console "console" appartement1
@@ -1158,24 +1158,24 @@ Object livres "des rang@'ees de livre" bibliotheque
 
 Object livre bibliotheque
         with description  [;
-                                            if (lecture == 1) print_ret "L'usine fut fond@'ee durant les ann@'ees 50. Elle devait revitaliser un quartier qui s'essoufflait @'economiquement. De plus, @`a l'@'epoque, les mines commen@ccaient @`a @^etre d@'esert@'ees, et la cit@'e cherchait un moyen
-                                                                                      de dynamiser l'@'economie des quartiers. Plus d'une dizaine de complexe comme celui-ci ont @'et@'e am@'enag@'es dans divers quartiers. Le surplus de production servaient entre autre @`a combler les besoin
-                                                                                      de la cit@'e voisine, situ@'ee plus au nord. Le d@'el@'egu@'e Francis Rotweller, tres impliqu@'e alors dans le d@'eveloppement du quartier Roseraie, avait pouss@'e l'administration pour ce genre de projet.
-                                                                                      Une statue @`a d'ailleurs @'et@'e @'erig@'ee en son honneur dans le parc. ^[...]^ Un des moments les plus sombres de l'usine fut les soulevements de mai 64. Ils dur@`erent pr@`es d'une ann@'ee enti@`ere.
-                                                                                      Le syndicat de l'usine avait vu sa convention collective refus@'ee par le conseil des hauts ministres de la cit@'e. Il sont alors entr@'es en gr@`eve, mais elle fut declar@'ee ill@'egale deux mois plus tard.
-                                                                                      Cependant, loin de retourner travailler, les manifestations devinrent de plus en plus violentes et les ouvrires d@'eclench@`erent m@^eme des @'emeutes. En partie contenue par la police, qui utilisait la matraque,
-                                                                                    le gaz moutarde et les balles de caoutchou pour controler la situation, les @'emeutes pouss@`erent l'administration @`a bout de ressources. En 65, pour une rare fois, l'arm@'ee de dro@:ides d@'ebarqua dans les quartiers Sud.
-                                                                                      Cette fois, il n'@'etait plus de question de balles en caoutchou... On d@'enombra environ 200 arrestations, plus de mille bless@'es, et pr@`es d'une centaine de morts. Ce sont les chiffres officiels, mais l'organisme non-gouvernemental
-                                                                                     pour la memoire des travailleur (PMT) d@'eclencha une enqu@^ete ind@'ependante afin d'obtenir des nombres v@'eridiques trois ans plus tard. Leur enqu@^ete n'aura jamais abouttie, en raison des b@^atons dans les roue que...";
-                                            if (lecture == 2) print_ret "Les habitants des quarties Sud sont reput@'es pour leur discr@'etion. Ils socialisent g@'en@'eralement en petits groupes. Plusieurs enfants ont encore souvnenir des
-                                                                                      sc@`enes traumatisantes d'arrestation, de parents tu@'es dans la rue, et peut-@^etre cela les aura rendus plut@^ot r@'eticents au soul@`evement, plus dociles. Les quartiers Sud sont reput@'es
-                                                                                      pour leur caf@'e; les plus grand br@^uleur y sont @'etablis, et fournissent le caf@'e des meilleurs endroits de la cit@'e. Si autrefois les habitants des quartiers Sud aiment se rendre aux mines abandonn@'ees afin d'explorer et
-                                                                                      de se ballader, cette activit@'e est malheureusement aujourd'hui proscrite. Les indig@`enes de la ligne verte vont jusqu'a infiltrer les quartiers limitrophes, et agissent plus violemment qu'avant, ce qui rend cette exp@'edition dangeureuse.
-                                                                                      De plus, les mines sont desormais habit@'ees par des sauvages. Les recensements des quartiers Sud indiquent que ses habitants sont les plus bas dans les taux de r@'eussite des tests admistratifs.
-                                                                                      De maniere g@'en@'erale, la migration des habitants des quartiers Sud vers la cit@'e a fortement diminu@'ee ces dix derni@`eres ann@'ees.";
-                                            if (lecture == 3) print_ret "Les criminels sont parfois per@ccus a tort comme des g@'enie tortur@'es ou incompris. En r@'ealit@'e, il s'agit le plus souvent de personnes malades ou d@'efficientes.
-                                                                                    Ces probl@`emes sont li@'es a des troubles du d@'eveloppement, mais pas toujours. C'est pourquoi les premi@`eres ann@'ees du developpement de l'enfant sont strictement surveill@'es
-                                                                                   dans les centres d'apprentissage. Les enfants pour lesquels un profil psychopatique pointe sont parfois transfer@'es sans avertissement aux parents vers des centres de r@'e@'education ou de travail.";
+                                            if (lecture == 1) print_ret "L'usine f@^ut fond@'ee durant les ann@'ees 50. Elle devait revitaliser un quartier qui s'essoufflait @'economiquement. De plus, @`a l'@'epoque, les mines commen@ccaient @`a @^etre d@'esert@'ees, et la cit@'e cherchait un moyen
+                                                                                      de dynamiser l'@'economie des quartiers. Plus d'une dizaine de complexe comme celui-ci ont @'et@'e am@'enag@'es dans divers quartiers. Le surplus de production servait entre autre @`a combler les besoin
+                                                                                      de la cit@'e voisine, situ@'ee plus au nord. Le d@'el@'egu@'e Francis Rotweller, tr@`es impliqu@'e alors dans le d@'eveloppement du quartier Roseraie, avait pouss@'e l'administration pour ce genre de projet.
+                                                                                      Une statue @`a d'ailleurs @'et@'e @'erig@'ee en son honneur dans le parc. ^[...]^ Un des moments les plus sombres de l'usine f@^ut les soul@`evements de mai 64. Ils dur@`erent pr@`es d'une ann@'ee enti@`ere.
+                                                                                      Le syndicat de l'usine avait vu sa convention collective refus@'ee par le conseil des hauts ministres de la cit@'e. Ils sont alors entr@'es en gr@`eve, mais elle f@^ut d@'eclar@'ee ill@'egale deux mois plus tard.
+                                                                                      Cependant, loin de retourner travailler, les manifestations devinrent de plus en plus violentes et les ouvriers d@'eclench@`erent m@^eme des @'emeutes. En partie contenue par la police, qui utilisait la matraque,
+                                                                                    le gaz moutarde et les balles de caoutchouc pour contr@^oler la situation, les @'emeutes pouss@`erent l'administration @`a bout de ressources. En 65, pour une rare fois, l'arm@'ee de dro@:ides d@'ebarqua dans les quartiers Sud.
+                                                                                      Cette fois, il n'@'etait plus de question de balles en caoutchouc... On d@'enombra environ 200 arrestations, plus de mille bless@'es, et pr@`es d'une centaine de morts. Ce sont les chiffres officiels, mais l'organisme non-gouvernemental
+                                                                                     pour la m@'emoire des travailleur (PMT) d@'eclencha une enqu@^ete ind@'ependante afin d'obtenir des nombres v@'eridiques trois ans plus tard. Leur enqu@^ete n'aura jamais abouti, en raison des b@^atons dans les roues que...";
+                                            if (lecture == 2) print_ret "Les habitants des quartiers Sud sont r@'eput@'es pour leur discr@'etion. Ils socialisent g@'en@'eralement en petits groupes. Plusieurs enfants ont encore souvenir des
+                                                                                      sc@`enes traumatisantes d'arrestation, de parents tu@'es dans la rue, et peut-@^etre cela les aura rendus plut@^ot r@'eticents au soul@`evement, plus dociles. Les quartiers Sud sont r@'eput@'es
+                                                                                      pour leur caf@'e; les plus grands br@^uleurs y sont @'etablis, et fournissent le caf@'e des meilleurs endroits de la cit@'e. Si autrefois les habitants des quartiers Sud aiment se rendre aux mines abandonn@'ees afin d'explorer et
+                                                                                      de se balader, cette activit@'e est malheureusement aujourd'hui proscrite. Les indig@`enes de la ligne verte vont jusqu'a infiltrer les quartiers limitrophes, et agissent plus violemment qu'avant, ce qui rend cette exp@'edition dangereuse.
+                                                                                      De plus, les mines sont d@'esormais habit@'ees par des sauvages. Les recensements des quartiers Sud indiquent que ses habitants sont les plus bas dans les taux de r@'eussite des tests administratifs.
+                                                                                      De mani@`ere g@'en@'erale, la migration des habitants des quartiers Sud vers la cit@'e a fortement diminu@'e ces dix derni@`eres ann@'ees.";
+                                            if (lecture == 3) print_ret "Les criminels sont parfois per@ccus a tort comme des g@'enie tortur@'es ou incompris. En r@'ealit@'e, il s'agit le plus souvent de personnes malades ou d@'eficientes.
+                                                                                    Ces probl@`emes sont li@'es a des troubles du d@'eveloppement, mais pas toujours. C'est pourquoi les premi@`eres ann@'ees du d@'eveloppement de l'enfant sont strictement surveill@'es
+                                                                                   dans les centres d'apprentissage. Les enfants pour lesquels un profil psychopathique pointe sont parfois transf@'er@'es sans avertissement aux parents vers des centres de r@'e@'education ou de travail.";
                                             if (lecture > 3) print_ret "Vous avez d@'ej@`a feuillet@'e celui-l@`a.";
                                    ],
                     before [;
@@ -1192,12 +1192,12 @@ Object photo "photo s@'epia"
                       with description [;
                                                       if (self hasnt general && location == appartement1) {
                                                                                                give self general;
-                                                                                               print "Anne-Marie se leva de son fauteil pour regarder par-dessus l'@'epaule de l'inspecteur. ^~Ho, vous voyez? L@`a, c'est moi. Oh, les bons vieux souvenirs!~
+                                                                                               print "Anne-Marie se leva de son fauteuil pour regarder par-dessus l'@'epaule de l'inspecteur. ^~Ho, vous voyez? L@`a, c'est moi. Oh, les bons vieux souvenirs!~
                                                                                                           Elle pointa de son doigt un trio dans le coin de la photo. Jeune, sourire jusqu'aux oreilles, Anne-Marie enserrait de ses bras un homme et une femme.^
-                                                                                                          ~ C'est elle, Linda! et @cca c'est son ancien mari. Nous @'etions soud@'e tous les trois.~^Puis sans plus, elle retourna s'asseoir sur son fauteuil, et reposa ses jambes
+                                                                                                          ~ C'est elle, Linda! et @cca c'est son ancien mari. Nous @'etions soud@'es tous les trois.~^Puis sans plus, elle retourna s'asseoir sur son fauteuil, et reposa ses jambes
                                                                                                          sur son pouf.^";
                                                                                          }
-                          print "C'est une vieille photo s@'epia. Devant l'usine, align@'es en rangs d'onions, les travailleurs de l'@'epoque posent fi@`erement.";
+                          print "C'est une vieille photo s@'epia. Devant l'usine, align@'es en rangs d'oignons, les travailleurs de l'@'epoque posent fi@`erement.";
                                                  ],
                        name 'photo' 'sepia' 'instantanne',
                       article "une",
@@ -1222,8 +1222,8 @@ Object adresse "carnet d'adresse" pouf
                              ];
 
 Room cuisinette "Cuisinette"
-          with description "Une cusinette serr@'ee: le lavabo dans un vieux comptoir mang@'e par l'humidit@'e, fait face @`a la fen@^etre. Le comptoir en coin se prolonge par
-                                      un vieux four robuste. Un garde-mange, pr@`es du lavabo, contient toutes les provisions de la pauvre Anne-Marie. La porte
+          with description "Une cuisinette serr@'ee: le lavabo dans un vieux comptoir mang@'e par l'humidit@'e, fait face @`a la fen@^etre. Le comptoir en coin se prolonge par
+                                      un vieux four robuste. Un garde-manger, pr@`es du lavabo, contient toutes les provisions de la pauvre Anne-Marie. La porte
                                       au Nord m@`ene au balcon.",
                       before  [;
                                      go: if (noun == n_obj)
@@ -1254,11 +1254,12 @@ Furniture four "four" comptoir
 
 Object lavabo "lavabo" cuisinette
                  with description "Le lavabo contient quelques assiettes sales.",
-                         name 'lavabo';
+                         name 'lavabo'
+                  has  scenery;
 
 Lieu balcon "balcon"
         with description "La vue n'est pas particuli@`erement int@'eressante. Il est cependant possible de voir plusieurs dos de bloc-appartements, ce qui doit @^etre
-                                    divertissant @`a @'epi@'e la nuit. L'arri@`ere cours est spacieuse, et accueille un potager commun.",
+                                    divertissant @`a @'epier la nuit. L'arri@`ere-cour est spacieuse, et accueille un potager commun.",
             before  [;
                                go: if (noun == n_obj)
                                      print "L'inspecteur se glissa discr@`etement entre les plants du portager, utilisant les buissons pour se camoufler. Il d@'eboucha dans la ruelle.";
@@ -1271,25 +1272,25 @@ Lieu balcon "balcon"
 Lieu appartement2 "appartement moyen"
     with description [;
                                    if (self hasnt visited) {
-                                  print "^L'accueil fut froid et r@'eserv@'e. On assoya l'inspecteur sur un banc de l'il@^ot. Linda, dans le salon, @'eteigna la t@'el@'evision. Tous deux, de mani@`ere solonelle, prirent place en face de l'inspecteur.";  }
-                                  print "L'appartement @'etait moderne et propre. Un il@^ot de marbre surmont@'e d'un luminaire en m@'etal prenait largement la place de la cuisine pr@`es de l'entr@'ee. Au fond, il y avait un salon exeg@:ue avec un sofa et une t@'el@'evision.";
-                                   if (self hasnt visited) { print "^^~Bon, balance tes questions qu'on finisse cette niaiserie au plus vite.~ Lan@cca sans ambage Linda sur un ton sec."; }
+                                  print "^L'accueil f@^ut froid et r@'eserv@'e. On assit l'inspecteur sur un banc de l'@^ilot. Linda, dans le salon, @'eteignit la t@'el@'evision. Tous deux, de mani@`ere solennelle, prirent place en face de l'inspecteur.";  }
+                                  print " L'appartement @'etait moderne et propre. Un @^ilot de marbre surmont@'e d'un luminaire en m@'etal prenait largement la place de la cuisine pr@`es de l'entr@'ee. Au fond, il y avait un salon exig@:u avec un sofa et une t@'el@'evision.";
+                                   if (self hasnt visited) { print "^^~Bon, balance tes questions qu'on finisse cette niaiserie au plus vite.~ Lan@cca sans ambages Linda sur un ton sec."; }
 
                              ],
 
             before  [;
                              Show: if (noun == punchcard && etape3 == 1)  {  etape4 = 1;
-                                                                                 print "L'inspecteur sorti calmement la carte de travail d'@'Eric, avec ses heures de poin@cconn@'ees dessus. De grosses goutes perl@`erent sur les visages. L'inspecteur ressortit son magn@'etophone, comme s'il
-                                                                                           eut besoin d'insister sur l'@'evidence de leur mensonge. ^~Si vous me dites a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnant, n'est-ce pas?
-                                                                                           Avec un ragard assassin, @'Eric dit dans un murmure: - Ce soir, attendez dans la ruelle, c'est d'ici une dizaine de minutes, alors d@'ep@^echez-vous. Et ne revenez jamais ici.~ Sa femme resta cois. L'inspecteur parti prestemment afin de ne pas manquer le rendez-vous.";
+                                                                                 print "L'inspecteur sorti calmement la carte de travail d'@'Eric, avec ses heures de poin@cconn@'ees dessus. De grosses gouttes perl@`erent sur les visages. L'inspecteur ressortit son magn@'etophone, comme s'il
+                                                                                           eut besoin d'insister sur l'@'evidence de leur mensonge. ^~Si vous me dites @`a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnant, n'est-ce pas?
+                                                                                           Avec un regard assassin, @'Eric dit dans un murmure: - Ce soir, attendez dans la ruelle, c'est d'ici une dizaine de minutes, alors d@'ep@^echez-vous. Et ne revenez jamais ici.~ Sa femme resta cois. L'inspecteur parti prestement afin de ne pas manquer le rendez-vous.";
                                                                                  PlayerTo(ruebernardlee1, 1);
                                                                                   return true;
                                                                                 }
 
                                         if (noun == photo && etape3 == 1)          {  etape4 = 1;
-                                                                                  print "L'inspecteur sorti calmement la photo qui prouvait que Linda et Anne-Marie se connaissait. De grosses goutes perl@`erent sur les visages. L'inspecteur ressortit son magn@'etophone, comme s'il
-                                                                                            eut besoin d'insister sur l'@'evidence de leur mensonge. ^~Si vous me dites a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnant, n'est-ce pas?
-                                                                                            Avec un ragard assassin, @'Eric dit dans un murmure: - Ce soir, attendez dans la ruelle, c'est d'ici une dizaine de minutes, alors d@'ep@^echez-vous. Et ne revenez jamais ici.~ Sa femme resta cois. L'inspecteur parti prestemment afin de ne pas manquer le rendez-vous.";
+                                                                                  print "L'inspecteur sorti calmement la photo qui prouvait que Linda et Anne-Marie se connaissait. De grosses gouttes perl@`erent sur les visages. L'inspecteur ressortit son magn@'etophone, comme s'il
+                                                                                            eut besoin d'insister sur l'@'evidence de leur mensonge. ^~Si vous me dites @`a propos de cette transaction... Je laisserais passer votre mensonge. Nous serons gagnant-gagnant, n'est-ce pas?
+                                                                                            Avec un ragard assassin, @'Eric dit dans un murmure: - Ce soir, attendez dans la ruelle, c'est d'ici une dizaine de minutes, alors d@'ep@^echez-vous. Et ne revenez jamais ici.~ Sa femme resta cois. L'inspecteur parti prestement afin de ne pas manquer le rendez-vous.";
                                                                                   PlayerTo(ruebernardlee1, 1);
                                                                                   return true;
                                                                                  }
@@ -1307,9 +1308,9 @@ Lieu appartement2 "appartement moyen"
 
 Room maison "Maison"
  with description [;
-           print "La cuisine et la salle @`a manger sont situ@'ees a l'Est, dans une section l@'eg@`erement sur@'elev@'ees, la toilette au sud-est. Des escalier descendent au sous-sol, une porte entrebaill@'ee laisse entrevoir une chambre au Nord-Est.";
+           print "La cuisine et la salle @`a manger sont situ@'ees a l'Est, dans une section l@'eg@`erement sur@'elev@'ees, la toilette au sud-est. Des escaliers descendent au sous-sol, une porte entreb@^aill@'ee laisse entrevoir une chambre au Nord-Est.";
               if (self hasnt visited)
-           print "^L'int@'erieur est d'un luxe rare pour les quartiers. Les meubles semblent irr@'els, comme inutilis@'es, sans trace d'usure. La maison est nettoy@'ee probablement par une bonne: pas une seule poussi@`ere,
+           print "^L'int@'erieur est d'un luxe rare pour les quartiers. Les meubles semblent irr@'eels, comme inutilis@'es, sans trace d'usure. La maison est nettoy@'ee probablement par une bonne: pas une seule poussi@`ere,
                         un seul objet qui ne tra@^ine.";
                             ],
         turns_wait 0,
@@ -1321,34 +1322,34 @@ Room maison "Maison"
 
         if (location == maison || location == soussol || location == chambremaison)   {       self.turns_wait = self.turns_wait + 1;
                     switch (self.turns_wait) {
-                                 6:   give chambremaison general;
+                                 9:   give chambremaison general;
                                         "Vous entendez un moteur ronronner et des pneus crisser. Ronald fera irruption dans l'entr@'ee d'ici quelques instants.
                                          Peut-@^etre devriez-vous vous cacher?";
-                                 8: if (player in maison)  { deadflag = true;
+                                 11: if (player in maison)  { deadflag = true;
                                        return true; }
-                                       "Ronald entre dans sa maison, mais ne remarque rien de suspect... pour le moment.";
+                                       " Ronald entre dans sa maison, mais ne remarque rien de suspect... pour le moment.";
 
-                                 9: if (player notin garderobe) deadflag = true;
-                                      "Ronald marche, se prom@`ene dans quelques pieces pi@`eces, ouvre des tiroirs, fouille et semble chercher quelque chose.";
+                                 12: if (player notin garderobe) deadflag = true;
+                                      "Ronald marche, se prom@`ene dans quelques pi@`eces, ouvre des tiroirs, fouille et semble chercher quelque chose.";
 
-                                  9: if (player notin garderobe) deadflag = true;
-                                        if (player_killer == true) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, il sont mort. Hum hum. Morts. J'ai envoy@'e le Sphinx inspecter le lieu de l'@'echange. Il les a retrouv@'es dans la benne @`a ordure
+                                  13: if (player notin garderobe) deadflag = true;
+                                        if (player_killer == true) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis la garde-robe, la conversation. ^~Nan, il sont mort. Hum hum. Morts. J'ai envoy@'e le Sphinx inspecter le lieu de l'@'echange. Il les a retrouv@'es dans la benne @`a ordures
                                                                                                du caf@'e. On cherche encore @`a comprendre c'est qui le salaud qui a fait @cca. Oui on c'est occupp@'e des corps, on veut retarder la police, @cca va d@'eclencher une s@'erie d'enqu@^ete et d'interrogatoires. On veut pas @cca. Si c'est la police? Pfff. Jamais. Ce n'est pas leur genre de tirer aussi gratuitement. Il n'y a aucune trace de combat.
                                                                                                C'est ce qui me rassure aussi. On ne les a pas fait parler. On savait d@'ej@`a qui ils @'etaient. @cCa laisse peut d'option. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@'ee qu'il est sur le coup.
                                                                                                 Et comme la police ignore tout sur tout... elle ne peut pas l'avoir mis au courant. En tout cas. Je dois toujours r@'ecup@'erer mon colis.
                                                                                                J'irais directement @`a la planque voir Vallagnosc. C'est trop important! et je dois tirer certaines choses au clair avec lui... en personne. Ma fille Mathilde revient d'une minute @`a l'autre, elle doit avoir termin@'e son tutorat.
                                                                                                Non... @cca n'a pas d'importance... tout @cca n'aura plus d'importance dans quelques semaines. Allez, fais attention @`a toi. Bye.";
-                                        if (player_killer == false) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis le garde-robe, la conversation. ^~Nan, ils s'en sont sortis vivant. Ouais, la sc@`ene s'est d@'eroul@'ee trop rapidement qu'ils ont dit. Un homme @'etait cach@'e dans un potag@'e.
+                                        if (player_killer == false) print_ret "Un t@'el@'ephone sonna. Vous entendez, indistinctement depuis la garde-robe, la conversation. ^~Nan, ils s'en sont sortis vivant. Ouais, la sc@`ene s'est d@'eroul@'ee trop rapidement qu'ils ont dit. Un homme @'etait cach@'e dans un potager.
                                                                                                Non, ils ont pris la fuite, j'ai mon colis. Mais vous savez quoi? j'irais voir Vallagnosc. Non, on est d@^u pour se parler dans le blanc des yeux! Il faut mettre certaines choses au clair avant... avant la date de tomb@'ee.
-                                                                                               Enfin, je vais regarder tout @cca; pour revenir @`a ce qui s'est pass@'e, mes homme l@`a, on savait d@'ej@`a qui ils @'etaient. @cCa laisse peu d'options. Je pensais au gang de l'Est... comment... Les phoenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@'ee qu'il est sur le coup.
-                                                                                              Et comme la police ignore tout sur tout... elle ne peu pas l'avoir mis au courant. En tout cas, il faudra qu'on cherche comment l'information de la rencontre a fuit@'e. Ma fille Mathilde revient d'une minute a l'autre, elle doit avoir termin@'e son tutorat.
+                                                                                               Enfin, je vais regarder tout @cca; pour revenir @`a ce qui s'est pass@'e, mes hommes l@`a, on savait d@'ej@`a qui ils @'etaient. @cCa laisse peu d'options. Je pensais au gang de l'Est... comment... Les ph@oenix? Non?...  L'inspecteur? Ha Ha! @cCa fait qu'une soir@'ee qu'il est sur le coup.
+                                                                                              Et comme la police ignore tout sur tout... elle ne peut pas l'avoir mis au courant. En tout cas, il faudra qu'on cherche comment l'information de la rencontre a fuit@'e. Ma fille Mathilde revient d'une minute a l'autre, elle doit avoir termin@'e son tutorat.
                                                                                                Non... @cca n'a pas d'importance... tout @cca n'aura plus d'importance dans quelques semaines. Allez, fais attention @`a toi. Bye";
-                                  10: if (player notin garderobe) deadflag = true;
-                                  11: if (player notin garderobe) deadflag = true;
-                                  12: StopDaemon(self);
+                                  14: if (player notin garderobe) deadflag = true;
+                                  15: if (player notin garderobe) deadflag = true;
+                                  16: StopDaemon(self);
                                         etape6 = 1;
                                         PlayerTo(Stationnement, 1);
-                                        print_ret "Ronald se fit couler un bain. Lorsqu'il n'entendit plus rien, l'inspecteur en profita pour s'enfuir, tremblant et suant d'@^etre pris sur le fait. Il courrut de longues minutes dans la nuit afin de retrouver sa voiture, et conduisit avec soulagement jusqu'au stationnement. En sortant de la voiture, il parla @`a lui-m@^eme.
+                                        print_ret "Ronald se fit couler un bain. Lorsqu'il n'entendit plus rien, l'inspecteur en profita pour s'enfuir, tremblant et suant d'@^etre pris sur le fait. Il courut de longues minutes dans la nuit afin de retrouver sa voiture, et conduisit avec soulagement jusqu'au stationnement. En sortant de la voiture, il parla @`a lui-m@^eme.
                                                         ^~C'est fou, c'est fou! Ronald est sur le coup! En contact direct avec Vallagnosc. @cCa ne me laisse plus qu'une option! Je dois y aller, @`a cette foutue planque! Je devrais aller au caf@'e chercher des informations sur le quartier de la planque.";
                                          }  }
                                          ;],
@@ -1361,9 +1362,9 @@ Room maison "Maison"
 
 Room chambremaison "chambre des ma@^itres"
           with description [;
-          print "Rien n'encombre cette pi@`ece qu'on eut dit zen. Un lit pr@`es du sol, et une commode sont les seuls meubles de cet aust@`ere lieu. Un garde-robe au fond, assez large pour que quatre personnes puissent y entrer.";
+          print "Rien n'encombre cette pi@`ece qu'on eut dit zen. Un lit pr@`es du sol, et une commode sont les seuls meubles de cet aust@`ere lieu. Une garde-robe au fond, assez large pour que quatre personnes puissent y entrer.";
           if (self hasnt general)
-            print "^En deux temps, trois mouvements, l'inspecteur fouilla pr@'ecautionneusement la commode et inspecta le garde-robe.
+            print "^En deux temps, trois mouvements, l'inspecteur fouilla pr@'ecautionneusement la commode et inspecta la garde-robe.
                          D@'ecidemment, rien d'int@'eressant ne se trouve dans cette chambre. Les papiers et documents de Ronald sont s@^urement
                          group@'es ailleurs dans sa maison.";
                       give self general;
@@ -1377,24 +1378,25 @@ Room chambremaison "chambre des ma@^itres"
 
 Room soussol "sous-sol"
           with description "Le sous-sol n'a pas de cloison ou de mur, ce qui donne une impression de grandeur. L'inspecteur se dirigea vers le bureau de Ronald.
-                                       Vous pouvez voir une grande fillaire, une @'etagere, et un document pose sur le bureau. Aussi, le bureau est compl@'et@'e par un tiroir.",
+                                       Vous pouvez voir une grande filaire, une @'etag@`ere, et un document pose sur le bureau. Aussi, le bureau est compl@'et@'e par un tiroir.",
                 u_to maison;
 
-Object tirroir "tirroir" soussol
+Object tiroir "tiroir" soussol
          with description "Un tiroir en bois.",
                  name 'tiroir' 'tirroir',
                  before  [;
-                                  examine, search: if (self hasnt general)  { print"L'inspecteur fouilla dans le tirroir, sans rien trouver d'extraordinaire, sinon des articles de bureau. Alors qu'il refermait le tirroir, un d@'etail attira son attention.
-                                                                                                            Il remarqua une fente dans le tirroir. Il prit un trombonne qu'il d@'eplia, et l'ins@'era dans la fente. Il d@'ecouvrit un double tirroir cach@'e. @`A l'int@'erieur, il d@'ecouvrit une lettre qu'il rengea dans son manteau.
-                                                                                                            Puis, minutieusement, il referma le tirroir.";
+                                  examine, search: if (self hasnt general)  { print"L'inspecteur fouilla dans le tiroir, sans rien trouver d'extraordinaire, sinon des articles de bureau. Alors qu'il refermait le tiroir, un d@'etail attira son attention.
+                                                                                                            Il remarqua une fente dans le tiroir. Il prit un trombone qu'il d@'eplia, et l'ins@'era dans la fente. Il d@'ecouvrit un double tiroir cach@'e. @`A l'int@'erieur, il d@'ecouvrit une lettre qu'il rangea dans son manteau.
+                                                                                                            Puis, minutieusement, il referma le tiroir.";
                                                               give self general;
                                                               move letterronald to player;
                                                               return true;  }
-                                                              if (self has general) print_ret "Vous avez deja fouill@'e le tirroir.";
-                            ];
+                                                              if (self has general) print_ret "Vous avez deja fouill@'e le tiroir.";
+                            ],
+          has scenery;
 
 Furniture bureau "bureau" soussol
-               with description "Le bureau est d'une propret@'e factice. Il n'y a rien a redire a premi@`ere vue, tout est trop... parfait. M@^eme le rapport, pose la, semble une mise en sc@`ene. ",
+               with description "Le bureau est d'une propret@'e factice. Il n'y a rien a redire a premi@`ere vue, tout est trop... parfait. M@^eme le rapport, pose l@`a, semble une mise en sc@`ene. ",
                         name 'bureau';
 
 Object filliaire "filliaire" soussol
@@ -1409,7 +1411,7 @@ Object filliaire "filliaire" soussol
                   has scenery openable female;
 
 Furniture etagere "@'etag@`ere" soussol
-            with description "etagere",
+            with description "Une @'etag@`ere en bois.",
                    name 'etagere',
                    before  [;
                                   examine, search:
@@ -1430,26 +1432,26 @@ Object document "document" soussol
     has scenery;
 
 Object garderobe "Garde-robe" chambremaison
-           with description "Un garde-robe spacieux, ou sont accroch@'es une panoplie de v@^etements.",
+           with description "Une garde-robe spacieuse, o@`u sont accroch@'es une panoplie de v@^etements.",
                    name 'garde' 'robe' 'garde-robe',
-           has container open enterable scenery light;
+           has container open enterable scenery light female;
 
 Lieu usine "L'usine"
          with description [;
-                       print "De l'int@'erieur l'usine est sombre; quelques rectangles lumineux certis de grillage m@'etallique pendent dangeureusement
-                                 au plafond. Le lieux sent le travail, l'huile, les moteurs, l'absence de v@'eg@'etation. Plusieurs courroies d@'efilent, et une cinquentaine
+                       print "De l'int@'erieur l'usine est sombre; quelques rectangles lumineux entour@'es de grillage m@'etallique pendent dangeresement
+                                 au plafond. Le lieu sent le travail, l'huile, les moteurs, l'absence de v@'eg@'etation. Plusieurs courroies d@'efilent, et une cinquantaine
                                  de travailleurs sont pench@'es sur leur section attitr@'ees, et font encore et encore les m@^emes mouvements. @`A l'Ouest, vous
-                                 voyez disctinctement le bureau du directeur, pr@`es de l'horodateur, et au Sud vous voyez la porte menant @`a la salle des employ@'es.
+                                 voyez distinctement le bureau du directeur, pr@`es de l'horodateur, et au Sud vous voyez la porte menant @`a la salle des employ@'es.
                                 La sortie est au Nord. ";
                        if (self hasnt visited)
-                                     "^Vous entendez des bruits de bagaille @`a votre gauche. Au fond, dans une partie plus sombre de l'usine, un travailleurs semble se faire
-                                      tabasser. L'inspecteur accoura en direction de l'altercation.^
+                                     "^Vous entendez des bruits de bagarre @`a votre gauche. Au fond, dans une partie plus sombre de l'usine, un travailleur semble se faire
+                                      tabasser. L'inspecteur accourra en direction de l'altercation.^
                                        ~Ordure!^
                                         - Aujourd'hui n'est qu'un avant-go@^ut, demain tu verras.~^
                                         Le malheureux, ru@'e de coups, retenait ses larmes. L'inspecteur s'interposa.
                                         ~ Police! cessez imm@'ediatement!~ clama-t-il en montrant son badge.
                                         Les taxeurs lanc@`erent un ragard de mort @`a l'inspecteur, donn@`erent deux trois derniers coups, puis partirent penauds en marmonnant.
-                                        Couvert de bleu, Andr@'e restat assit par terre, sans mot dire, et ramena ses genoux contre sa poitrine.";
+                                        Couvert de bleu, Andr@'e rest@^at assis par terre, sans mot dire, et ramena ses genoux contre sa poitrine.";
 
 
                          ],
@@ -1497,33 +1499,33 @@ Npc andre "Andr@'e" usine
                                   talk, ask, tell: self.times_spoken_to = self.times_spoken_to + 1;
                                       switch (self.times_spoken_to) {
                                        1: "~Laisse-moi seul.~ Dit faiblement Andr@'e.";
-                                       2: "~@cCa va pas? T'as pas compris? D@'egage! c'est a cause de vous que ma vie est un enfer. Je n'aurais jamais d@^u vous parler.";
+                                       2: "~@cCa va pas? T'as pas compris? D@'egage! c'est @`a cause de vous que ma vie est un enfer. Je n'aurais jamais d@^u vous parler.";
                                        default: PlayerTo(ruedestravailleurs, 1);
                                                     move andre to hangar;
                                                     give ruedestravailleurs general;
                                                     etape1 = 1;
-                                                     print "~Tu d@'emords pas, hein?~^^L'inspecteur aida Andre @`a se relever. ensemble, il march@`erent jusqu'@`a l'exterieur.
-                                                                ~Merci quand m@`eme, pour tout a l'heure j'veux dire.^Andre cracha un peu de sang, puis continua. Mais l@`a, c'est fini, j'dis plus rien,
+                                                     print "~Tu d@'emords pas, hein?~^^L'inspecteur aida Andr@'e @`a se relever. Ensemble, il march@`erent jusqu'@`a l'ext@'erieur.
+                                                                ~Merci quand m@`eme, pour tout a l'heure j'veux dire.^Andr@'e cracha un peu de sang, puis continua. Mais l@`a, c'est fini, j'dis plus rien,
                                                                    d@'esol@'e, faudra creuser un aut' filon. Moi j'ai tout donn@'e.~^ Puis il s'en alla en claudiquant.",
-                                                                 "L'inspecteur pensa tristement que son enqu@^ete d@'emarait plut@^ot mal. Il se demanda si ce n'@'etait pas un mauvais pr@'esage.
+                                                                 " L'inspecteur pensa tristement que son enqu@^ete d@'emarrait plut@^ot mal. Il se demanda si ce n'@'etait pas un mauvais pr@'esage.
                                                                    Il se dit que cette affaire allait @^etre plus costaude que pr@'evue, qu'il ne savait plus par quel bout commencer.
                                                                    Peut-@^etre pouvait-il se d@'eguiser et infiltrer une r@'eunion? Ainsi perdu dans ses pens@'ees, regardant le sol, la mine basse, un bruit attira son attention.",
-                                                                  "Une femme de l'appartement situ@'e au Nord, en face de l'usine @'etait sortie sur son balcon. Elle agitait les mains, comme pour saluer. Elle semblait inviter l'inspecteur @`a venir la voir.";
+                                                                  " Une femme de l'appartement situ@'e au Nord, en face de l'usine @'etait sortie sur son balcon. Elle agitait les mains, comme pour saluer. Elle semblait inviter l'inspecteur @`a venir la voir.";
                                                         return true;
                                      }
                         ];
 
 Room bureaudirecteur "bureau du directeur"
-           with description "Le bureau du directeur est, sans @^etre incomfortable, @'etrangement vide. La vue de la fene@^etre donne
+           with description "Le bureau du directeur est, sans @^etre inconfortable, @'etrangement vide. La vue de la fen@^etre donne
                                        sur le stationnement. Vous pouvez d'ailleurs apercevoir dans son espace r@'eserv@'e la voiture luxueuse
                                       du directeur. La sortie est @`a l'Est.",
 
                     e_to usine,
-                    cant_go "La sortie est a l'Est";
+                    cant_go "La sortie est @`a l'Est";
 
-Npc directeur "directeur d'usine" bureaudirecteur
+Npc directeur "Ronald" bureaudirecteur
              with description "Joufflu, l'air nais, le regard vide.",
-                     name 'directeur' 'patron',
+                     name 'directeur' 'patron' 'ronald',
                      initial  [;
                                   print "Le directeur vous salue cordialement.^";
                                ],
@@ -1535,9 +1537,9 @@ Npc directeur "directeur d'usine" bureaudirecteur
                              switch (self.times_spoken_to) {
                               1:   if (mathilde_talk == 1) { print "Vous avez rencontr@'e ma fille? Une femme ravissante n'est-ce pas? J'aurais seulement aim@'e qu'elle soit plus s@'erieuse et studieuse.";
                                     mathilde_talk = mathilde_talk +1; }
-                                    "^~Bonjour! Il y a beaucoup de polices qui viennent inspecter ici @`a l'occasion, mais @cca me fait toujours plaisir de vous accueillir. En revanche, pour r@'epondre @`a vos question... heu, comment dire....
+                                    "^~Bonjour! Il y a beaucoup de polices qui viennent inspecter ici @`a l'occasion, mais @cca me fait toujours plaisir de vous accueillir. En revanche, pour r@'epondre @`a vos questions... heu, comment dire....
                                          Nous avons d@'ej@`a examin@'e la chose sous toutes ses coutures. La police pense que des r@'eunions sectaires se d@'eroulent dans le sous-sol du complexe C. Entre vous et moi,
-                                         je n'ai rien vu de suspect depuis des mois. Tout tourne rondement ici dedans~ conclua le directeur d'un air niais et satisfait.";
+                                         je n'ai rien vu de suspect depuis des mois. Tout tourne rondement ici dedans~ conclu le directeur d'un air niais et satisfait.";
                               2: " ~Oh! une bagarre a l'entr@'ee dites-vous? Cela m'@'etonnerait grandement. Les membre de cette usine sont soud@'es si je puis dire! hihi. Mais plus s@'erieusement entre nous,
                                     nous avons une personne attitr@'ee aux ressources humaines qui s'occupe des diff@'erents de ce genre, si jamais -Ciel!- cela devait arriver~ fit-il en gloussant.";
                               default:  if (mathilde_talk == 1) print_ret "Vous avez rencontr@'e ma fille? Une femme ravissante n'est-ce pas? J'aurais seulement aim@'e qu'elle soit plus s@'erieuse et studieuse.";
@@ -1548,14 +1550,15 @@ Npc directeur "directeur d'usine" bureaudirecteur
                         has ~scenery;
 
 Lieu hypermarche "L'hypermarch@'e"
-                         with description "Plus immense encore qu'aux temps de l'empire Am@'ericain. Cependant, inutile de fouiller les diff@'erentes sections. De tout le magasin, l'inpescteur @`a d@'ej@`a identifi@'e les items qui pourraient lui @^etre utile:^^
-                                                      - Une corde^-De l'alcool^-un bidon d'essence^-Du pain^-Du tissus^-Une bombe fum@'ee (he oui, ils vendent ce genre d'item). ",
+                         with description "Plus immense encore qu'aux temps de l'empire Am@'ericain. Cependant, inutile de fouiller les diff@'erentes sections. De tout le magasin, l'inspecteur a d@'ej@`a identifi@'e les items qui pourraient lui @^etre utile:^^
+                                                      - Une corde^-De l'alcool^-un bidon d'essence^-Du pain^-Du tissu^-Une bombe fum@'ee (he oui, ils vendent ce genre d'item). ",
                                 before  [;
-                                                      take: if (etape6 == 1)   { etape8 = 1;
-                                                                                            return false; }
-                                                               if (etape6 ~= 5) print_ret "Vous voulez acheter @cca avec quel argent?";
+                                                      take:   if (etape6 == 1)   { etape8 = 1;
+                                                                                             give self general;
+                                                                                             return false; }
+                                                                if (etape6 ~= 5) print_ret "Vous voulez acheter @cca avec quel argent?";
 
-                                                      buy: give self general;
+
 
                                                       go: if (noun == w_obj && self has general) { give self ~general;
                                                                                              print "L'inspecteur passa @`a la caisse.^";
@@ -1592,9 +1595,9 @@ Object essence "essence" hypermarche
 
                     has concealed;
 
-Object tissus "tissus" hypermarche
-                        with description "Un morceau de tissus",
-                                name 'morceau' 'tissus',
+Object tissu "tissu" hypermarche
+                        with description "Un morceau de tissu",
+                                name 'morceau' 'tissu',
                                 before  [;
                                                       buy: if (self in hypermarche) <<take self>>;
                                             ],
@@ -1654,13 +1657,13 @@ Npc pauvresse "Anne-Marie" appartement1
                                                                     PlayerTo(ruedestravailleurs, 1);
                                                                     give appartement1 general;
                                                                     give ruelle1 general;
-                                                                    print_ret "Vous terrifiez la pauvre dame. Elle en perd son dentier, d@'eglutis. Finalement, enfonc@'ee dans son fauteil la voix
+                                                                    print_ret "Vous terrifiez la pauvre dame. Elle en perd son dentier, d@'eglutis. Finalement, enfonc@'ee dans son fauteuil la voix
                                                                     tremblante, un @'eclair traverse ses yeux: ah oui! il est dans le pouf... prenez le et partez! L'inscpecteur prit le carnet et partit..";
                                                                                                  }
                                                                    else print_ret "Cela ne serait d'aucune utilit@'e.";
                                            ];
 
-Npc couple "Linda et Eric" appartement2
+Npc couple "Linda et @'Eric" appartement2
         with description "Un couple",
                name 'couple' 'linda' 'Eric' 'Linda' 'homme' 'femme',
                times_spoken_to 0,
@@ -1670,17 +1673,17 @@ Npc couple "Linda et Eric" appartement2
                        switch (self.times_spoken_to) {
                         1:  etape3 = 1;
                             print_ret  "L'inspecteur se racla la gorge, conscient qu'il ne semblait pas le bienvenu. ~ J'ai commenc@'e mon enqu@^ete sur la se... sur les r@'eunions clandestines. J'ai eu vent qu'en lien avec cette affaire, une transaction aurait lieu ce soir dans la ruelle.
-                             Apparament, selon ma source, vous auriez eu cette conversation au sortir de l'usine hier, en apr@`es-midi...^-Votre source? Ha! je parie que c'est cette vieille folle lan@cca @'Eric. Vous @^etes si d@'esesper@'e de trouver quelque chose que vous allez l'ecouter?
-                             - Oui, coupa Linda, elle est un peu perdu. Tenez, j'vous parie qu'elle a dit qu'on se connaissait, n'est-ce pas? He bien, je n'ai rien a voir avec une esseull@'ee de ce genre.
-                             - Et puis, monsieur, si cela peu vous aider @`a vous faire une id@'ee @`a son sujet, les quarts de travail se terminent toujours @`a 17h. Personne ne termine en apres-midi, sinon le patron lui-m@^eme.
-                            Peut-@^etre que c'est lui que vous devriez alle voir...
+                             Apparemment, selon ma source, vous auriez eu cette conversation au sortir de l'usine hier, en apr@`es-midi...^-Votre source? Ha! je parie que c'est cette vieille folle lan@cca @'Eric. Vous @^etes si d@'esesp@'er@'e de trouver quelque chose que vous allez l'@'ecouter?
+                             - Oui, coupa Linda, elle est un peu perdu. Tenez, j'vous parie qu'elle a dit qu'on se connaissait, n'est-ce pas? He bien, je n'ai rien @`a voir avec une esseul@'ee de ce genre.
+                             - Et puis, monsieur, si cela peut vous aider @`a vous faire une id@'ee @`a son sujet, les quarts de travail se terminent toujours @`a 17h. Personne ne termine en apr@`es-midi, sinon le patron lui-m@^eme.
+                            Peut-@^etre que c'est lui que vous devriez aller voir...
                             - Il est certain que je ne trahirais pas l'identit@'e de ma source, soyez-en assur@'e. Seulement, vous savez que mentir @`a la police pourrait vous conduire en prison?
-                           - Certain Monsieur, dit calement @'Eric. Linda hocha la t@^ete, sans plus.
-                           - H@'e bien, je sais tout ce dont j'avais besoin de savoir, conclua l'inspecteur. Puis, il rendit visible son magn@'etophone, qu'il gardait hors de la vue.
+                           - Certain Monsieur, dit calmement @'Eric. Linda hocha la t@^ete, sans plus.
+                           - H@'e bien, je sais tout ce dont j'avais besoin de savoir, conclut l'inspecteur. Puis, il rendit visible son magn@'etophone, qu'il gardait hors de la vue.
                            - C'est quoi se bidule? demanda @'Eric, anxieux
-                           - Un magn@'etophone, votre d@'eposition a @'et@'e d@^ument enregistr@'ee, s'il advenait que vous mentiez... scouac! Fit l'inspecteur, en appuyant sur le bouton arr@^et tout en se  levant.~";
-                        2: "~@cCa alors, vous avez du culot de nous avoir enregistr@'e @`a notre inssu. Vous avez termin@'e? Dieu merci, partez maintenant.~";
-                        default: "~Allez, partez!~ rench@'erissa @'Eric, alors que sa femme approuvait du regard.";
+                           - Un magn@'etophone, votre d@'eposition a @'et@'e d@^ument enregistr@'ee, s'il advenait que vous mentiez... scouac! Fit l'inspecteur, en appuyant sur le bouton arr@^et tout en se levant.~";
+                        2: "~@cCa alors, vous avez du culot de nous avoir enregistr@'e @`a notre insu. Vous avez termin@'e? Dieu merci, partez maintenant.~";
+                        default: "~Allez, partez!~ rench@'erit @'Eric, alors que sa femme approuvait du regard.";
                       }
 
                          ];
@@ -1719,7 +1722,7 @@ Npc Mathilde "Mathilde" arrierecours
  style bold; font off; spaces(i);
  print "[Appuyez sur Entr@'ee pour d@'ebuter.]";
  font on;
- box "Il est moins difficile d'@'echaper @`a la mort"
+ box "Il est moins difficile d'@'echapper @`a la mort"
         "qu'@`a la m@'echancet@'e."
         "- Platon";
         @read_char 1 -> i;
@@ -1761,7 +1764,7 @@ Object calepin "calepin"
           with description  [;
                                             if (etape1 == 0) print_ret "Vous devez vous rendre @`a l'usine, rue des travailleurs, tout au sud.";
                                             if (etape1 == 1 && etape2 ~=1) print_ret "Vous devez trouver le carnet d'adresse chez Anne Marie.";
-                                            if (etape2 == 1 && etape3 ~=1) print_ret "Le couple se trouve dans un appartement sur la rue Bernad-Lee, en face de l'entr@'ee du stationnement.";
+                                            if (etape2 == 1 && etape3 ~=1) print_ret "Le couple se trouve dans un appartement sur la rue Bernard-Lee, en face de l'entr@'ee du stationnement.";
                                             if (etape3 == 1 && etape4 ~=1) print_ret "Vous devez montrer une preuve au couple qui dementira leur propos.";
                                             if (etape4 == 1 && etape5 ~=1) print_ret "Vous devez vous rendre dans la ruelle et attendre.";
                                             if (etape5 == 1 && etape6 ~=1) print_ret "Vous devez vous rendre au stationnement prendre la voiture de police et inspecter la maison de Ronald.";
@@ -1810,7 +1813,7 @@ Furniture bureauaccueil "bureau imposant"
 Furniture chaise "chaise"
            with description"Une chaise en plastique bon march@'e.
                                       Il doit y en avoir des centaines dans la r@'eserve.",
-                   name 'chaise' 'la',
+                   name 'chaise' 'la' 'une',
 
                    found_in sallepratique postepolice sallepoliciers salleenquete,
                    has female;
@@ -2097,7 +2100,7 @@ Cutscene introduction "Introduction partie 1"
                              Ils s'organisent en colonnes, les gratte-ciels de la cit@'e deviennent nets, se pr@'ecisent.
                              Les points rouges des grues clignotent. Les lumi@`eres des tours d'habitation s'@'eteignent, et un bas nuage gris faiblement @'eclair@'e, visible qu'en raison de la  pollution lumineuse, s'@'etire dans le ciel.
                              Des voitures roulent paresseusement en contrebas.
-                             Assise au rebord de la b@^atisse, le regard s'@'etend plus loin encore, aux extr@'emit@'es de la cit@'e, de son tissus urbain propre et hygi@'enique, vers un horizon plus sombre et incertain par del@`a l'eau qui entoure l'@^ile.
+                             Assise au rebord de la b@^atisse, le regard s'@'etend plus loin encore, aux extr@'emit@'es de la cit@'e, de son tissu urbain propre et hygi@'enique, vers un horizon plus sombre et incertain par-del@`a l'eau qui entoure l'@^ile.
                              Les quartiers sont l@`a, mais sans y @^etre.
                              Une absence, une non-existence, une tumeur.
                              Le corps, agile et souple, se l@`eve et se dirige vers la porte qui communique au toit.
@@ -2110,7 +2113,7 @@ Cutscene introduction "Introduction partie 1"
                              L'entr@'ee furtive dans la salle @`a demi @'eclair@'ee fait en sorte que personne ne remarque l'intruse.
                              En raison des poches de fum@'ees qui pendent dans la pi@`ece, cela prend un instant avant de saisir la sc@`ene.
                              Puis tu peux voir indistinctement des femmes en petites culottes, seins nus, qui se tr@'emoussent devant des ministres de la haute soci@'et@'e.
-                             Les hommes sont tous assis sur une large banquette de cuir dispos@'ee en demi-cercle, quelques petites pistes de dances, de formes circulaires, sont sur@'elev@'ees.
+                             Les hommes sont tous assis sur une large banquette de cuir dispos@'ee en demi-cercle, quelques petites pistes de dance, de formes circulaires, sont sur@'elev@'ees.
                              En leur centre se trouve un poteau, et une danseuse.
                              La musique n'est pas trop forte, ni la lumi@`ere trop faible.
                              Une fum@'ee douce et @^acre de cannabis flotte dans l'air.
@@ -2126,7 +2129,7 @@ Cutscene introduction "Introduction partie 1"
                              Une vie perdue ne se repaie pas.
                              Tranquillement, sans presse aucune, la premi@`ere cible est mise en joue: un homme corpulent @`a l'@'ecart sur son t@'el@'ephone, @`a l'extr@'emit@'e de la banquette et loin des autres.
                              L'arme se met en action, et une salve laser sort et file directement faire un trou dans sa cervelle, il s'affaisse, mais personne ne le remarque.
-                             Il reste trois autres hommes. La prochaine cible ne pourra pas passer inaper@ccue; le reste des personnes sur la banquette forment un groupe compacte et volubile.
+                             Il reste trois autres hommes. La prochaine cible ne pourra pas passer inaper@ccue; le reste des personnes sur la banquette forment un groupe compact et volubile.
                              La danseuse sur la sc@'enette voit le mort et se met @`a crier d'une voie horriblement aig@:ue.
                              Les autres ne comprennent pas son horreur.
                              La deuxi@`eme cible est rat@'ee, le laser fait un trou dans la banquette, fr@^ole l'homme.
@@ -2140,35 +2143,35 @@ Cutscene introduction "Introduction partie 1"
                              Aper@ccoit simultan@'ement l'homme trou@'e sur la banquette, une silhouette au fond de la pi@`ece, et un trou dans la banquette.
                              En moins d'une seconde et sans h@'esitation, il est mis en joue.
                              Il l@`eve les mains.
-                             La pi@`ece d@'efile sous ton regard, un corps est enjamb@'e, les marches menant vers la pi@`ece sur@'elev@'ee sont gravies prudemment, le pistol toujours brandit.
+                             La pi@`ece d@'efile sous ton regard, un corps est enjamb@'e, les marches menant vers la pi@`ece sur@'elev@'ee sont gravies prudemment, le pistolet toujours brandit.
                              La cible principale re@ccoit un coup de pied en plein ventre, bascule @`a la renverse dans la pi@`ece.
-                             De l'int@'erieur une grande vitrine  permet de voir l'ensemble de la salle.
+                             De l'int@'erieur une grande vitrine permet de voir l'ensemble de la salle.
                              Il y a une table de mixage, une autre banquette, droite et plus petite, celle-l@`a.
                              Plusieurs verres d'alcool et quelques bouteilles trainent sur une large table en verre.
                              La m@^eme lumi@`ere bleu-vert naus@'eabond et tamis@'ee s@'ejourne dans la petite pi@`ece comme dans le grand espace.
                              L'homme se prend le ventre @`a deux mains.
-                             Sur la banquette une femme en culotte, sein nus, pleure.
+                             Sur la banquette une femme en culotte, seins nus, pleure.
                              Une voix lui intime de sortir.
                              Elle continue de pleurer, l'homme la prend par les @'epaules et la pousse en-dehors, elle d@'eboule les quelques marches.";
-                              3: "~ Assied-toi.^
+                              3: "~ Assieds-toi.^
                               L'homme comprend instantan@'ement.
-                              Il semble nerveux, ses yeux louchent. La pointe du pistolet s'accote sur sa tempe. Il sue @`a grosses gouttes.^
+                              Il semble nerveux, ses yeux louchent. La pointe du pistolet et s'accote sur sa tempe. Il sue @`a grosses gouttes.^
                               -J'ai g@^ach@'e votre r@'eunion d'amis on dirait?^
                               (Il maugr@'ea.)^
                               -Bien. ~ L'homme regarda l'appareil @'electronique @^etre d@'efourr@'e depuis la ceinture avec une assurance implacable.^
-                               ~ Johnathan Cassavir. Cheveux noir, petit et fr@^ele. Louche des yeux... Regardez-moi! lui intima la voix.^
+                               ~ Jonathan Cassavir. Cheveux noirs, petit et fr@^ele. Louche des yeux... Regardez-moi! lui intima la voix.^
                               -J'essaye du mieux que je peux, je vous assure...^
-                              -Que regardez-vous avec votre autre oeil, hein? Personne d'autre ne viendra.^
+                              -Que regardez-vous avec votre autre @oeil, hein? Personne d'autre ne viendra.^
                               -Je r@'efl@'echi. J'ai un regard pour le r@'eel, et un autre pour les id@'ees.^
                               -Un pour voir du cul, et un autre pour penser @`a la vertu? ~^
                               Apr@`es une courte pause, la voix continua.^
                               ~ Vous avez un parcours extraordinaire.
                               Fils d'ouvrier, mais g@'enial d@`es vos d@'ebuts @`a l'@'ecole.
-                              Vous avez pass@'e tous les test de l'@'Etat haut la main, vous pla@ccant dans le premier quartile.
+                              Vous avez pass@'e tous les tests de l'@'Etat haut la main, vous pla@ccant dans le premier quartile.
                               Vous n'avez eu de cesse d'@'etudier pendant votre parcours, jusqu'@`a obtenir de hautes charges.
-                              Cette sc@`ene fera un joli scandal, vous ne croyez pas?^
+                              Cette sc@`ene fera un joli scandale, vous ne croyez pas?^
                               -@cCa, c'est ce que vous pensez. Vous n'@^etes personne. Je sais o@`u tirer mes cordes. ~^
-                              La voix se fit sifflante, presque ac@'er@'ee, fouettant le visage de Johnathan.^
+                              La voix se fit sifflante, presque ac@'er@'ee, fouettant le visage de Jonathan.^
                               ~Je suis peut-@^etre personne, mais j'ai votre vie entre les mains.~^
                               Ils se tois@`erent.";
                               4: "~ Continuons. Vous vous @^etes sp@'ecialis@'e dans l'@'etude d'Aristote? Impressionnant. Maintenant, avant que je ne perce votre cr@^ane, une question me br@^ule.
@@ -2180,27 +2183,27 @@ Cutscene introduction "Introduction partie 1"
                               Et ce qui existe ne demande qu'@`a @^etre exploit@'e, qu'@`a en jouir.^
                               -Jolie pens@'ee.
                               J'ai h@^ate de voir ce que penserons le conseil et le juge de votre philosophie.^
-                              -Je vous l'ai d@'ej@`a dit, si vous voulez faire quelque chose d'utile, tuez moi sur l'heure, ou je m'en sortirai d'une mani@`ere ou d'une autre.
+                              -Je vous l'ai d@'ej@`a dit, si vous voulez faire quelque chose d'utile, tuez-moi sur l'heure, ou je m'en sortirai d'une mani@`ere ou d'une autre.
                               M@^eme ostracis@'e, je ne serai pas d@'emuni.
                               Les profiteurs savent toujours tirer le meilleur parti de toute situation, susurra-t-il.
                               D@'edier sa vie @`a un Bien d@'esincarn@'e est l'idiotie supr@^eme, c'est la bourre id@'eologique de l'humanit@'e.
                               Ce constat fait, j'aime encore mieux consid@'erer mon unique profit.^
                               -Para@^itre juste tout en ne l'@'etant pas, voil@`a l'injustice supr@^eme!^
                               -Appelle @cca comme tu veux. ~
-                              Et @`a ce moment Johnathan sembla pr@`es du d@'elire peut-@^etre qu'apportait la proximit@'e de sa fin, du fusil contre sa tempe, d'@^etre pouss@'e au bout du rouleau de sa pens@'ee.
+                              Et @`a ce moment Jonathan sembla pr@`es du d@'elire peut-@^etre qu'apportait la proximit@'e de sa fin, du fusil contre sa tempe, d'@^etre pouss@'e au bout du rouleau de sa pens@'ee.
                               ~ Ce n'est pas parce que j'ai @'etudi@'e que je me soucierais des habitants mal v@^etis des quartiers sales et puants.
-                              Leur idiotie les condamnent @`a @^etre d'@'eternel for@ccats!^
+                              Leur idiotie les condamne @`a @^etre d'@'eternel for@ccats!^
                               -Assez! Silence! ~^
                               La g@^achette @'etait sur le point d'@^etre enclench@'ee, mais au moment o@`u les muscles m@^eme des doigts se contract@`erent, un tir partit de la salle vers la pi@`ece, et interrompit l'ex@'ecution.
-                              Johnathan tenta de s'esquiver, mais re@ccut en guise de r@'eponse un deuxi@`eme coup de pied au ventre, un g@'emissement glissa de sa bouche avec un peu de sang.
+                              Jonathan tenta de s'esquiver, mais re@ccut en guise de r@'eponse un deuxi@`eme coup de pied au ventre, un g@'emissement glissa de sa bouche avec un peu de sang.
                               Les sir@`enes se firent entendre.
                               Celui qui avait tir@'e dans la pi@`ece pris la fuite d@`es qu'il r@'ealisa que la police @'etait pour intervenir sous peu.
-                              Le regard de Jonathan, au fa@^ites de sa mort, se fit @'etonnamment lucide, et cruel.^
+                              Le regard de Jonathan, au fa@^ite de sa mort, se fit @'etonnamment lucide, et cruel.^
                               ~ -C'en est fait de toi, vaurien, reprit la voix.^
-                              -Non, non, fit-il calmement. C'est toi qui est foutue, Nathalie, dit-il en d@'etachant malicieusement les lettres. ~^
-                              @`A ce nom il y eut un petit cris irrepressible, en raison de la surprise.
+                              -Non, non, fit-il calmement. C'est toi qui es foutue, Nathalie, dit-il en d@'etachant malicieusement les lettres. ~^
+                              @`A ce nom il y eut un petit cri irr@'epressible, en raison de la surprise.
                               La police fit irruption dans la salle.
-                              La g@^achette fut enclench@'ee.
+                              La g@^achette f@^ut enclench@'ee.
                               Puis il y eut l'@'evasion vers le toit.
                               Puis la nuit, noire et solitaire, jaunie un peu par les lumi@`eres artificielles, comme seules les villes peuvent le faire.
                               Puis un saut dans le vide, vers la base des b@^atisses, vers le sol d'o@`u elles prennent racine.";
@@ -2238,7 +2241,7 @@ Cutscene introduction2 "Introduction partie deux"
                                 Lorsqu'il se pencha, il crut discerner un mouvement.
                                 Il sortit ses jumelles @'electroniques, mais la vision rendue @`a l'@'ecran se grilla.
                                 ~ Pile au bon moment! ~ rugit-il tout en les rangeant dans les poches de sa redingote.
-                                Scrutant du mieux qu'il put les rues au bas, il aper@ccut une silhouette, affair@'ee sur un moto qu'elle essayait visiblement de d@'emarrer.
+                                Scrutant du mieux qu'il put les rues au bas, il aper@ccut une silhouette, affair@'ee sur une moto qu'elle essayait visiblement de d@'emarrer.
                                 ~ Alerter secteur quatre. Je r@'ep@`ete, alerte secteur quatre. D@'ep@^echez des voitures autour de la b@^atisse Rembrandt, et surveillez la rue Arnold. Termin@'e.~
                                 Le son des sir@`enes se fit entendre de nouveau, se rapprochant de la b@^atisse Rembrandt.
                                 La silhouette s'activa aupr@`es de la moto, confirmant les soup@ccons de l'enqu@^eteur.
@@ -2289,7 +2292,7 @@ Cutscene introduction3 "Introduction partie trois"
                       Je vis seul.^
                       -Moi de quoi @`a tu donc peur pour vivre ainsi?^
                       -De ma hargne.~^
-                       L'enqu@^eteur fit une moue de d@'esaprobation. -Entend-moi bien... Puis il continua en chuchotant: ce qui se passe, @cca pourrait @^etre tellement grave que l'enti@`ere soci@'et@'e pourrait ne pas tenir.^
+                       L'enqu@^eteur fit une moue de d@'esapprobation. -Entend-moi bien... Puis il continua en chuchotant: ce qui se passe, @cca pourrait @^etre tellement grave que l'enti@`ere soci@'et@'e pourrait ne pas tenir.^
                       -H@'e ben @cca alors, fit l'inspecteur impressionn@'e. Mais alors qu'y puis-je? Fit-il en haussant les @'epaules.
                       Mon temps est pass@'e.
                       O@`u est la jeunesse?
@@ -2304,16 +2307,16 @@ Cutscene introduction3 "Introduction partie trois"
                       -Je n'ai pas dit oui, entendu? Allez, balance-moi les faits.^";
                       2: "-Parfait. Le 8 mars dernier, le ministre M. Cassivir donnait une r@'eception priv@'ee dans la tour Rembrandt.
                       Un meurtrier, dont ni le sexe ni l'@^age n'ont @'et@'e identifi@'e, r@'eussit @`a s'infiltrer.
-                      On a des t@'emoignaes qui pointent vers le fait que le meurtrier serait une femme, mais il nous manque du concret.
+                      On a des t@'emoignages qui pointent vers le fait que le meurtrier serait une femme, mais il nous manque du concret.
                       C'est @cca le probl@`eme pour le moment, on n'a rien de concret.
                       Ce qui est un myst@`ere absolu pour la police @`a ce jour, compte tenu qu'il n'y a aucune trace de quelque violence pour l'infiltration.
                       Nous ne poss@'edons aucun enregistrement vid@'eo, m@^eme si le meurtrier @'etait dans le gratte-ciel Rembrandt.^
                       -Syst@`eme de s@'ecurit@'e?^
-                      -@`A la pointe, contr@^ol@'ee par intelligence artificielle. Une fois @`a l'int@'erieur, le meurtrier, arm@'e d'un pistol laser...^
-                      -Un pistol laser? Waou! @cca ne rigole pas cette histoire! Quel calibre?^
+                      -@`A la pointe, contr@^ol@'ee par intelligence artificielle. Une fois @`a l'int@'erieur, le meurtrier, arm@'e d'un pistolet laser...^
+                      -Un pistolet laser? Waou! @cca ne rigole pas cette histoire! Quel calibre?^
                       -De grade militaire. Pr@'epare-toi, c'est loin d'@^etre termin@'e. Le meurtrier a fait feu sur trois personne, mais alors que le groupe @'etait mixte entre des escortes et des hommes ayant des charges administratives, seuls les hommes ont @'et@'e touch@'es.^
                       -C'@'etait un meurtre planifi@'e et justifi@'e?^
-                      -En quelque sorte oui... Nous sommes loins d'un tireur fou ou d'une revanche personnelle.^
+                      -En quelque sorte oui... Nous sommes loin d'un tireur fou ou d'une revanche personnelle.^
                       Le meurtrier s'est enfuit par le toit, et a fait un bond dans le vide...
                       On ignore comment il a pu survivre @`a @cca.
                       Quelques minutes plus tard, il fuyait sur une moto vol@'ee.
@@ -2323,7 +2326,7 @@ Cutscene introduction3 "Introduction partie trois"
                       L'inspecteur poussa un sifflement d'admiration.^
                       ~Est-ce tout?^
                       -Oui, c'est le portait.~";
-                      3: "L'inspecteur fronca les sourcils, apparament m@'econtent.
+                      3: "L'inspecteur fron@cca les sourcils, apparemment m@'econtent.
                       ~Attend! ne te f@^ache pas! Si je t'ai suppli@'e de te d@'eplacer, c'est parce qu'on soup@cconne d'autres @'ev@`enements d'@^etre reli@'e @`a ce triple meurtre.
                       On soup@cconne d@'esormais le meurtrier de se balader dans les quartiers Sud, mais la police locale est d@'ebord@'ee: les ouvriers d'usine sont soup@cconn@'es d'organiser des r@'eunions clandestines.
                       La police essaie d'@'elucider cette affaire-l@`a pr@'esentement.
@@ -2338,8 +2341,8 @@ Cutscene introduction3 "Introduction partie trois"
                       Le massacre pr@`es de la planque par contre... @cca ne m'@'etonne pas.
                       Tu parlais de r@'eunions clandestines.
                       Dis-m'en plus.^
-                      -Je dois t'avouer, je ne suis pas dans le secret des Dieu pour ce coup-l@`a, j'ai perdu Rodrigue qui me mettait au parfum.
-                      D@'esormais c'est Robert qui est en charge, et je poss@`ede plus d'information sur les anarchiste des terres br@^ul@'ees que sur les m@'efaits des quartiers Sud.
+                      -Je dois t'avouer, je ne suis pas dans le secret des Dieux pour ce coup-l@`a, j'ai perdu Rodrigue qui me mettait au parfum.
+                      D@'esormais c'est Robert qui est en charge, et je poss@`ede plus d'information sur les anarchistes des terres br@^ul@'ees que sur les m@'efaits des quartiers Sud.
                       J'ai eu vent de quelques infos, il serait question d'une secte...^
                       -Seigneur! Une secte?
                       Dans quelle histoire farfelue veux-tu que j'embarque, bon sang!^
@@ -2351,7 +2354,7 @@ Cutscene introduction3 "Introduction partie trois"
                       Le chef de la police locale, M. Mauriac, t'attends pour te lancer sur l'enqu@^ete.
                       Je lui ai d@'ej@`a dis que tu @'etais partant, avant d'avoir ta r@'eponse.^
                       -Sinc@`erement, c'est la derni@`ere fois entendu?
-                      Tu ne m'y reprendra plus.^
+                      Tu ne m'y reprendras plus.^
                       -Promis dit-il en levant les mains. Et puis j'ai la forte intuition que tous ces @'ev@`enements sont reli@'es, et que, d'une mani@`ere ou d'une autre, tu finiras par aller @`a la planque, continua-t-il sur le ton de la confidence.^
                       -J'en n'ai nulle envie.^
                       -Tu as toujours ton badge?^
