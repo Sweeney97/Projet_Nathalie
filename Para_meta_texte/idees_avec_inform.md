@@ -1,9 +1,8 @@
 ## Idées pour l'histoire en lien avec Inform
 
-Corriger les fautes
-Remettre les trois livre chez anne-marie
-
-
+Radio : switch avec deongs paragraphes de nouvelles ou des chansons (celle du bar!!)
+Penser: influencer le verbe dans le TalkSub (si pensé dans la pièce, l'action est capturée par un before et aussitôt commise. Autrement, elle est suggérée
+Être méchant avec le couple!
 
 coder mur, toit, porte et mettre return true pour ofclass room?
 

@@ -1,7 +1,8 @@
-!% -SD
+!% -v8
+!% -e
 
 !--------------------------------0.0 Constantes----------------------------------------------!
-Constant Story "Projet Nathalie, V.1.0";
+Constant Story "Projet Nathalie, V.1.0.1";
 Constant Headline "^A. Sweeney^";
 Constant MANUAL_PRONOUNS;
 Constant MAX_CARRIED = 5;
@@ -9,7 +10,7 @@ Constant MAX_CARRIED = 5;
 ! v1.0 ---> structures de l'introduction et du premier quartier terminées. Fautes corrigées, accents posés.
 
 ! V.1.1 ---> correction des bogues (retour commentaire). Ajouter une switch random à la radio. Re-décomposer le livre en trois. Possibilité d'être mauvais avec le couple.
-!Définir une routine pour le ThinkSub qui agit selon le contexte. Si l'action penser est commise dans le lieu, opérer automatiquement l'action.
+!Définir une routine pour le ThinkSub qui agit selon le contexte. Si l'action penser est commise dans le lieu, opérer automatiquement l'action. Faire en sorte que  tous les objets lisibles soit lisibles par l'action read.
 
 Include "Parser";
 
