@@ -99,10 +99,6 @@ Class Furniture
             print_ret "Cela est inutile.";  ],
    has   static supporter scenery;
 
-Class Street
-    has light;
-                                         !je fais une classe pour chacun même s'ils ont les même caractéristiques, au cas où je me servirais de la classe dans une routine/daemon
-
 Class Ruelle
   has light;
 
@@ -393,39 +389,7 @@ Npc cheftrain "chef de train" garecite
             ;],
              has animate;
 
-!-----------------------------------------2.2 Rues et carrefours du premier quartier-------------------------------------------------------------!
-
-Street rueduparc "rue du parc"
-                 with description "La rue qui borde le parc. Au nord se trouve le parc, @`a l'Ouest elle croise la rue Bernard-Lee, et @`a l'Est la Grande Allee.
-                                              Au Sud, en face du parc, se trouve un cybercaf@'e. ",
-                     n_to parc,
-                     w_to carrefour1,
-                     s_to cybercoffee,
-                     e_to carrefour2;
-
-Street grandeallee1 "La grande all@'ee"
-                   with description "L'all@'ee borde l'hypermarch@'e. @`A l'Ouest, il y a le parc du quartier, au Sud la Grande All@'ee croise la rue du parc.
-                                               Au Nord se trouve le poste de police.",
-
-                       w_to parc,
-                  !     n_to postepolice, le poste est marqué par general à la sortie (pourrait servir)
-                       n_to "Il n'y a pas de raison d'y retourner",
-                       s_to carrefour2;
-
-Street grandeallee2 "La Grande All@'ee"
-                  with description "L'all@'ee borde l'hypermarch@'e. La route croise la rue du parc au Nord et se poursuit au Sud.
-                                              @`A l'Est se trouve l'hypermarch@'e.",
-                     n_to carrefour2,
-                     s_to carrefour4,
-                     e_to hypermarche,
-                     w_to "une rang@'ee d'appartements sans int@'er@^et.";
-
-Street grandeallee3 "La Grande All@'ee"
-                   with description "L'all@'ee borde l'hypermarch@'e. La route se poursuit au Nord, et au Sud elle croise la rue des travailleurs.",
-                       n_to carrefour4,
-                       s_to carrefour6,
-                       e_to "L'entr@'ee de l'hypermarch@'e est un peu plus au Nord.",
-                       w_to "Une rang@'ee d'appartements sans int@'er@^et.";
+!-----------------------------------------2.2 Extérieur du premier quartier-------------------------------------------------------------!
 
 Street ruedestravailleurs "La rue des travailleurs"
                     with description [;
@@ -472,26 +436,14 @@ Sub usinesub "Usine" ruedestravailleurs
                                     name 'usine' 'cylindre' 'cylindres',
                           has female;
 
-Street ruebernardlee1 "La rue Bernard-Lee"
-                     with description "La rue Bernard-Lee. La rue descend au Sud, au Nord elle croise la rue du parc. @`A l'Ouest se trouve l'entr@'ee du stationnement.",
-                            before  [;
-                                               go: if (noun == e_obj && etape2 == 0) print_ret "Pourquoi iriez-vous dans cet appartement, chez des inconnus?";
-                                                     if (noun == e_obj && etape4 == 1) print_ret "Je ne pense pas qu'ils appr@'ecieraient votre pr@'esence.";
-                                                     if (noun == e_obj && etape3 == 0) { print "L'inspecteur cogna a la porte. Un visage s'immis@cca dans la fente de l'ouverture.^~Bonjour, puis-je vous aider?~ Demanda une voix m@'efiante.^ ~ Police, laissez-moi entrer intima l'inspecteur. J'ai quelques questions @`a vous poser, @cca ne sera pas bien long.~
-                                                                                                                           Comme @`a contre-c@oeur, @'Eric laissa entrer l'inspecteur dans son appartement.^^"; return false;  }
-                                                      if (noun == e_obj && etape3 == 1) {  print "L'inspecteur cogna. ^~Bonsoir, d@'esol@'e, c'est encore moi! Sans camoufler un regard suspicieux, @'Eric laissa @`a nouveau l'inspecteur entrer.^^"; return false; }
-                                        ],
-                         n_to carrefour1,
-                         w_to stationnement,
-                         s_to carrefour3,
-                         e_to appartement2;
-
-Street ruebernardlee2 "La rue Bernard-Lee"
-                     with description "La rue Bernard-Lee. La rue se poursuit au Nord et au Sud elle croise la rue des travailleurs.",
-                         n_to carrefour3,
-                         s_to carrefour5,
-                         w_to "Une rang@'ee d'appartements sans int@'er@^et.",
-                         e_to "Une rang@'ee d'appartements sans int@'er@^et.";
+!Street ruebernardlee1 "La rue Bernard-Lee"
+!                     with description "La rue Bernard-Lee. La rue descend au Sud, au Nord elle croise la rue du parc. @`A l'Ouest se trouve l'entr@'ee du stationnement.",
+!                            before  [;
+!                                               go: if (noun == e_obj && etape2 == 0) print_ret "Pourquoi iriez-vous dans cet appartement, chez des inconnus?";
+!                                                     if (noun == e_obj && etape4 == 1) print_ret "Je ne pense pas qu'ils appr@'ecieraient votre pr@'esence.";
+!                                                     if (noun == e_obj && etape3 == 0) { print "L'inspecteur cogna a la porte. Un visage s'immis@cca dans la fente de l'ouverture.^~Bonjour, puis-je vous aider?~ Demanda une voix m@'efiante.^ ~ Police, laissez-moi entrer intima l'inspecteur. J'ai quelques questions @`a vous poser, @cca ne sera pas bien long.~
+!                                                                                                                           Comme @`a contre-c@oeur, @'Eric laissa entrer l'inspecteur dans son appartement.^^"; return false;  }
+!                                                      if (noun == e_obj && etape3 == 1) {  print "L'inspecteur cogna. ^~Bonsoir, d@'esol@'e, c'est encore moi! Sans camoufler un regard suspicieux, @'Eric laissa @`a nouveau l'inspecteur entrer.^^"; return false; }
 
 Ruelle ruelle1 "Une ruelle"
                with description "La ruelle connecte La Grande All@'ee et la rue Bernard-Lee. De part et d'autre, des arri@`ere-cours de blocs-appartements cernent la ruelle.",
@@ -542,54 +494,18 @@ Ruelle ruelle1 "Une ruelle"
                    s_to balcon,
                    cant_go "Aller dans l'arri@`ere cours des autres n'est pas une option.";
 
-Street carrefour1 "Un embranchement"
-                 with description "Ici se croisent la rue Bernard-Lee au Sud et la rue du parc @`a l'Est.",
-                 before  [;
-                                                 if (noun == e_obj || noun == ne_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous d@'ep@^echer d'aller dans la maison de Ronald.";
-                              ],
-                     n_to "D'ici le parc est au Nord-Est",
+!Street carrefour1 "Un embranchement"
+!                 before  [;
+!                                                 if (noun == e_obj || noun == ne_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous d@'ep@^echer d'aller dans la maison de Ronald.";
+!                              ],
                 !     nw_to "L'hotel de ville ne vous interesse pas.",
-                     ne_to parc,
-                     s_to ruebernardlee1,
-                     e_to rueduparc;
 
-Street carrefour2 "Un embranchement"
-                   with description "Ici se croisent la rue du parc @`a l'Ouest et la Grande All@'ee (Nord-Sud)",
-                       n_to grandeallee1,
-                       nw_to parc,
-                       s_to grandeallee2,
-                       w_to rueduparc;
 
-Street carrefour3 "Un embranchement"
-                 with description "Ici se croisent la rue Bernard-Lee (Nord-Sud) et une ruelle @`a l'Est.",
-                     n_to ruebernardlee1,
-                     s_to ruebernardlee2,
-                     w_to "L'entr@'ee du stationnement est plus au Nord",
-                     e_to ruelle1;
+!Street carrefour5 "Un embranchement"
+!                 with description "Ici se croisent la rue Bernard-Lee au Nord et la rue des travailleurs @`a l'Est.",
+!                        before  [;
+!                                                 if (noun == e_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous d@'ep@^echer d'aller dans la maison de Ronald.";
 
-Street carrefour4 "Un embranchement"
-                 with description "Ici se croisent une ruelle @`a l'Ouest et la Grande All@'ee (Nord-Sud).",
-                     n_to grandeallee2,
-                     e_to "L'entr@'ee de l'hypermarch@'e se trouve plus au Nord",
-                     s_to grandeallee3,
-                     w_to ruelle1;
-
-Street carrefour5 "Un embranchement"
-                 with description "Ici se croisent la rue Bernard-Lee au Nord et la rue des travailleurs @`a l'Est.",
-                        before  [;
-                                                 if (noun == e_obj && etape5==1 && etape6 ==0) print_ret "Vous feriez mieux de vous d@'ep@^echer d'aller dans la maison de Ronald.";
-                                    ],
-                     n_to ruebernardlee2,
-                     s_to "L'entr@'ee de l'usine se trouve plus @`a l'Est.",
-                     e_to ruedestravailleurs,
-                     w_to "L'entr@'ee du stationnement se trouve plus au Nord";
-
-Street carrefour6 "Un embranchement"
-                 with description "Ici se croisent la rue des travailleurs au Sud et la Grande All@'ee au Nord.",
-                     n_to grandeallee3,
-                     s_to "L'entr@'ee de l'usine est plus @`a l'Ouest.",
-                     w_to ruedestravailleurs,
-                     e_to "Vous ne pouvez aller plus loin";
 
 !------------------------------1.1 Introduction dans les quartiers-----------------------------------------!
 
