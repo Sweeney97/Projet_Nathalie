@@ -9,7 +9,7 @@ Constant MAX_CARRIED = 5;
 
 ! v1.0 ---> structures de l'introduction et du premier quartier terminées. Fautes corrigées, accents posés.
 
-! V.1.1 ---> correction des bogues (retour commentaire). Ajouter une switch random à la radio. Re-décomposer le livre en trois. Possibilité d'être mauvais avec le couple.
+! V.1.1 ---> correction des bogues (retour commentaire). Ajouter une switch random à la radio. Re-décomposer le livre en trois? Possibilité d'être mauvais avec le couple.
 !Définir une routine pour le ThinkSub qui agit selon le contexte. Si l'action penser est commise dans le lieu, opérer automatiquement l'action. Faire en sorte que  tous les objets lisibles soit lisibles par l'action read.
 
 Include "Parser";
@@ -415,8 +415,8 @@ Lieu ruedestravailleurs "La rue des travailleurs"
                                            go: if (noun ~= ne_obj && self has general) print_ret "Vous devriez aller voir cette dame, qui sait, peut-@^etre pourrait-elle vous aider?";
                                                  if (noun == ne_obj && etape1 == 0) print_ret  "Il n'y a rien a voir au Nord, que des blocs appartement d@'ecr@'epis.";
                                                  if (appartement1 has general && noun == ne_obj) print_ret "Vous feriez mieux de ne pas y retourner pour ne pas attirer l'attention.";
-                                                 if (noun == ne_obj && self has general) give self ~general; return false;
-                                              ! if (noun == e_obj) print "L'inspecte monta la Grande-All@'ee et s'engouffra dans l'Hypermarch@'e"; return false;
+                                                 if (noun == ne_obj && self has general) { give self ~general; return false;  }
+                                                 if (noun == e_obj) { print "L'inspecte monta la Grande-All@'ee et s'engouffra dans l'Hypermarch@'e"; return false; }
 
                                             smell: print_ret "@cCa pue les produits chimiques.";
                                             hear:  print_ret "Les scies chantent d'une horrible voix ininterrompue.";
@@ -1395,7 +1395,7 @@ Room bureaudirecteur "bureau du directeur"
 
 Room hypermarche "L'hypermarch@'e"
                          with description "Plus immense encore qu'aux temps de l'empire Am@'ericain. Cependant, inutile de fouiller les diff@'erentes sections. De tout le magasin, l'inspecteur a d@'ej@`a identifi@'e les items qui pourraient lui @^etre utile:^^
-                                                      - Une corde^-De l'alcool^-un bidon d'essence^-Du pain^-Du tissu^-Une bombe fum@'ee (he oui, ils vendent ce genre d'item). ",
+                                                      - Une corde^-De l'alcool^-un bidon d'essence^-Du pain^-Du tissu^-Une bombe fum@'ee (h@'e oui, ils vendent ce genre d'item). ",
                                 before  [;
                                                       take:   if (etape6 == 1)   { etape8 = 1;
                                                                                              give self general;
@@ -1410,7 +1410,8 @@ Room hypermarche "L'hypermarch@'e"
                                                                                                                             }
                                             ],
                          w_to ruelle1,
-                          sw_to ruedestravailleurs;
+                        sw_to ruedestravailleurs,
+                        cant_go "La sortie est @`a l'Ouest, mais une bifurcation au Sud-Ouest peut mener @`a la rue des travailleurs.";
 
 Object alcool "alcool" hypermarche
                       with description "Une flasque en argent contenant de l'eau de vie",
@@ -2061,7 +2062,7 @@ Cutscene introduction "Introduction partie 1"
                              Les quartiers sont l@`a, mais sans y @^etre.
                              Une absence, une non-existence, une tumeur.
                              Le corps, agile et souple, se l@`eve et se dirige vers la porte qui communique au toit.
-                             Elle semble @^etre s@'ecuris@'ee par des moyens technologiques complexes, un terminal pour y entrer le code, et surveill@'e par une cam@'era.
+                             Elle semble @^etre s@'ecuris@'ee par des moyens technologiques complexes.
                              Pourtant, sans nulle difficult@'e, la porte se rouvre comme n'importe quelle autre porte.
                              Ainsi qu'une maison d'enfance dont on conna@^itrait tous les recoins et les chemins, tu vois s'enfiler les couloirs et les escaliers.
                              Puis, arriv@'ee @`a un @'etage, tu entends de la musique assourdie.
@@ -2069,7 +2070,7 @@ Cutscene introduction "Introduction partie 1"
                              Pourtant, l@`a encore, la porte se rouvre comme s'il n'y eut de dispositif de s@'ecurit@'e.
                              L'entr@'ee furtive dans la salle @`a demi @'eclair@'ee fait en sorte que personne ne remarque l'intruse.
                              En raison des poches de fum@'ees qui pendent dans la pi@`ece, cela prend un instant avant de saisir la sc@`ene.
-                             Puis tu peux voir indistinctement des femmes en petites culottes, seins nus, qui se tr@'emoussent devant des ministres de la haute soci@'et@'e.
+                             Puis tu peux voir indistinctement des femmes habill@'ees d'un l@'eger sous-v@^etement, seins nus, qui se tr@'emoussent devant des ministres de la haute soci@'et@'e.
                              Les hommes sont tous assis sur une large banquette de cuir dispos@'ee en demi-cercle, quelques petites pistes de dance, de formes circulaires, sont sur@'elev@'ees.
                              En leur centre se trouve un poteau, et une danseuse.
                              La musique n'est pas trop forte, ni la lumi@`ere trop faible.
@@ -2131,7 +2132,7 @@ Cutscene introduction "Introduction partie 1"
                               La voix se fit sifflante, presque ac@'er@'ee, fouettant le visage de Jonathan.^
                               ~Je suis peut-@^etre personne, mais j'ai votre vie entre les mains.~^
                               Ils se tois@`erent.";
-                              4: "~ Continuons. Vous vous @^etes sp@'ecialis@'e dans l'@'etude d'Aristote? Impressionnant. Maintenant, avant que je ne perce votre cr@^ane, une question me br@^ule.
+                              4: "~Vous vous @^etes sp@'ecialis@'e dans l'@'etude d'Aristote? Impressionnant. Maintenant, avant que je ne perce votre cr@^ane, une question me br@^ule.
                               Apr@`es tant d'@'etudes, j'aurais pens@'e que vous auriez tenu la justice en meilleure estime.^
                               -La justice? Je ne me m'aff@`ere qu'@`a cela, la justice. ~ Il cracha le mot, puis continua: ~la justice c'est celle que nous cr@'eons, nous les hommes.
                               Il n'en existe pas d'autre.
@@ -2188,7 +2189,7 @@ Cutscene introduction2 "Introduction partie deux"
                                 switch (lecture) {
 
                                 1: "L'enqu@^eteur arriva sur les lieux avec son @'equipe, et embrassa la sc@`ene d'un regard.
-                                ~ Elle s'est enfuie sur le toit~ murmura-t-il plut@^ot pour lui-m@^eme.
+                                ~ L'assassin s'est enfuie sur le toit~ murmura-t-il plut@^ot pour lui-m@^eme.
                                 Pendant que ses coll@`egues s@'ecurisaient le p@'erim@`etre, il enfila les couloirs jusqu'@`a la porte d'acc@`es.
                                 Sur le toit il ne vit rien de particulier, et se gratta le cr@^ane.
                                 ~ Nom de Dieu, ne me dit pas...~
