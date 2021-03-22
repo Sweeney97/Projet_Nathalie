@@ -8,7 +8,7 @@ before  [;
     }
     "It tasted wierd, by chance you just took a little.";
 ],
-
+ 
 found_in [;
   return (location ofclass palace_chambers);
 ],
