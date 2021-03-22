@@ -3,10 +3,10 @@ Constant Headline "^My first Inform game.^";
 Constant MANUAL_PRONOUNS;           ! Optional, but useful
 
 Include "Parser";
-Object LibraryMessages
-            with before  [;
-                                                if (lm_n == 30) "Vous n'avez pas besoin d'examiner cela.";
-                                 ];
+!Object LibraryMessages
+!            with before  [;
+!                                                if (lm_n == 30) "Vous n'avez pas besoin d'examiner cela.";
+!                                 ];
 
 Include "VerbLib";
 
@@ -19,44 +19,59 @@ Include "VerbLib";
     "^Bienvenu!^";
 ];
 
-!-----------------------------------------------------------------------------!
-
-!Vérifier si dis-le-moi est un ordre ou un tell
 
 !-------------------------------------------------------------------------------!
 
 Object  study "Mon laboratoire"
-  with  description "Une piece blanche, avec tout le necessaire du scientifique.",
+  with  description "Ou voulez-vous aller?",
+           before  [;
+                            go: if (noun == parcstub) PlayerTo(parc_lieu);
+                        ],
 
+            !s_to parc,
+              cant_go "Vous ne pouvez pas aller par la.",
+              s_to "Vous apercevez le parc",
               has light;
 
+Object parcstub "Parc meta" study
+  with description "aller au parc",
+          name 'parc',
+        has  scenery;
 
+Object parc_lieu "Parc lieu"
+ with description "un parc vert",
+         !name 'parc',
+         n_to study,
+        has light;
 
 !--------------------------------------------------------!
 
 Include "FrenchG";
 
-
-
 !------------------------------------------------------------------------------------------------!
-[ TalkSub;
- if (noun == player) print_ret "Rien d'inattendu.";
- if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
- print_ret "A ce moment, vous ne savez que dire.";
- ];
+![ TalkSub;
+! if (noun == player) print_ret "Rien d'inattendu.";
+! if (RunLife(noun,##Talk) ~=false) return; !consult life[; Talk: ]
+! print_ret "A ce moment, vous ne savez que dire.";
+! ];
 
-[ReadSub;
- "Vous lisez pour passer le temp.";
- ];
+![ReadSub;
+! "Vous lisez pour passer le temp.";
+! ];
 
-Extend 'asseoir' first
- * 's^' 'sur' noun -> Enter
- * 's^' 'sur' 'la' noun -> Enter;
+!Extend 'asseoir' first
+! * 's^' 'sur' noun -> Enter
+! * 's^' 'sur' 'la' noun -> Enter;
 
-Extend 'parler' replace
- * 'a'/'avec' creature -> Talk
- * creature             -> Talk;
+!Extend 'parler' replace
+! * 'a'/'avec' creature -> Talk
+! * creature             -> Talk;
 
-Extend 'lire' first
-*                         -> Read
-* noun               -> Read;
+!Extend 'lire' first
+!*                         -> Read
+!* noun               -> Read;
+
+Extend 'aller' first
+* 'a' noun       -> Go
+* 'vers' noun -> Go
+* 'au'  noun   -> Go;
