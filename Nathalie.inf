@@ -1,21 +1,46 @@
 !% -v8
 !% -e
 
-!--------------------------------0.0 Constantes----------------------------------------------!
-Constant Story "Projet Nathalie, V.1.0.1";
+!--------------------------------0.0 Constantes et variables globales----------------------------------------------!
+Constant Story "Projet Nathalie, V.1.1";
 Constant Headline "^A. Sweeney^";
 Constant MANUAL_PRONOUNS;
 Constant MAX_CARRIED = 5;
 
+Global lecture = 0;
+Global mathilde_talk = 0;
+Global player_killer = false;
+Global player_bad = 0;
+Global player_criminal = false;
+! Variable globale pour la progression du jeu !
+Global etape1 = 0;
+Global etape2 = 0;
+Global etape3 = 0;
+Global etape4 = 0;
+Global etape5 = 0;
+Global etape6 = 0;
+Global etape7 = 0;
+Global etape8 = 0;
+! Global variable a defenir
+ ! Global playerhurt = 0;
+ ! Global playerhnugry = 0;
+ ! Global playerpoison = 0;
+
 ! v1.0 ---> structures de l'introduction et du premier quartier terminées. Fautes corrigées, accents posés.
+! V.1.1 ---> Définition d'une routine pour le ThinkSub qui agit selon le contexte. Trois livre dans la bibliotheque au lieu d'un seul objet. Possibilité d'être mauvais avec le couple.
+!Ajout d'une switch random à la radio.
 
-! V.1.1 ---> correction des bogues (retour commentaire). Ajouter une switch random à la radio. Re-décomposer le livre en trois? Possibilité d'être mauvais avec le couple.
-!Définir une routine pour le ThinkSub qui agit selon le contexte. Si l'action penser est commise dans le lieu, opérer automatiquement l'action. Faire en sorte que  tous les objets lisibles soit lisibles par l'action read.
-
+!V.1.2 ---> correction des bogues (retour commentaire). Faire en sorte que tous les objets lisibles soit lisibles par l'action read. S'assurer que l'action think soit en avance par rapport à l'histoire.
+! Mettre une routine pour les appels de texte récurrents au lieu de les avoir copié-collé
 Include "Parser";
 
 Object LibraryMessages
             with before  [;
+
+                                                Think:  if (etape1 == 1 && etape2 ~=1) print_ret "Vous pensez faire peur @`a cette pauvre vieille, tellement qu'elle cracherait tout ce qu'elle sait.";
+                                                           if (etape3 == 1 && etape4 ~=1) print_ret "Vous pensez intimider le couple au point o@`u ils craquent.";
+                                                           if (etape4 == 1 && etape5 ~=1) print_ret "Vous pensez vous rendre dans la ruelle et tuer ceux qui viennent y faire un @'echange.";
+                                                Miscellany:
                                                 if (lm_n == 30) "Il y a des choses plus importantes @`a faire.";
                                  ];
 
@@ -50,28 +75,6 @@ Include "VerbLib";
                                        Il est v@^etu de sont @'eternelle redingote.
                                        Quand les nuits sont fra@^iches, il porte un bonnet de laine de mouton noir.";
       ];
-
-!-------------------------------------0.2 Variables globales---------------------------------------------------------------------!
-
-! Global variable a defenir
- ! Global playerhurt = 0;
- ! Global playerhnugry = 0;
- ! Global playerpoison = 0;
-
-Global lecture = 0;
-Global mathilde_talk = 0;
-Global player_killer = false;
-Global player_bad = 0;
-Global player_criminal = false;
-! Variable globale pour la progression du jeu !
-Global etape1 = 0;
-Global etape2 = 0;
-Global etape3 = 0;
-Global etape4 = 0;
-Global etape5 = 0;
-Global etape6 = 0;
-Global etape7 = 0;
-Global etape8 = 0;
 
 !----------------------------------------0.3 Les Classes----------------------------------------------------!
 
@@ -444,6 +447,7 @@ Lieu ruebernardlee "La rue Bernard-Lee"
                                                      if (noun == nw_obj && etape3 == 0) { print "L'inspecteur cogna a la porte. Un visage s'immis@cca dans la fente de l'ouverture.^~Bonjour, puis-je vous aider?~ Demanda une voix m@'efiante.^ ~ Police, laissez-moi entrer intima l'inspecteur. J'ai quelques questions @`a vous poser, @cca ne sera pas bien long.~
                                                                                                                            Comme @`a contre-c@oeur, @'Eric laissa entrer l'inspecteur dans son appartement.^^"; return false;  }
                                                       if (noun == nw_obj && etape3 == 1) {  print "L'inspecteur cogna. ^~Bonsoir, d@'esol@'e, c'est encore moi! Sans camoufler un regard suspicieux, @'Eric laissa @`a nouveau l'inspecteur entrer.^^"; return false; }
+                                                     if (noun == nw_obj && appartement2 has general) print_ret "Je ne pense pas qu'ils appr@'ecieraient votre pr@'esence.";
                                            ],
                                 nw_to appartement2,
                                 n_to parc,
@@ -520,7 +524,7 @@ Lieu parc "parc"
             e_to cybercoffee,
             s_to ruebernardlee,
             w_to "Nul int@'er@^et @`a visiter le palais de justice ou l'h@^otel de ville",
-            n_to "Le poste de police semble ferm@'e @`a cette heure.";
+            n_to "L'inspecteur n'a pas envie d'y remttre les pieds.";
 
 Object statue "statue" parc
     with description "La statue fait bien la grandeur de deux hommes. Elle est en bronze: Fran@ccis Rotweller, ancien d@'ellegu@'e, pose sobrement avec le livre La r@'epublique sous le bras.
@@ -640,9 +644,9 @@ Npc boncollegue "Richard" sallepoliciers
                       Talk, Ask, Tell: self.times_spoken_to = self.times_spoken_to + 1;
                       switch (self.times_spoken_to) {
                        1: "^~Alors, quoi de neuf, hein? La routine? Tu habites toujours dans ton coin trop propre et tu fais mine basse?^
-                                -Ouais on peut dire @cca r@'epliqua l'inspecteur..~";
+                                -Ouais on peut dire @cca r@'epliqua l'inspecteur.~";
                        2: "~Y'a des trucs pas nets qui se passent ces temps-ci dans l'coin. La police est sur le cas, mais on a d'autres chats
-                              @`a fouetter. Les criminels r@^odent dans le quartier.... Si si! Ici m@^eme, au nez et @`a la barbe de la police!
+                              @`a fouetter. Les criminels r@^odent dans le quartier... Si si! Ici m@^eme, au nez et @`a la barbe de la police!
                               Imagines-tu? Mais chut! Secret! J'suis pas suppos@'e te raconter ces trucs-l@`a. ";
                        3: "Bon ben. J'suis ben content de t'avoir vu, l'ami. Pourquoi ne pas prendre du caf@'e avant de partir?
                                       D@'esol@'e pour les autres flics, ils sont justes un peu jaloux quoi.";
@@ -974,13 +978,23 @@ Room appartement1 "appartement pauvre"
                                              tr@^one une vieille radio. Dans le coin au fond, dans une vaine tentative d'@'egayer le triste lieu, une plante verte malade demande d@'esesp@'er@'ement de la lumi@`ere.
                                              Au fond, le salon se termine par un mur de s@'eparation, avec une arche menant @`a la cuisine, et une ouverture dans le mur afin de laiss@'e passer la lumi@`ere.";
                                           ],
-
                       before      [;
 
-                                    listen: "La radio lance ses nouvelles @`a qui veut bien l'@'ecouter";
+                                    Listen:
+                                     switch (random (8)) {
+                                     1: "... Et c'est ainsi que c'est termin@'ee la poursuite, les policiers n'ont pas r@'eussi @`a faire avancer l'enqu@^ete...";
+                                     2: "... L'activit@'e indig@`ene est plus forte dans les secteurs limitrophes de la ligne verte. Deux nouveaux morts ont @'et@'e rapport@'es samedi...";
+                                     3: "...Et, mes amis, ne manquez pas la sortie du nouveau hit de Marcel D. En onde avec nous d'ici une heure.";
+                                     4: "... Les autorit@'es nous ont communiqu@'e une panne temporaire du r@'eseau internet entre les quartier et la cit@'e. Le service devrait @^etre r@'etabli sous peu...";
+                                     5: "... Les bombardements de la cit@'e Akoshi continue malgr@'e les protestations. Un dizaine de civils ont p@'eris...";
+                                     6: ".. Vous voulez profiter du meilleurs caf@'e et de la meilleure connection internet? Le cybercaf@'e est fier de vous offrir un service de qualit@'e depuis 15 ans...";
+                                     7: "... @`A la suite d'une r@'eunion d'urgence du gouvernement, une nouvelle loi @`a @'et@'e adopt@'e pour interdire la syndicalisation des milieux jug@'es essentiels...";
+                                     default: "... Un dro@:ide, en raison de complication inexpliqu@'ees, aurait p@'en@'etr@'e chez un r@'esidence hier et tu@'e une famille...";
+                                   }
                                     SwitchOn: if (noun == radio) print_ret "La radio est d@'ej@`a allum@'ee";
                                     SwitchOff: if (noun == radio) print_ret "Cela d@'eplairait @`a Anne-Marie.";
                                     go: if (noun==n_obj) give self general;
+                                    think: <<attack pauvresse>>;
                                       ],
 
                        each_turn [;
@@ -1045,42 +1059,61 @@ Object bibliotheque "biblioth@`eque" appartement1
 
 Object livres "des rang@'ees de livre" bibliotheque
           with description "En examinant de plus pr@`es les livres, l'inspecteur remarqua qu'ils sont tri@'es logiquement. Il identifia la section avec les livres historiques ou
-                                      en lien avec son enqu@^ete. Il y en avait trois: un livre @`a la couverture rouge sang; un autre @`a la couverture turquoise d@'epeint;
-                                      et le dernier avait une couverture marbr@'ee.",
+                                      en lien avec son enqu@^ete. Il y en avait trois: un livre d'histoire @`a la couverture rouge sang; un autre sur les m@oeurs @`a la couverture turquoise d@'epeint;
+                                      et le dernier, sur la pens@'ee criminelle, avait une couverture marbr@'ee.",
           name 'rangee' 'livres' 'livre//p' 'rangee//p',
          has pluralname;
 
-Object livre bibliotheque
-        with description  [;
-                                            if (lecture == 1) print_ret "L'usine f@^ut fond@'ee durant les ann@'ees 50. Elle devait revitaliser un quartier qui s'essoufflait @'economiquement. De plus, @`a l'@'epoque, les mines commen@ccaient @`a @^etre d@'esert@'ees, et la cit@'e cherchait un moyen
-                                                                                      de dynamiser l'@'economie des quartiers. Plus d'une dizaine de complexe comme celui-ci ont @'et@'e am@'enag@'es dans divers quartiers. Le surplus de production servait entre autre @`a combler les besoin
-                                                                                      de la cit@'e voisine, situ@'ee plus au nord. Le d@'el@'egu@'e Francis Rotweller, tr@`es impliqu@'e alors dans le d@'eveloppement du quartier Roseraie, avait pouss@'e l'administration pour ce genre de projet.
-                                                                                      Une statue @`a d'ailleurs @'et@'e @'erig@'ee en son honneur dans le parc. ^[...]^ Un des moments les plus sombres de l'usine f@^ut les soul@`evements de mai 64. Ils dur@`erent pr@`es d'une ann@'ee enti@`ere.
-                                                                                      Le syndicat de l'usine avait vu sa convention collective refus@'ee par le conseil des hauts ministres de la cit@'e. Ils sont alors entr@'es en gr@`eve, mais elle f@^ut d@'eclar@'ee ill@'egale deux mois plus tard.
-                                                                                      Cependant, loin de retourner travailler, les manifestations devinrent de plus en plus violentes et les ouvriers d@'eclench@`erent m@^eme des @'emeutes. En partie contenue par la police, qui utilisait la matraque,
-                                                                                    le gaz moutarde et les balles de caoutchouc pour contr@^oler la situation, les @'emeutes pouss@`erent l'administration @`a bout de ressources. En 65, pour une rare fois, l'arm@'ee de dro@:ides d@'ebarqua dans les quartiers Sud.
-                                                                                      Cette fois, il n'@'etait plus de question de balles en caoutchouc... On d@'enombra environ 200 arrestations, plus de mille bless@'es, et pr@`es d'une centaine de morts. Ce sont les chiffres officiels, mais l'organisme non-gouvernemental
-                                                                                     pour la m@'emoire des travailleur (PMT) d@'eclencha une enqu@^ete ind@'ependante afin d'obtenir des nombres v@'eridiques trois ans plus tard. Leur enqu@^ete n'aura jamais abouti, en raison des b@^atons dans les roues que...";
-                                            if (lecture == 2) print_ret "Les habitants des quartiers Sud sont r@'eput@'es pour leur discr@'etion. Ils socialisent g@'en@'eralement en petits groupes. Plusieurs enfants ont encore souvenir des
-                                                                                      sc@`enes traumatisantes d'arrestation, de parents tu@'es dans la rue, et peut-@^etre cela les aura rendus plut@^ot r@'eticents au soul@`evement, plus dociles. Les quartiers Sud sont r@'eput@'es
-                                                                                      pour leur caf@'e; les plus grands br@^uleurs y sont @'etablis, et fournissent le caf@'e des meilleurs endroits de la cit@'e. Si autrefois les habitants des quartiers Sud aiment se rendre aux mines abandonn@'ees afin d'explorer et
-                                                                                      de se balader, cette activit@'e est malheureusement aujourd'hui proscrite. Les indig@`enes de la ligne verte vont jusqu'a infiltrer les quartiers limitrophes, et agissent plus violemment qu'avant, ce qui rend cette exp@'edition dangereuse.
-                                                                                      De plus, les mines sont d@'esormais habit@'ees par des sauvages. Les recensements des quartiers Sud indiquent que ses habitants sont les plus bas dans les taux de r@'eussite des tests administratifs.
-                                                                                      De mani@`ere g@'en@'erale, la migration des habitants des quartiers Sud vers la cit@'e a fortement diminu@'e ces dix derni@`eres ann@'ees.";
-                                            if (lecture == 3) print_ret "Les criminels sont parfois per@ccus a tort comme des g@'enie tortur@'es ou incompris. En r@'ealit@'e, il s'agit le plus souvent de personnes malades ou d@'eficientes.
-                                                                                    Ces probl@`emes sont li@'es a des troubles du d@'eveloppement, mais pas toujours. C'est pourquoi les premi@`eres ann@'ees du d@'eveloppement de l'enfant sont strictement surveill@'es
-                                                                                   dans les centres d'apprentissage. Les enfants pour lesquels un profil psychopathique pointe sont parfois transf@'er@'es sans avertissement aux parents vers des centres de r@'e@'education ou de travail.";
-                                            if (lecture > 3) print_ret "Vous avez d@'ej@`a feuillet@'e celui-l@`a.";
-                                   ],
+Object livre1 bibliotheque
+        with description  "L'usine f@^ut fond@'ee durant les ann@'ees 50. Elle devait revitaliser un quartier qui s'essoufflait @'economiquement. De plus, @`a l'@'epoque, les mines commen@ccaient @`a @^etre d@'esert@'ees, et la cit@'e cherchait un moyen
+                                    de dynamiser l'@'economie des quartiers. Plus d'une dizaine de complexe comme celui-ci ont @'et@'e am@'enag@'es dans divers quartiers. Le surplus de production servait entre autre @`a combler les besoin
+                                    de la cit@'e voisine, situ@'ee plus au nord. Le d@'el@'egu@'e Francis Rotweller, tr@`es impliqu@'e alors dans le d@'eveloppement du quartier Roseraie, avait pouss@'e l'administration pour ce genre de projet.
+                                    Une statue @`a d'ailleurs @'et@'e @'erig@'ee en son honneur dans le parc. ^[...]^ Un des moments les plus sombres de l'usine f@^ut les soul@`evements de mai 64. Ils dur@`erent pr@`es d'une ann@'ee enti@`ere.
+                                    Le syndicat de l'usine avait vu sa convention collective refus@'ee par le conseil des hauts ministres de la cit@'e. Ils sont alors entr@'es en gr@`eve, mais elle f@^ut d@'eclar@'ee ill@'egale deux mois plus tard.
+                                    Cependant, loin de retourner travailler, les manifestations devinrent de plus en plus violentes et les ouvriers d@'eclench@`erent m@^eme des @'emeutes. En partie contenue par la police, qui utilisait la matraque,
+                                    le gaz moutarde et les balles de caoutchouc pour contr@^oler la situation, les @'emeutes pouss@`erent l'administration @`a bout de ressources. En 65, pour une rare fois, l'arm@'ee de dro@:ides d@'ebarqua dans les quartiers Sud.
+                                    Cette fois, il n'@'etait plus de question de balles en caoutchouc... On d@'enombra environ 200 arrestations, plus de mille bless@'es, et pr@`es d'une centaine de morts. Ce sont les chiffres officiels, mais l'organisme non-gouvernemental
+                                    pour la m@'emoire des travailleur (PMT) d@'eclencha une enqu@^ete ind@'ependante afin d'obtenir des nombres v@'eridiques trois ans plus tard. Leur enqu@^ete n'aura jamais abouti, en raison des b@^atons dans les roues que...",
+                    name 'livre' 'rouge' 'sang' 'couverture' 'histoire',
                     before [;
-                                                             examine:  lecture = lecture +1;
-                                                                             return false;
+                                                             examine:  if (self hasnt general) { lecture = lecture +1;
+                                                                             give self general;
+                                                                             return false; }
 
                                                               read: <<examine self>>;
                                 ],
 
-                 name 'livre' 'rouge' 'sang' 'couverture' 'turquoise' 'marbre' 'marbree',
              has scenery;
+
+Object livre2 bibliotheque
+    with description "Les habitants des quartiers Sud sont r@'eput@'es pour leur discr@'etion. Ils socialisent g@'en@'eralement en petits groupes. Plusieurs enfants ont encore souvenir des
+                                              sc@`enes traumatisantes d'arrestation, de parents tu@'es dans la rue, et peut-@^etre cela les aura rendus plut@^ot r@'eticents au soul@`evement, plus dociles. Les quartiers Sud sont r@'eput@'es
+                                              pour leur caf@'e; les plus grands br@^uleurs y sont @'etablis, et fournissent le caf@'e des meilleurs endroits de la cit@'e. Si autrefois les habitants des quartiers Sud aiment se rendre aux mines abandonn@'ees afin d'explorer et
+                                              de se balader, cette activit@'e est malheureusement aujourd'hui proscrite. Les indig@`enes de la ligne verte vont jusqu'a infiltrer les quartiers limitrophes, et agissent plus violemment qu'avant, ce qui rend cette exp@'edition dangereuse.
+                                              De plus, les mines sont d@'esormais habit@'ees par des sauvages. Les recensements des quartiers Sud indiquent que ses habitants sont les plus bas dans les taux de r@'eussite des tests administratifs.
+                                              De mani@`ere g@'en@'erale, la migration des habitants des quartiers Sud vers la cit@'e a fortement diminu@'e ces dix derni@`eres ann@'ees.",
+                  name 'livre' 'moeurs' 'couverture' 'turquoise' 'depeint',
+                  before [;
+                                                             examine:  if (self hasnt general) { lecture = lecture +1;
+                                                                             give self general;
+                                                                             return false; }
+                                                              read: <<examine self>>;
+                                ],
+                 has scenery;
+
+Object livre3  bibliotheque
+    with description "Les criminels sont parfois per@ccus a tort comme des g@'enie tortur@'es ou incompris. En r@'ealit@'e, il s'agit le plus souvent de personnes malades ou d@'eficientes.
+                                            Ces probl@`emes sont li@'es a des troubles du d@'eveloppement, mais pas toujours. C'est pourquoi les premi@`eres ann@'ees du d@'eveloppement de l'enfant sont strictement surveill@'es
+                                           dans les centres d'apprentissage. Les enfants pour lesquels un profil psychopathique pointe sont parfois transf@'er@'es sans avertissement aux parents vers des centres de r@'e@'education ou de travail.",
+              name 'livre' 'couverture' 'pensee' 'criminelle' 'marbree' 'marbre',
+              before [;
+                                                             examine:  if (self hasnt general) { lecture = lecture +1;
+                                                                             give self general;
+                                                                             return false; }
+
+                                                              read: <<examine self>>;
+                                ],
+                 has scenery;
 
 Object photo "photo s@'epia"
                       with description [;
@@ -1196,9 +1229,12 @@ Room appartement2 "appartement moyen"
                                                                                       fermant doucement.^";
                                                                                       return false;
 
+                                    think: <<attack couple>>;
+
                                       ],
 
-            se_to ruebernardlee;
+            se_to ruebernardlee,
+            cant_go "La sortie est au Sud-Ouest";
 
 Room maison "Maison"
  with description [;
@@ -1532,6 +1568,16 @@ Npc couple "Linda et @'Eric" appartement2
                         default: "~Allez, partez!~ rench@'erit @'Eric, alors que sa femme approuvait du regard.";
                       }
 
+                      Attack:               if (etape2 == 0)  {
+                                                player_bad = player_bad + 1;
+                                                PlayerTo(ruebernardlee, 1);
+                                                give appartement2 general;
+                                                print_ret "Vous saisissez @'Eric par le collet et lui flanquez un coup de poing dans l'estomac. Linda l@^acha un petit cris. Eric s'@'ecroula par terre, un filet de sang au bords de la bouche.
+                                                                ^^~Dans... dans la ruelle, balbutia-t-elle. Il y a une transaction sur le point de se produire. Elle recula de peur sur sa chaise, puis murmura: partez!~
+                                                                 L'inspecteur sorti sans mot dire.";
+                                                                             }
+                                               else print_ret "Cela ne serait d'aucune utilit@'e.";
+
                          ];
 
 Npc Mathilde "Mathilde" arrierecours
@@ -1579,7 +1625,7 @@ Npc andre "Andr@'e" usine
                                                                  " L'inspecteur pensa tristement que son enqu@^ete d@'emarrait plut@^ot mal. Il se demanda si ce n'@'etait pas un mauvais pr@'esage.
                                                                    Il se dit que cette affaire allait @^etre plus costaude que pr@'evue, qu'il ne savait plus par quel bout commencer.
                                                                    Peut-@^etre pouvait-il se d@'eguiser et infiltrer une r@'eunion? Ainsi perdu dans ses pens@'ees, regardant le sol, la mine basse, un bruit attira son attention.",
-                                                                  " Une femme de l'appartement situ@'e au Nord, en face de l'usine @'etait sortie sur son balcon. Elle agitait les mains, comme pour saluer. Elle semblait inviter l'inspecteur @`a venir la voir.";
+                                                                  " Une femme de l'appartement situ@'e au Nord-Est, en face de l'usine @'etait sortie sur son balcon. Elle agitait les mains, comme pour saluer. Elle semblait inviter l'inspecteur @`a venir la voir.";
                                                         return true;
                                      }
                         ];
@@ -1700,7 +1746,6 @@ Npc julien "Julien" cybercoffee
   etape8 = 0;
   ];
 
-
 ! [ verificateur x;
 !
 !    ];
@@ -1761,6 +1806,7 @@ Object letterronald "lettre chach@'ee"
                    before [;
                                        read: <<examine self>>;
                               ];
+
 !-------------------10.2 Objets recurrents des  postes de police-----------------------------------------------------------!
 
 Furniture bureauaccueil "bureau imposant"
@@ -2045,8 +2091,9 @@ Cutscene introduction "Introduction partie 1"
 
                  before    [;
 
-                exit: PlayerTo(introduction2);
+                exit:
                         lecture = 0;
+                        PlayerTo(introduction2);
                         return true;
 
                 Read:
@@ -2180,8 +2227,9 @@ Cutscene introduction2 "Introduction partie deux"
 
                    before    [;
 
-                  exit: PlayerTo(introduction3);
+                  exit:
                   lecture = 0;
+                  PlayerTo(introduction3);
                   return true;
 
                   Read:
@@ -2232,8 +2280,9 @@ Cutscene introduction3 "Introduction partie trois"
 
                 before    [;
 
-                exit: PlayerTo(policeaccueil);
+                exit:
                        lecture = 0;
+                       PlayerTo(policeaccueil);
                        return true;
 
                       Read:
