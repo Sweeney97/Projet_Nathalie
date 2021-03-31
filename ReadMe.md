@@ -29,8 +29,8 @@ Il est impossible pour le joueur de se déplacer librement entre ces sections: �
 
 Il est possible de suivre l'évolution du projet de deux manières. Premièrement, je déposerai pour chaque arc narratif un transcript, c'est-à-dire une copie texte d'une partie jouée par un joueur idéal, qui performe toujours les bonnes actions. Cela permet de lire le jeu, de la même manière qu'aujourd'hui, certaines personnes visionnent des parties de jeux. Deuxièmement il y a aussi évidemment le code source et le jeux en lui-même.
 
-Il faut considérer que c'est un travail en cours («work in progress»). C'est loin d'être une version finale: certaine scènes seront retravaillées, récrites, certaines idées abandonnées, etc.
+Il faut considérer que c'est un travail en cours («work in progress»). C'est loin d'être une version finale: certaine scènes seront retravaillées, récrites, certaines idées abandonnées, etc. Par exemple, les noms sont encore « flottants », c'est-à-dire que je n'ai pas décidé si le personnage principal aurait un nom fixe ou si le joueur lui attribue un nom. D'autres personnages n'ont pas encore de nom, ce qui peut être déboussolant, mais leur fonction sera toujours présente (l'enquêteur, l'inspecteur, le directeur, etc.).
 
 Si vous voulez y jouer, je vous conseille le logiciel [Frotz](https://gitlab.com/DavidGriffith/frotz), puisqu'il permet de faire plusieurs sauvegardes d'une partie.
 Un autre programme que je conseille est [Lectrote](https://github.com/erkyrath/lectrote) en raison de son interface plus soignée. Par contre, ce-dernier ne permet pas d'enregistrer plusieurs sauvegardes, il se souvient automatiquement où l'histoire en était à sa fermeture. Considérant que mon jeu n'est pas trop difficile (il y a peu de moments où l'on peut mourir), ce n'est pas un trop gros désavantage.
-Il est aussi possible de [jouer en ligne](https://www.antoinesweeney.com/projet-nathalie) mais je ne pense pas que vous puissiez alors sauvegarder. 
+Il est aussi possible de [jouer en ligne](https://www.antoinesweeney.com/projet-nathalie) mais je ne pense pas que vous puissiez alors sauvegarder.

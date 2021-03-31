@@ -1,5 +1,5 @@
-!% -v8
-!% -e
+!% -v8E
+!%
 
 !--------------------------------0.0 Constantes et variables globales----------------------------------------------!
 Constant Story "Projet Nathalie, V.1.1";
@@ -31,7 +31,7 @@ Global etape8 = 0;
 !Ajout d'une switch random à la radio.
 
 !V.1.2 ---> correction des bogues (retour commentaire). Faire en sorte que tous les objets lisibles soit lisibles par l'action read. S'assurer que l'action think soit en avance par rapport à l'histoire.
-! Mettre une routine pour les appels de texte récurrents au lieu de les avoir copié-collé
+! Vérifier si je dois mettre une routine pour les appels de texte récurrents au lieu de les avoir copié-collé
 Include "Parser";
 
 Object LibraryMessages
@@ -2100,7 +2100,7 @@ Cutscene introduction "Introduction partie 1"
                             lecture = lecture + 1;
                             switch (lecture) {
 
-                             1: "Les t@'en@`ebres se dissipent peu @`a peu.
+                             1: print "Les t@'en@`ebres se dissipent peu @`a peu.
                              Des points lumineux se profilent, tant@^ot s'agglutinent en grappes chatoyantes, tant@^ot brillent solitairement.
                              Ils s'organisent en colonnes, les gratte-ciels de la cit@'e deviennent nets, se pr@'ecisent.
                              Les points rouges des grues clignotent. Les lumi@`eres des tours d'habitation s'@'eteignent, et un bas nuage gris faiblement @'eclair@'e, visible qu'en raison de la  pollution lumineuse, s'@'etire dans le ciel.
@@ -2123,7 +2123,8 @@ Cutscene introduction "Introduction partie 1"
                              La musique n'est pas trop forte, ni la lumi@`ere trop faible.
                              Une fum@'ee douce et @^acre de cannabis flotte dans l'air.
                              Quelques escortes sont assises avec les hommes sur la banquette.
-                             Elles rient.";
+                             Elles rient.^^";
+                             style underline;  print_ret "[@'Ecrivez ~lire~ pour continuer la lecture.]";
                              2: "Il y a un bar dans un coin, avec une trentaine de bouteilles color@'ees et de diff@'erentes tailles.
                              Une femme, habill@'ee comme les hommes sur la banquette, semble diff@'erente.
                              Elle porte un complet, du rouge @`a l@`evre, et fume aussi.
